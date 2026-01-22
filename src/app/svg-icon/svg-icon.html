@@ -1,0 +1,11 @@
+@if (svg(); as safeSvg) {
+  <div
+    [innerHTML]="safeSvg"
+    [class]="classes().join(' ')"
+    [style]="styles()"
+  ></div>
+} @else {
+  <p class="text-danger">
+    Icon "{{ name() }}" not found.
+  </p>
+}

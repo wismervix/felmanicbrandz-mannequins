@@ -1,0 +1,34 @@
+<div class="hero">
+  <div class="slider">
+    @for (slide of slides; track $index; let i = $index) {
+      <div
+        class="slide"
+        [style.backgroundImage]="'url(' + slide + ')'"
+        [class.active]="i === current"
+      ></div>
+    } @empty {
+      <p>No slide image available!</p>
+    }
+  </div>
+
+  <div class="hero-content">
+    <div class="hero-title-wrapper glass-layer-back">
+      <h1 class="hero-title">
+        Showcase Fashion with Style — Premium Mannequins for Every Display
+      </h1>
+    </div>
+    <h2 class="subtitle">
+      Bring your fashion vision to life — one mannequin at a time
+    </h2>
+    <input class="form-control" type="text" placeholder="Search..." />
+  </div>
+
+  <div class="dots">
+    @for (slide of slides; track $index; let i = $index) {
+      <span class="dot" [class.active]="i === current" (click)="showSlide(i)">
+      </span>
+    } @empty {
+      <p>No slide images available!</p>
+    }
+  </div>
+</div>

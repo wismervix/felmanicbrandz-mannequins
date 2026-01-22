@@ -1,0 +1,12 @@
+@use "../../mixins.scss" as mixin;
+@use "../../variables" as *;
+
+.title{
+    max-width: 200px;
+    // max-width: 267px;
+    @include mixin.dynamic-text(600, clamp(30px, 2.9vw, 42px), #754E3D);
+}
+
+.sub-title{
+    @include mixin.dynamic-text(600, clamp(19px, vw, 24px), #754e3d);
+}

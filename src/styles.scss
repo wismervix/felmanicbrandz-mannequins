@@ -1,1 +1,74 @@
-/* You can add global styles to this file, and also import other style files */
+// // ========================
+// // 🌌 GLOBAL BODY
+// // ========================// Local mixins and variables
+@use "./mixins" as mixin;
+@use "./variables" as *;
+
+// Third-party libraries
+@use "@fortawesome/fontawesome-free/css/all.min.css" as *;
+@use "bootstrap/dist/css/bootstrap.min.css" as *;
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  overflow-x: hidden;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.btn {
+  border: 0;
+  width: 100%;
+  border-radius: 4px;
+  @include mixin.centered;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* ====== UTITLITY CLASSES ====== */
+.glass-layer-back {
+  //   backdrop-filter: blur(50px) saturate(180%);
+  backdrop-filter: blur(20px) saturate(180%);
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.25),
+    rgba(255, 255, 255, 0.1)
+  );
+  border: 0.5px solid rgba(255, 255, 255, 0.15);
+  // box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15); // Minimal shadow
+  box-shadow:
+    0 10px 20px rgba(0, 0, 0, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08); // More subtle inner glow
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(
+      120deg,
+      rgba(255, 255, 255, 0.1) 0%,
+      transparent 50%,
+      rgba(255, 255, 255, 0.05) 100%
+    );
+    border-radius: 14px;
+    pointer-events: none;
+  }
+}
