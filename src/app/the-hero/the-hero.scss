@@ -40,6 +40,10 @@
     text-align: center;
     margin: calc(40px + 70px) auto 0;
 
+    @media (max-width: 992px){
+        margin: calc(40px + 70px) 10% 0;
+    }
+
     .hero-title-wrapper {
       border-radius: 18px;
       background-color: #ffffff21;
