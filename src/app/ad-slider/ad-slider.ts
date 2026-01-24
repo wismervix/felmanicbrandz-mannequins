@@ -32,7 +32,7 @@ export class AdSlider implements AfterViewInit, OnDestroy {
   cardWidth = signal(0);
   maxIndex = signal(0);
 
-  private readonly EXTRA_GAP = 200;
+  private readonly EXTRA_GAP = 350;
   private resizeObserver: ResizeObserver | null = null;
 
   // Computed values

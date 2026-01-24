@@ -11,6 +11,7 @@ export class TheHero implements OnInit {
     'assets/images/hero_bg.jpg',
     'assets/images/experience_bg.jpg',
     'assets/images/cart_1.png',
+    // 'assets/images/course-1.jpg',
   ];
 
   current = 0;

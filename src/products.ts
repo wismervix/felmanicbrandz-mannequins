@@ -15,6 +15,8 @@ export interface AdCourse {
 // export type PlatformKey = keyof typeof adsData;
 export type PlatformKey = Platform;
 
+const ASSETS = 'assets/images';
+
 export const adsData: Record<PlatformKey, readonly AdCourse[]> = {
   google: [
     {
@@ -22,7 +24,8 @@ export const adsData: Record<PlatformKey, readonly AdCourse[]> = {
       progress: 30,
       available: 1,
       name: 'Google Ads master class',
-      image: '/assets/images/course-1.jpg',
+      // image: `${ASSETS}/cart_1.jpg`,
+      image: `${ASSETS}/course-1.jpg`,
       description:
         'Learn our to run ads on social media and make most of its capability to help you with ..',
     },
@@ -31,7 +34,8 @@ export const adsData: Record<PlatformKey, readonly AdCourse[]> = {
       progress: 0,
       available: 0,
       name: 'Facebook Ads master class',
-      image: '/assets/images/course-1.jpg',
+      // image: `${ASSETS}/cart_1.jpg`,
+      image: `${ASSETS}/course-1.jpg`,
       description:
         'Learn our to run ads on social media and make most of its capability to help you with ..',
     },
@@ -40,7 +44,8 @@ export const adsData: Record<PlatformKey, readonly AdCourse[]> = {
       progress: 30,
       available: 1,
       name: 'Facebook Ads master class',
-      image: '/assets/images/course-1.jpg',
+      // image: `${ASSETS}/cart_1.jpg`,
+      image: `${ASSETS}/course-1.jpg`,
       description:
         'Learn our to run ads on social media and make most of its capability to help you with ..',
     },
@@ -49,7 +54,8 @@ export const adsData: Record<PlatformKey, readonly AdCourse[]> = {
       progress: 30,
       available: 1,
       name: 'Facebook Ads master class',
-      image: '/assets/images/course-1.jpg',
+      // image: `${ASSETS}/cart_1.jpg`,
+      image: `${ASSETS}/course-1.jpg`,
       description:
         'Learn our to run ads on social media and make most of its capability to help you with ..',
     },
@@ -58,7 +64,8 @@ export const adsData: Record<PlatformKey, readonly AdCourse[]> = {
       progress: 30,
       available: 1,
       name: 'Facebook Ads master class',
-      image: '/assets/images/course-1.jpg',
+      // image: `${ASSETS}/cart_1.jpg`,
+      image: `${ASSETS}/course-1.jpg`,
       description:
         'Learn our to run ads on social media and make most of its capability to help you with ..',
     },
@@ -67,7 +74,8 @@ export const adsData: Record<PlatformKey, readonly AdCourse[]> = {
       progress: 30,
       available: 1,
       name: 'Facebook Ads master class',
-      image: '/assets/images/course-1.jpg',
+      // image: `${ASSETS}/cart_1.jpg`,
+      image: `${ASSETS}/course-1.jpg`,
       description:
         'Learn our to run ads on social media and make most of its capability to help you with ..',
     },
@@ -78,7 +86,8 @@ export const adsData: Record<PlatformKey, readonly AdCourse[]> = {
       progress: 30,
       available: 1,
       name: 'Instagram Ads master class',
-      image: '/assets/images/course-1.jpg',
+      // image: `${ASSETS}/cart_1.jpg`,
+      image: `${ASSETS}/course-1.jpg`,
       description:
         'Learn our to run ads on social media and make most of its capability to help you with ..',
     },
@@ -87,7 +96,8 @@ export const adsData: Record<PlatformKey, readonly AdCourse[]> = {
       progress: 0,
       available: 0,
       name: 'Facebook Ads master class',
-      image: '/assets/images/course-1.jpg',
+      // image: `${ASSETS}/cart_1.jpg`,
+      image: `${ASSETS}/course-1.jpg`,
       description:
         'Learn our to run ads on social media and make most of its capability to help you with ..',
     },
@@ -96,7 +106,8 @@ export const adsData: Record<PlatformKey, readonly AdCourse[]> = {
       progress: 30,
       available: 1,
       name: 'Facebook Ads master class',
-      image: '/assets/images/course-1.jpg',
+      // image: `${ASSETS}/cart_1.jpg`,
+      image: `${ASSETS}/course-1.jpg`,
       description:
         'Learn our to run ads on social media and make most of its capability to help you with ..',
     },
@@ -105,7 +116,8 @@ export const adsData: Record<PlatformKey, readonly AdCourse[]> = {
       progress: 30,
       available: 1,
       name: 'Facebook Ads master class',
-      image: '/assets/images/course-1.jpg',
+      // image: `${ASSETS}/cart_1.jpg`,
+      image: `${ASSETS}/course-1.jpg`,
       description:
         'Learn our to run ads on social media and make most of its capability to help you with ..',
     },
@@ -114,7 +126,8 @@ export const adsData: Record<PlatformKey, readonly AdCourse[]> = {
       progress: 30,
       available: 1,
       name: 'Facebook Ads master class',
-      image: '/assets/images/course-1.jpg',
+      // image: `${ASSETS}/cart_1.jpg`,
+      image: `${ASSETS}/course-1.jpg`,
       description:
         'Learn our to run ads on social media and make most of its capability to help you with ..',
     },
@@ -123,7 +136,8 @@ export const adsData: Record<PlatformKey, readonly AdCourse[]> = {
       progress: 30,
       available: 1,
       name: 'Facebook Ads master class',
-      image: '/assets/images/course-1.jpg',
+      // image: `${ASSETS}/cart_1.jpg`,
+      image: `${ASSETS}/course-1.jpg`,
       description:
         'Learn our to run ads on social media and make most of its capability to help you with ..',
     },
@@ -134,7 +148,8 @@ export const adsData: Record<PlatformKey, readonly AdCourse[]> = {
       progress: 30,
       available: 1,
       name: 'LinkedIn Ads master class',
-      image: '/assets/images/course-1.jpg',
+      // image: `${ASSETS}/cart_1.jpg`,
+      image: `${ASSETS}/course-1.jpg`,
       description:
         'Learn our to run ads on social media and make most of its capability to help you with ..',
     },
@@ -143,7 +158,8 @@ export const adsData: Record<PlatformKey, readonly AdCourse[]> = {
       progress: 0,
       available: 0,
       name: 'Facebook Ads master class',
-      image: '/assets/images/course-1.jpg',
+      // image: `${ASSETS}/cart_1.jpg`,
+      image: `${ASSETS}/course-1.jpg`,
       description:
         'Learn our to run ads on social media and make most of its capability to help you with ..',
     },
@@ -152,7 +168,8 @@ export const adsData: Record<PlatformKey, readonly AdCourse[]> = {
       progress: 30,
       available: 1,
       name: 'Facebook Ads master class',
-      image: '/assets/images/course-1.jpg',
+      // image: `${ASSETS}/cart_1.jpg`,
+      image: `${ASSETS}/course-1.jpg`,
       description:
         'Learn our to run ads on social media and make most of its capability to help you with ..',
     },
@@ -161,7 +178,8 @@ export const adsData: Record<PlatformKey, readonly AdCourse[]> = {
       progress: 30,
       available: 1,
       name: 'Facebook Ads master class',
-      image: '/assets/images/course-1.jpg',
+      // image: `${ASSETS}/cart_1.jpg`,
+      image: `${ASSETS}/course-1.jpg`,
       description:
         'Learn our to run ads on social media and make most of its capability to help you with ..',
     },
@@ -170,7 +188,8 @@ export const adsData: Record<PlatformKey, readonly AdCourse[]> = {
       progress: 30,
       available: 1,
       name: 'Facebook Ads master class',
-      image: '/assets/images/course-1.jpg',
+      // image: `${ASSETS}/cart_1.jpg`,
+      image: `${ASSETS}/course-1.jpg`,
       description:
         'Learn our to run ads on social media and make most of its capability to help you with ..',
     },
@@ -179,7 +198,8 @@ export const adsData: Record<PlatformKey, readonly AdCourse[]> = {
       progress: 30,
       available: 1,
       name: 'Facebook Ads master class',
-      image: '/assets/images/course-1.jpg',
+      // image: `${ASSETS}/cart_1.jpg`,
+      image: `${ASSETS}/course-1.jpg`,
       description:
         'Learn our to run ads on social media and make most of its capability to help you with ..',
     },
@@ -190,7 +210,8 @@ export const adsData: Record<PlatformKey, readonly AdCourse[]> = {
       progress: 30,
       available: 1,
       name: 'Facebook Ads master class',
-      image: '/assets/images/course-1.jpg',
+      // image: `${ASSETS}/cart_1.jpg`,
+      image: `${ASSETS}/course-1.jpg`,
       description:
         'Learn our to run ads on social media and make most of its capability to help you with ..',
     },
@@ -199,7 +220,8 @@ export const adsData: Record<PlatformKey, readonly AdCourse[]> = {
       progress: 0,
       available: 0,
       name: 'Facebook Ads master class',
-      image: '/assets/images/course-1.jpg',
+      // image: `${ASSETS}/cart_1.jpg`,
+      image: `${ASSETS}/course-1.jpg`,
       description:
         'Learn our to run ads on social media and make most of its capability to help you with ..',
     },
@@ -208,7 +230,8 @@ export const adsData: Record<PlatformKey, readonly AdCourse[]> = {
       progress: 30,
       available: 1,
       name: 'Facebook Ads master class',
-      image: '/assets/images/course-1.jpg',
+      // image: `${ASSETS}/cart_1.jpg`,
+      image: `${ASSETS}/course-1.jpg`,
       description:
         'Learn our to run ads on social media and make most of its capability to help you with ..',
     },
@@ -217,7 +240,8 @@ export const adsData: Record<PlatformKey, readonly AdCourse[]> = {
       progress: 30,
       available: 1,
       name: 'Facebook Ads master class',
-      image: '/assets/images/course-1.jpg',
+      // image: `${ASSETS}/cart_1.jpg`,
+      image: `${ASSETS}/course-1.jpg`,
       description:
         'Learn our to run ads on social media and make most of its capability to help you with ..',
     },
@@ -226,7 +250,8 @@ export const adsData: Record<PlatformKey, readonly AdCourse[]> = {
       progress: 30,
       available: 1,
       name: 'Facebook Ads master class',
-      image: '/assets/images/course-1.jpg',
+      // image: `${ASSETS}/cart_1.jpg`,
+      image: `${ASSETS}/course-1.jpg`,
       description:
         'Learn our to run ads on social media and make most of its capability to help you with ..',
     },
@@ -235,7 +260,8 @@ export const adsData: Record<PlatformKey, readonly AdCourse[]> = {
       progress: 30,
       available: 1,
       name: 'Facebook Ads master class',
-      image: '/assets/images/course-1.jpg',
+      // image: `${ASSETS}/cart_1.jpg`,
+      image: `${ASSETS}/course-1.jpg`,
       description:
         'Learn our to run ads on social media and make most of its capability to help you with ..',
     },

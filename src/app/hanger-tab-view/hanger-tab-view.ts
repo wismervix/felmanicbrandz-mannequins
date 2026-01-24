@@ -8,7 +8,7 @@ import { RouterModule } from '@angular/router';
 import { Title } from '@angular/platform-browser';
 import { TitleCasePipe } from '@angular/common';
 
-// import { SvgIcon } from '../svg-icon/svg-icon';
+import { SvgIcon } from '../svg-icon/svg-icon';
 import { AdSlider } from '../ad-slider/ad-slider';
 
 import {
@@ -21,8 +21,7 @@ import {
 @Component({
   selector: 'app-hanger-tab-view',
   standalone: true,
-  imports: [RouterModule, AdSlider, TitleCasePipe],
-  // imports: [RouterModule, AdSlider, SvgIcon, TitleCasePipe],
+  imports: [RouterModule, AdSlider, SvgIcon, TitleCasePipe],
   templateUrl: './hanger-tab-view.html',
   styleUrl: './hanger-tab-view.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -57,6 +56,9 @@ export class HangerTabView implements OnInit {
   getPlatformFromCourse(courseId: number): string {
     const platform = getPlatformFromCourse(courseId);
     return platform ? platform.toUpperCase() : 'Unknown Platform';
+  }
+  getPlatformDisplayName(platform: PlatformKey): string {
+    return platform.charAt(0).toUpperCase() + platform.slice(1);
   }
 
   // getPlatformDisplayName(platform: PlatformKey): string {

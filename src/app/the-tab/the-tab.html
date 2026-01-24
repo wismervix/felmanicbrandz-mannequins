@@ -1,22 +1,26 @@
-<button type="button" class="back-link" (click)="goBack()">&larr; Back</button>
+<section>
+  <h2 class="title">Best Selling Product</h2>
+  <!-- <button type="button" class="back-link" (click)="goBack()">
+    &larr; Back
+  </button> -->
 
-<h1 class="section-title">ACCOUNT SETTINGS</h1>
 
-<nav class="setting-tabs-cont" #tabsWrapper>
-  @for (tab of tabs; track tab.name; let i = $index) {
-    <a
-      #tabEl
-      class="each-tab"
-      [routerLink]="tab.route"
-      routerLinkActive="active"
-      (click)="scrollActiveTabIntoView(i)"
-    >
-      {{ tab.label }}
-    </a>
-  } @empty {
-    No tab data availabele!
-  }
-</nav>
+  <nav class="prod-tabs-cont" #tabsWrapper>
+    @for (tab of tabs; track tab.name; let i = $index) {
+      <a
+        #tabEl
+        class="each-tab"
+        [routerLink]="tab.route"
+        routerLinkActive="active"
+        (click)="scrollActiveTabIntoView(i)"
+      >
+        {{ tab.label }}
+      </a>
+    } @empty {
+      No tab data availabele!
+    }
+  </nav>
 
-<!-- child component will render here -->
-<router-outlet></router-outlet>
+  <!-- child component will render here -->
+  <router-outlet></router-outlet>
+</section>

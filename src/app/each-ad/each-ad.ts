@@ -3,6 +3,7 @@ import {
   input,
   computed,
   signal,
+  effect,
   ChangeDetectionStrategy,
 } from '@angular/core';
 import { AdCourse, Availability } from '../../products';
@@ -16,6 +17,15 @@ import { AdCourse, Availability } from '../../products';
 })
 export class EachAd {
   ad = input.required<AdCourse>();
+
+  // constructor() {
+  //   effect(() => {
+  //     const ad = this.ad();
+  //     if (ad) {
+  //       console.log('Ad mounted:', ad);
+  //     }
+  //   });
+  // }
 
   // Computed signals for reactive values
   isAvailable = computed(() => this.ad()?.available === 1);

@@ -1,27 +1,18 @@
 @use "../../mixins.scss" as mixin;
 @use "../../variables" as *;
+@use "sass:color";
 
-.ads-university-page {
-  padding: 20px;
-  max-width: 1400px;
-  margin: 0 auto;
-  
-  // ========================
-  // 🌌 MAIN TITLE
-  // ========================
-  .main-title {
-    border-radius: 16px;
-    background-color: $primary;
-    @include mixin.dynamic-text(700, clamp(30px, 3.5vw, 51px), #fff);
-    padding: clamp(25px, 5.3vw, 77px) 15px clamp(25px, 6.6vw, 95px);
-    margin-bottom: 40px;
-    text-align: center;
-    
-    @media (max-width: 768px) {
-      padding: 40px 15px;
-      border-radius: 12px;
-    }
+.view-all-cont{
+  gap: 12px;
+  display: flex;
+  margin-left: auto;
+  width: fit-content;
+  align-items: center;
+
+  span{
+    @include mixin.dynamic-text(400, 18px, #E58411);
   }
+}
 
   // ========================
   // 📚 PRODUCTS LISTING
@@ -100,7 +91,7 @@
       text-decoration: none;
 
       &:hover:not(:disabled) {
-        background-color: darken(#eff0f2, 5%);
+        background-color: color.adjust(#fff, $lightness: -5%);
         transform: translateY(-2px);
       }
 
@@ -120,79 +111,3 @@
       }
     }
   }
-
-  // ========================
-  // 👥 BOTTOM SECTION
-  // ========================
-  .bottom-spread {
-    @include spread(40px, center);
-    padding: 40px 20px;
-    background: rgba($primary, 0.05);
-    border-radius: 16px;
-    margin-top: 40px;
-    flex-wrap: wrap;
-
-    @media (max-width: 768px) {
-      flex-direction: column;
-      text-align: center;
-      gap: 30px;
-    }
-
-    img {
-      max-width: 235px;
-      height: auto;
-      object-fit: contain;
-      
-      @media (max-width: 768px) {
-        max-width: 180px;
-      }
-    }
-
-    .svg-cont {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 15px;
-
-      p {
-        max-width: 145px;
-        margin: 0;
-        @include mixin.dynamic-text(700, 13px, $primary);
-        line-height: 1.4;
-      }
-
-      .chat-button {
-        padding: 10px 24px;
-        background: $primary;
-        color: white;
-        border: none;
-        border-radius: 8px;
-        cursor: pointer;
-        transition: all 0.2s ease;
-        @include mixin.dynamic-text(600, 14px, white);
-        text-transform: uppercase;
-        letter-spacing: 0.5px;
-
-        &:hover:not(:disabled) {
-          background: darken($primary, 10%);
-          transform: translateY(-2px);
-          box-shadow: 0 4px 12px rgba($primary, 0.3);
-        }
-
-        &:active:not(:disabled) {
-          transform: translateY(0);
-        }
-
-        &:disabled {
-          opacity: 0.5;
-          cursor: not-allowed;
-        }
-
-        @media (max-width: 768px) {
-          padding: 8px 20px;
-          font-size: 13px;
-        }
-      }
-    }
-  }
-}

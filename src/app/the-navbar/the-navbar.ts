@@ -1,9 +1,10 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { SvgIcon } from '../svg-icon/svg-icon';
+// import { SvgIcon } from '../svg-icon/svg-icon';
 
 @Component({
   selector: 'app-the-navbar',
-  imports: [SvgIcon],
+  imports: [],
+  // imports: [SvgIcon],
   templateUrl: './the-navbar.html',
   styleUrl: './the-navbar.scss',
 })

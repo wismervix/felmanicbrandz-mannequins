@@ -16,6 +16,10 @@ export const SVG_ICONS: Record<string, string> = {
             ></path>
           </svg>
             `,
+  arrowRight: `<svg width="39" height="13" viewBox="0 0 39 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M0.5 6.04307H38M38 6.04307C38 6.04307 33.5119 3.09149 32.6 0.643066M38 6.04307C38 6.04307 34.0324 8.81644 32.6 11.4431" stroke="#754E3D" stroke-linecap="square"/>
+              </svg>
+              `,
 } as const;
 
 export type SvgIconName = keyof typeof SVG_ICONS;

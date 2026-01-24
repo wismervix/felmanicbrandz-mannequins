@@ -1,5 +1,6 @@
 @use "../../mixins.scss" as mixin;
 @use "../../variables" as *;
+@use "sass:color";
 
 .each-product {
   max-width: 338px;
@@ -8,10 +9,10 @@
   background: white; // Added for better visibility
 
   .img-cont {
-    position: relative;
-    overflow: hidden;
-    border-radius: 23px 23px 0 0;
     height: 200px; // Added for consistent image container
+    overflow: hidden;
+    position: relative;
+    border-radius: 23px 23px 0 0;
 
     .icon-cont {
       top: 9%;
@@ -71,7 +72,7 @@
         transition: color 0.2s;
 
         &:hover {
-          color: darken($primary, 10%);
+        color: color.adjust($primary, $lightness: 10%);
           text-decoration: underline;
         }
       }
@@ -107,7 +108,7 @@
       @include mixin.dynamic-text(400, 20px, #fff);
 
       &:hover:not(.locked) {
-        background-color: darken(#006167, 10%);
+        background-color: color.adjust(#006167, $lightness: 10%);
         transform: translateY(-2px);
         box-shadow: 0 4px 12px rgba(0, 97, 103, 0.3);
       }
