@@ -3,7 +3,7 @@
     <div #wrapper class="testimonial-wrapper">
       @for (ad of ads(); track trackByAdId($index, ad)) {
         <div class="slide-wrapper">
-          <app-each-ad [ad]="ad" />
+          <app-each-ad [ad]="ad" [category]="category()" />
         </div>
       }
     </div>

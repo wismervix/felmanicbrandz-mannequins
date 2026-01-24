@@ -1,65 +1,56 @@
-<div class="container">
-    <div class="view-all-cont">
-      <span>View All</span>
-      <app-svg-icon icon="arrowRight"></app-svg-icon>
-    </div>
-    
-    <!-- Products Listing -->
-    <div class="products-listing">
-      @for (platform of platforms; track platform) {
-        @if (getCoursesByPlatform(platform).length) {
-          <section class="platform-section">
-            <h2 class="small-title">
-              {{ getPlatformDisplayName(platform) | titlecase }}
-            </h2>
-            <!-- <h2 class="small-title">{{ getPlatformFromCourse(platform) | titlecase }}</h2> -->
-            <app-ad-slider [ads]="getCoursesByPlatform(platform)" />
-          </section>
+<div class="container-cm">
+  <div class="view-all-cont">
+    <span>View All</span>
+    <app-svg-icon icon="arrowRight"></app-svg-icon>
+  </div>
+
+  <!-- Products Listing -->
+  <div class="products-listing">
+      <!-- <h2 class="small-title">
+        {{ getCategoryDisplayName("hangers") | titlecase }}
+      </h2> -->
+      <app-ad-slider [ads]="getCoursesByCategory('hangers')" category="hangers"/>
+  </div>
+
+  <!-- Pagination -->
+  @if (totalPages > 1) {
+    <nav aria-label="Course pagination">
+      <ul class="pagination justify-content-center">
+        <li class="page-item" [class.disabled]="currentPage === 1">
+          <button
+            class="page-link"
+            (click)="prevPage()"
+            [attr.disabled]="currentPage === 1 ? true : null"
+            aria-label="Previous page"
+          >
+            &lt;
+          </button>
+        </li>
+
+        @for (page of getPageNumbers(); track page) {
+          <li class="page-item" [class.active]="currentPage === page">
+            <button
+              class="page-link"
+              (click)="goToPage(page)"
+              [attr.aria-current]="currentPage === page ? 'page' : null"
+              [attr.aria-label]="'Page ' + page"
+            >
+              {{ page }}
+            </button>
+          </li>
         }
-      } @empty {
-        <p class="no-courses">No courses available at the moment.</p>
-      }
-    </div>
-    
-    <!-- Pagination -->
-    @if (totalPages > 1) {
-      <nav aria-label="Course pagination">
-        <ul class="pagination justify-content-center">
-          <li class="page-item" [class.disabled]="currentPage === 1">
-            <button
-              class="page-link"
-              (click)="prevPage()"
-              [attr.disabled]="currentPage === 1 ? true : null"
-              aria-label="Previous page"
-            >
-              &lt;
-            </button>
-          </li>
-    
-          @for (page of getPageNumbers(); track page) {
-            <li class="page-item" [class.active]="currentPage === page">
-              <button
-                class="page-link"
-                (click)="goToPage(page)"
-                [attr.aria-current]="currentPage === page ? 'page' : null"
-                [attr.aria-label]="'Page ' + page"
-              >
-                {{ page }}
-              </button>
-            </li>
-          }
-    
-          <li class="page-item" [class.disabled]="currentPage === totalPages">
-            <button
-              class="page-link"
-              (click)="nextPage()"
-              [attr.disabled]="currentPage === totalPages ? true : null"
-              aria-label="Next page"
-            >
-              &gt;
-            </button>
-          </li>
-        </ul>
-      </nav>
-    }
+
+        <li class="page-item" [class.disabled]="currentPage === totalPages">
+          <button
+            class="page-link"
+            (click)="nextPage()"
+            [attr.disabled]="currentPage === totalPages ? true : null"
+            aria-label="Next page"
+          >
+            &gt;
+          </button>
+        </li>
+      </ul>
+    </nav>
+  }
 </div>

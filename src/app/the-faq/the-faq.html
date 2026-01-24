@@ -1,0 +1,47 @@
+<section>
+  <div class="container">
+    <div class="accordion custom-accordion" id="faqAccordion">
+      @for (faq of faqs; track faq.id) {
+        <div class="accordion-item">
+          <h2 class="accordion-header">
+            <button
+              class="accordion-button collapsed d-flex justify-content-between align-items-center"
+              type="button"
+              data-bs-toggle="collapse"
+              [attr.data-bs-target]="'#collapse' + faq.id"
+              aria-expanded="false"
+              [attr.aria-controls]="'collapse' + faq.id"
+            >
+              <span>{{ faq.title }}</span>
+
+              <i class="fa-solid fa-plus accordion-icon"></i>
+              <i class="fa-solid fa-minus accordion-icon"></i>
+            </button>
+          </h2>
+
+          <div
+            [id]="'collapse' + faq.id"
+            class="accordion-collapse collapse"
+            data-bs-parent="#faqAccordion"
+          >
+            <div class="accordion-body">{{ faq.description }}</div>
+          </div>
+        </div>
+      } @empty {
+        <p>No faq available</p>
+      }
+    </div>
+    <div class="contact-box">
+      <h2 class="title">
+        Still have a
+
+        <span>Question?</span>
+      </h2>
+      <p class="description">
+        If you cannot find answer to your question in our FAQ, you can always
+        contact us.
+      </p>
+      <button class="btn contact">Contact Us</button>
+    </div>
+  </div>
+</section>

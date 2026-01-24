@@ -1,0 +1,101 @@
+@use "../../mixins.scss" as mixin;
+@use "../../variables" as *;
+@use "sass:color";
+
+  // ========================
+  // 📚 PRODUCTS LISTING
+  // ========================
+  .products-listing {
+    margin-bottom: 233px;
+
+    @media (max-width: 768px) {
+      margin-bottom: 100px;
+    }
+
+    .platform-section {
+      margin-bottom: 60px;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+
+    .small-title {
+      margin-bottom: 33px;
+      @include mixin.dynamic-text(700, clamp(25px, 3vw, 43px), $primary);
+      
+      @media (max-width: 768px) {
+        margin-bottom: 20px;
+        font-size: 28px;
+      }
+    }
+
+    .no-courses {
+      text-align: center;
+      padding: 60px 20px;
+      background: rgba($primary, 0.05);
+      border-radius: 12px;
+      @include mixin.dynamic-text(500, 18px, rgba($primary, 0.7));
+      border: 2px dashed rgba($primary, 0.2);
+    }
+  }
+
+  // ========================
+  // 📄 PAGINATION
+  // ========================
+  .pagination {
+    display: flex;
+    gap: 10px;
+    margin: 50px auto 81px;
+    padding: 0;
+    list-style: none;
+    justify-content: center;
+
+    .page-item {
+      &.disabled .page-link {
+        opacity: 0.5;
+        cursor: not-allowed;
+        pointer-events: none;
+      }
+
+      &.active .page-link {
+        color: #ffffff !important;
+        border-radius: 8px;
+        background-color: $primary;
+      }
+    }
+
+    .page-link {
+      width: 40px;
+      height: 40px;
+      color: #006167;
+      @include mixin.centered;
+      border-radius: 8px;
+      border: 0 !important;
+      background-color: #eff0f2;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      font-weight: 500;
+      text-decoration: none;
+
+      &:hover:not(:disabled) {
+        background-color: color.adjust(#fff, $lightness: -5%);
+        transform: translateY(-2px);
+      }
+
+      &:active:not(:disabled) {
+        transform: translateY(0);
+      }
+
+      &:focus-visible {
+        outline: 2px solid $primary;
+        outline-offset: 2px;
+      }
+
+      @media (max-width: 768px) {
+        width: 36px;
+        height: 36px;
+        font-size: 14px;
+      }
+    }
+  }

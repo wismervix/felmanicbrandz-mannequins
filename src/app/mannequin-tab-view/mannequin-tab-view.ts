@@ -1,11 +1,67 @@
-import { Component } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  inject,
+  ChangeDetectionStrategy,
+} from '@angular/core';
+import { RouterModule } from '@angular/router';
+import { Title } from '@angular/platform-browser';
+// import { TitleCasePipe } from '@angular/common';
+
+import { SvgIcon } from '../svg-icon/svg-icon';
+import { AdSlider } from '../ad-slider/ad-slider';
+
+import { CategoryKey, adsData, getCoursesByCategory } from '../../products';
 
 @Component({
   selector: 'app-mannequin-tab-view',
-  imports: [],
+  standalone: true,
+  imports: [RouterModule, AdSlider, SvgIcon],
+  // imports: [RouterModule, AdSlider, SvgIcon, TitleCasePipe],
   templateUrl: './mannequin-tab-view.html',
   styleUrl: './mannequin-tab-view.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class MannequinTabView {
+export class MannequinTabView implements OnInit {
+  private titleService = inject(Title);
 
+  // Pagination state
+  currentPage = 1;
+  readonly totalPages = 3;
+
+  ngOnInit(): void {
+    this.titleService.setTitle('Ads University');
+  }
+
+  getCoursesByCategory(category: CategoryKey) {
+    return getCoursesByCategory(category);
+  }
+
+  getCategoryDisplayName(category: CategoryKey): string {
+    return category.charAt(0).toUpperCase() + category.slice(1);
+  }
+
+  goToPage(page: number): void {
+    if (page >= 1 && page <= this.totalPages) {
+      this.currentPage = page;
+      // In a real app, you would fetch data for this page
+      console.log(`Navigated to page ${page}`);
+    }
+  }
+
+  nextPage(): void {
+    if (this.currentPage < this.totalPages) {
+      this.goToPage(this.currentPage + 1);
+    }
+  }
+
+  prevPage(): void {
+    if (this.currentPage > 1) {
+      this.goToPage(this.currentPage - 1);
+    }
+  }
+
+  getPageNumbers(): number[] {
+    return Array.from({ length: this.totalPages }, (_, i) => i + 1);
+  }
 }

@@ -3,33 +3,32 @@
 @use "sass:color";
 
 .each-product {
-  max-width: 338px;
-  margin-bottom: 37px;
-  border-radius: 23px 23px 5px 5px;
-  background: white; // Added for better visibility
+  height: 100%;
+  padding: 20px 0 0;
+  max-width: 268px;
+  border-radius: 14px 14px 20px 20px;
 
   .img-cont {
-    height: 200px; // Added for consistent image container
+    height: 244px; // Added for consistent image container
     overflow: hidden;
     position: relative;
-    border-radius: 23px 23px 0 0;
+    border-radius: 14px 14px 0 0;
 
     .icon-cont {
-      top: 9%;
+      top: 7%;
       right: 6%;
       width: 28px;
       height: 28px;
+      color: #fff;
       border-radius: 50%;
       position: absolute;
       @include mixin.centered(); // Using your mixin
-      color: $primary;
-      background-color: #fff;
       cursor: pointer;
-      transition: background-color 0.2s;
-
-      &:hover {
-        background-color: #f5f5f5;
-      }
+      border: 1px solid #fff;
+      backdrop-filter: blur(2px);
+      transition: scale 0.2s ease;
+      background-color: #cfd4db85;
+      // backdrop-filter: blur(5px) saturate(180%);
     }
 
     img {
@@ -48,7 +47,7 @@
       left: 6%;
       padding: 3px 8px;
       position: absolute;
-      background-color: #E76811;
+      background-color: #e76811;
       @include mixin.dynamic-text(500, 10px, #fff);
       border-radius: 3px;
       text-transform: uppercase;
@@ -57,100 +56,101 @@
   }
 
   .product-details {
-    padding: 20px;
-    border-radius: 0 0 5px 5px;
+    // min-height: 235px;
     background: #fff;
+    padding: 18px 13px;
+    border-radius: 0 0 20px 20px;
+
+    &:hover {
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+    }
+
+    .price-spread {
+      @include mixin.spread();
+
+      .category {
+        @include mixin.dynamic-text(400, clamp(13.5px, 1.1vw, 16px), #8d8d8d);
+      }
+
+      .price {
+        @include mixin.dynamic-text(600, clamp(15.5px, 1.3vw, 18px), #0d1b39);
+      }
+    }
 
     .name {
-      font-size: 21px;
-      font-weight: 700;
-      color: $primary;
-      margin-bottom: 8px;
+      margin: clamp(8px, 0.9vw, 13px) 0 5px;
+      @include mixin.dynamic-text(600, clamp(17.5px, 1.5vw, 21px), #0d1b39);
+    }
 
-      a {
-        text-decoration: none;
-        transition: color 0.2s;
+    .rating {
+      position: relative;
+      display: inline-block;
+      font-size: clamp(15.5px, 1.3vw, 18px); // adjust size as needed
 
-        &:hover {
-        color: color.adjust($primary, $lightness: 10%);
-          text-decoration: underline;
+      .stars-outer {
+        color: #ccc; // gray stars (background)
+        position: relative;
+        display: inline-block;
+      }
+
+      .stars-inner {
+        color: #f6b76f; // gold fill
+        position: absolute;
+        top: 0;
+        left: 0;
+        white-space: nowrap;
+        overflow: hidden;
+        width: 0%; // dynamically set via starWidth()
+      }
+
+      i {
+        margin-right: 2px; // optional spacing between stars
+      }
+    }
+
+    .cta-spread {
+      margin-top: clamp(20px, 2.1vw, 30px);
+      @include mixin.spread();
+
+      @media(min-width: 600px) and (max-width: 800px){
+        @include mixin.spread(15px, start, column);
+      }
+
+      @media(max-width: 500px){
+        @include mixin.spread(15px, start, column);
+      }
+
+      .counter-layer {
+        gap: 12px;
+        display: flex;
+        padding: 5px 0;
+        // max-width: 110px;
+        border-radius: 6px;
+        align-items: center;
+        background-color: #ffe4d9;
+        height: clamp(30px, 2.4vw, 34px);
+        @include mixin.dynamic-text(600, 14px, #111212);
+
+        .counter-btn {
+          @include mixin.centered();
+          background-color: transparent;
+          width: clamp(30px, 2.7vw, 39px);
+          height: clamp(30px, 2.1vw, 30px);
+
+          &:hover {
+            color: #fff;
+            background-color: $primary;
+          }
         }
       }
-    }
 
-    .description {
-      font-size: 13px;
-      font-weight: 500;
-      color: #0E1629;
-      margin: 2px 0 18px;
-      min-height: 50px;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      display: -webkit-box;
-      line-clamp: 3;
-      -webkit-line-clamp: 3;
-      -webkit-box-orient: vertical;
-      line-height: 1.4;
-    }
-
-    .btn.cta {
-      gap: 6px;
-      height: 43px;
-      width: 100%;
-      max-width: 287px;
-      border-radius: 5px;
-      margin: 26px auto 0;
-      background-color: #006167;
-      border: none;
-      cursor: pointer;
-      transition: all 0.2s;
-      display: block;
-      @include mixin.dynamic-text(400, 20px, #fff);
-
-      &:hover:not(.locked) {
-        background-color: color.adjust(#006167, $lightness: 10%);
-        transform: translateY(-2px);
-        box-shadow: 0 4px 12px rgba(0, 97, 103, 0.3);
-      }
-
-      &:active:not(.locked) {
-        transform: translateY(0);
-      }
-
-      &.locked {
-        color: #006167;
-        background-color: #fff;
-        border: 1.5px solid $primary;
-        cursor: not-allowed;
-
-        &:hover {
-          background-color: #f9f9f9;
-        }
-      }
-
-      @media (max-width: 700px) {
-        font-size: 16px;
-        height: 40px;
-      }
-    }
-
-    .progress {
-      height: 10px;
-      margin: 21px 0 3px;
-      background-color: #E6E6E6;
-      border-radius: 5px;
-      overflow: hidden;
-
-      &-bar {
-        height: 100%;
+      .buy {
+        gap: 6px;
+        border-radius: 8px;
         background-color: $primary;
-        border-radius: 5px;
-        transition: width 0.3s ease;
-      }
-
-      + p {
-        @include mixin.dynamic-text(500, 14px, #0E1629);
-        margin-top: 5px;
+        width: clamp(80px, 6.7vw, 97px);
+        height: clamp(30px, 2.4vw, 34px);
+        @include mixin.dynamic-text(500, clamp(15.5px, 1.3vw, 18px), #fff);
       }
     }
   }
@@ -161,17 +161,9 @@
   .each-product {
     max-width: 100%;
     margin-bottom: 25px;
-    
+
     .img-cont {
       height: 180px;
-    }
-    
-    .product-details {
-      padding: 15px;
-      
-      .name {
-        font-size: 18px;
-      }
     }
   }
 }

@@ -10,7 +10,7 @@ import {
   ChangeDetectionStrategy,
 } from '@angular/core';
 import { EachAd } from '../each-ad/each-ad';
-import { AdCourse } from '../../products';
+import { AdCourse, Category } from '../../products';
 
 @Component({
   selector: 'app-ad-slider',
@@ -22,6 +22,7 @@ import { AdCourse } from '../../products';
 })
 export class AdSlider implements AfterViewInit, OnDestroy {
   ads = input.required<AdCourse[]>();
+  category = input.required<Category>();
 
   @ViewChild('root', { static: true }) rootElement!: ElementRef<HTMLDivElement>;
   @ViewChild('wrapper', { static: true })

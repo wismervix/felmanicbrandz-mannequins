@@ -21,7 +21,7 @@ export class TheTab implements AfterViewInit, AfterViewChecked {
 
   tabs = [
     { name: 'hanger', label: 'Hangers', route: 'hanger' },
-    { name: 'strip', label: 'Strip', route: 'strip' },
+    // { name: 'strip', label: 'Strip', route: 'strip' },
     {
       name: 'mannequin',
       label: 'Mannequins',

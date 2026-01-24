@@ -17,7 +17,7 @@ export const routes: Routes = [
       { path: '', redirectTo: 'hanger', pathMatch: 'full' }, // default tab
       //   { path: '', component: HangerTabView },
       { path: 'hanger', component: HangerTabView },
-      { path: 'strip', component: WhyStrip },
+      // { path: 'strip', component: WhyStrip },
       { path: 'mannequin', component: MannequinTabView },
     ],
   },

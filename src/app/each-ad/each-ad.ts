@@ -6,17 +6,19 @@ import {
   effect,
   ChangeDetectionStrategy,
 } from '@angular/core';
-import { AdCourse, Availability } from '../../products';
+import { AdCourse, Category } from '../../products';
+import { TitleCasePipe } from '@angular/common';
 
 @Component({
   selector: 'app-each-ad',
-  imports: [],
+  imports: [TitleCasePipe],
   templateUrl: './each-ad.html',
   styleUrl: './each-ad.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class EachAd {
   ad = input.required<AdCourse>();
+  category = input.required<Category>();
 
   // constructor() {
   //   effect(() => {
@@ -28,16 +30,16 @@ export class EachAd {
   // }
 
   // Computed signals for reactive values
-  isAvailable = computed(() => this.ad()?.available === 1);
-
-  safeProgress = computed(() => {
-    const progress = this.ad()?.progress ?? 0;
-    return progress > 0 ? progress : 1;
+  starWidth = computed(() => {
+    const rating = this.ad()?.rating ?? 0;
+    return (Math.min(Math.max(rating, 0), 5) / 5) * 100; // 0-100%
   });
+
+  isBestSelling = computed(() => this.ad()?.bestSelling === 1);
 
   // Event handler
   onButtonClick() {
-    if (this.isAvailable()) {
+    if (this.isBestSelling()) {
       console.log('Continue studying:', this.ad()?.name);
       // Emit event or navigate
       // this.continueStudy.emit(this.ad()!);

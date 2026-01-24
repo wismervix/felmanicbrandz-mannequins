@@ -1,0 +1,91 @@
+@use "../../mixins.scss" as mixin;
+@use "../../variables" as *;
+@use "sass:color";
+
+.container-cm{
+  padding: 10px;
+  margin: 0 5%;
+
+  @media(max-width: 650px){
+    margin: 0 2%;
+  }
+}
+
+.view-all-cont {
+  gap: 12px;
+  display: flex;
+  margin-left: auto;
+  width: fit-content;
+  align-items: center;
+
+  span {
+    @include mixin.dynamic-text(400, 18px, #e58411);
+  }
+}
+
+// ========================
+// 📚 PRODUCTS LISTING
+// ========================
+.products-listing {
+  padding: 20px 0 50px;
+
+  .small-title {
+    margin-bottom: 33px;
+    @include mixin.dynamic-text(700, clamp(25px, 3vw, 43px), $primary);
+  }
+
+  .no-courses {
+    text-align: center;
+    padding: 60px 20px;
+    background: rgba($primary, 0.05);
+    border-radius: 12px;
+    @include mixin.dynamic-text(500, 18px, rgba($primary, 0.7));
+    border: 2px dashed rgba($primary, 0.2);
+  }
+}
+
+// ========================
+// 📄 PAGINATION
+// ========================
+.pagination {
+  @include mixin.centered(10px);
+
+  .page-item {
+    &.disabled .page-link {
+      opacity: 0.5;
+      pointer-events: none;
+    }
+
+    &.active .page-link {
+      color: #fff !important;
+      border-radius: 8px;
+      background-color: $primary;
+    }
+  }
+
+  .page-link {
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    border-radius: 8px;
+    border: 0 !important;
+    @include mixin.centered;
+    transition: all 0.2s ease;
+    background-color: #eff0f2;
+    @include mixin.dynamic-text(500, 15px, $secondary);
+
+    &:hover:not(:disabled) {
+      transform: translateY(-2px);
+      background-color: color.adjust(#fff, $lightness: -5%);
+    }
+
+    &:active:not(:disabled) {
+      transform: translateY(0);
+    }
+
+    &:focus-visible {
+      outline: 2px solid $primary;
+      outline-offset: 2px;
+    }
+  }
+}
