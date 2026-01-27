@@ -23,6 +23,7 @@ section {
     border: 2px solid $primary;
 
     .each-tab {
+      opacity: 80%;
       cursor: pointer;
       text-decoration: none;
       @include mixin.dynamic-text(400, 18px, $secondary);

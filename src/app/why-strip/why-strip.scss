@@ -14,10 +14,12 @@ section {
     max-width: 317px;
 
     .sub-title {
+      opacity: 90%;
       @include mixin.dynamic-text(600, clamp(19px, 1.7vw, 24px), $primary);
     }
 
     p {
+      opacity: 80%;
       margin: 0 0 14px;
       @include mixin.dynamic-text(400, clamp(14px, 1.3vw, 18px), $secondary);
     }

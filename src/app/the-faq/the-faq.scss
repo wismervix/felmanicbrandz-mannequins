@@ -16,7 +16,7 @@ section {
       background: #fff;
       padding: 30px 22px;
       box-shadow: none !important;
-      @include mixin.dynamic-text(600, 20px, #000F3F);
+      @include mixin.dynamic-text(600, 20px, $primary);
 
       &::after {
         display: none; // remove default bootstrap arrow
@@ -37,7 +37,7 @@ section {
 
     .accordion-icon {
       font-size: 14px;
-      color: #F46448;
+      color: $primary;
     }
 
     /* Toggle icons */
@@ -57,11 +57,10 @@ section {
   .contact-box{
     max-width: 673px;
     margin: 94px auto 0;
-    text-align: center;
 
     .title{
         text-transform: capitalize;
-        @include mixin.dynamic-text(600, 30px, #000);
+        @include mixin.dynamic-text(600, 30px, #000, center);
 
         span{
             color: $primary;
@@ -70,7 +69,7 @@ section {
 
     .description{
         margin: 20px 0;
-        @include mixin.dynamic-text(500, 17px, #000);
+        @include mixin.dynamic-text(500, 17px, #000, center);
     }
 
     .contact{

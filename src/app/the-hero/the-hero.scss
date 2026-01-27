@@ -37,7 +37,6 @@
     z-index: 2;
     max-width: 1000px;
     position: relative; /* above the slider */
-    text-align: center;
     margin: calc(40px + 70px) auto 0;
 
     @media (max-width: 992px) {
@@ -51,14 +50,15 @@
 
       h1.hero-title {
         text-transform: capitalize;
-        @include mixin.dynamic-text(600, clamp(35px, 4.2vw, 61px), #fff);
+        @include mixin.dynamic-text(600, clamp(35px, 4.2vw, 61px), #fff, center);
       }
     }
 
     .subtitle {
+      opacity: 80%;
       max-width: 455px;
       margin: 40px auto 36px;
-      @include mixin.dynamic-text(400, 24px, #fff);
+      @include mixin.dynamic-text(400, 24px, #fff, center);
     }
 
     input {

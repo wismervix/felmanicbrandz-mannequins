@@ -1,0 +1,26 @@
+@use "../../mixins.scss" as mixin;
+@use "../../variables" as *;
+
+footer{
+    background-color: #F7F7F7;
+    padding: clamp(56px, 6.3vw, 90px) 0 56px;
+    .footer-col-cont{
+        max-width: 293px;
+
+        &.sm{
+            max-width: 113px;
+        }
+    }
+
+    .bottom-spread{
+        opacity: 80%;
+        @include mixin.spread();
+        margin-top: clamp(56px, 8.2vw, 118px);
+        @include mixin.dynamic-text(400, 15px, $secondary);
+
+        .copyright{
+            opacity: 50%;
+            @include mixin.dynamic-text(400, 15px, #1E2833);
+        }
+    }
+}

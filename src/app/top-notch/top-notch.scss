@@ -28,6 +28,7 @@ section {
   }
 
   .description {
+    opacity: 80%;
     margin-bottom: 25px;
     @include mixin.dynamic-text(400, clamp(15px, 1.3vw, 18px), $secondary);
   }

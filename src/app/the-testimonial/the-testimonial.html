@@ -1,0 +1,48 @@
+<section class="testimonials">
+  <div class="container-fluid">
+    <h2 class="title">testimonials</h2>
+    <h3 class="subtitle">What our customer say</h3>
+
+    <div class="cont-btns-testimonial">
+      <button class="left-btn-testimonial" (click)="scrollLeft()">
+        <app-svg-icon icon="lessThan"></app-svg-icon>
+      </button>
+
+      <button class="right-btn-testimonial" (click)="scrollRight()">
+        <app-svg-icon icon="greaterThan"></app-svg-icon>
+      </button>
+    </div>
+
+    <div
+      #slider
+      class="testimonial-row"
+      (mousedown)="onMouseDown($event)"
+      (mousemove)="onMouseMove($event)"
+      (mouseup)="onMouseUp()"
+      (mouseleave)="onMouseUp()"
+    >
+      @for (testimonial of testimonials; track testimonial.name) {
+        <div class="each-test">
+          <app-svg-icon icon="purpleQuotes"></app-svg-icon>
+
+          <p class="testimonial-description">
+            {{ testimonial.testimony | slice: 0 : 310 }}
+          </p>
+
+          <div class="bottom-spread">
+            <div class="client-profile">
+                <img [src]="testimonial.photo" [alt]="testimonial.name" />
+
+              <div class="name">{{ testimonial.name }}</div>
+            </div>
+
+            <div class="rating">
+              <i class="fa-solid fa-star"></i>
+              <span>{{ testimonial.rating }}</span>
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+</section>

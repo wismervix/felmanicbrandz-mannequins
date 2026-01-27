@@ -4,10 +4,11 @@ import { Title } from '@angular/platform-browser';
 // import { SvgIcon } from './svg-icon/svg-icon';
 import { TheNavbar } from './the-navbar/the-navbar';
 import { TheHome } from "./the-home/the-home";
+import { TheFooter } from "./the-footer/the-footer";
 
 @Component({
   selector: 'app-root',
-  imports: [TheNavbar, RouterOutlet],
+  imports: [TheNavbar, RouterOutlet, TheFooter],
   // imports: [TheNavbar, TheHome, RouterOutlet],
   templateUrl: './app.html',
   styleUrl: './app.scss',
