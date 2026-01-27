@@ -40,8 +40,8 @@
     text-align: center;
     margin: calc(40px + 70px) auto 0;
 
-    @media (max-width: 992px){
-        margin: calc(40px + 70px) 10% 0;
+    @media (max-width: 992px) {
+      margin: calc(40px + 70px) 10% 0;
     }
 
     .hero-title-wrapper {
@@ -68,6 +68,7 @@
       margin: 0 auto 300px;
       border-radius: 9999px;
       backdrop-filter: blur(8px);
+      box-shadow: none !important;
       background-color: transparent;
       border: 0.86px solid #ffffff99;
 

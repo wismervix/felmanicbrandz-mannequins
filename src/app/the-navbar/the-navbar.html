@@ -1,7 +1,10 @@
-<nav class="navbar navbar-expand-lg custom-navbar glass-overlay">
+<nav
+  class="navbar navbar-expand-lg custom-navbar glass-overlay"
+  [class.nav-visible]="showNavbar"
+>
   <div class="container-fluid">
     <!-- <a class="navbar-brand" href="#"><app-svg-icon icon="gitHub" width="50px" /></a> -->
-    <a class="navbar-brand" href="#">Manniquin</a>
+    <a class="navbar-brand" routerLink="/">Manniquin</a>
     <button
       class="navbar-toggler"
       type="button"
@@ -12,10 +15,27 @@
     </button>
     <div class="collapse navbar-collapse" id="pageNav">
       <div class="navbar-nav">
-        <a class="nav-link active" href="#about">About</a>
-        <a class="nav-link active" href="#shop">shop</a>
+        <a
+          class="nav-link"
+          routerLink="/"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }"
+          >Home</a
+        >
+        <a
+          class="nav-link active"
+          routerLink="/about"
+          routerLinkActive="active"
+        >
+          About
+        </a>
+        <a
+          class="nav-link active"
+           routerLink="/shop" routerLinkActive="active"
+          >shop</a
+        >
         <a class="nav-link" href="#testimonials">testimonials</a>
-        <a class="nav-link" href="#contact">Contact</a>
+        <a class="nav-link" routerLink="/contact" routerLinkActive="active">Contact</a>
       </div>
 
       <div class="nav-end">
@@ -23,7 +43,7 @@
           <span><i class="fa-solid fa-bag-shopping"></i></span>
           <div class="cart-badge">1</div>
         </div>
-        <span class="time">{{ currentTime}}</span>
+        <span class="time">{{ currentTime }}</span>
       </div>
     </div>
   </div>

@@ -6,9 +6,8 @@ section {
   padding: clamp(30px, 5.2vw, 75px) 0 clamp(50px, 9.1vw, 131px);
 
   h2.title {
-    text-align: center;
     text-transform: capitalize;
-    @include mixin.dynamic-text(400, clamp(30px, 2.9vw, 42px), $secondary);
+    @include mixin.dynamic-text(400, clamp(30px, 2.9vw, 42px), $secondary, center);
   }
 
   .prod-tabs-cont {

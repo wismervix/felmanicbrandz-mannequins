@@ -1,11 +1,8 @@
 import {
   Component,
-  OnInit,
-  inject,
   ChangeDetectionStrategy,
 } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { Title } from '@angular/platform-browser';
 // import { TitleCasePipe } from '@angular/common';
 
 import { SvgIcon } from '../svg-icon/svg-icon';
@@ -22,16 +19,10 @@ import { CategoryKey, adsData, getCoursesByCategory } from '../../products';
   styleUrl: './hanger-tab-view.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class HangerTabView implements OnInit {
-  private titleService = inject(Title);
-
+export class HangerTabView {
   // Pagination state
   currentPage = 1;
   readonly totalPages = 3;
-
-  ngOnInit(): void {
-    this.titleService.setTitle('Ads University');
-  }
 
   getCoursesByCategory(category: CategoryKey) {
     return getCoursesByCategory(category);

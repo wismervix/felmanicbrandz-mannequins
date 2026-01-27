@@ -20,7 +20,7 @@ export class TheTab implements AfterViewInit, AfterViewChecked {
   @ViewChildren('tabEl') tabEls!: QueryList<ElementRef<HTMLElement>>;
 
   tabs = [
-    { name: 'hanger', label: 'Hangers', route: 'hanger' },
+    { name: 'hanger', label: 'Hangers', route: '' },
     // { name: 'strip', label: 'Strip', route: 'strip' },
     {
       name: 'mannequin',

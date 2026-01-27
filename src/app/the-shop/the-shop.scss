@@ -2,6 +2,20 @@
 @use "../../variables" as *;
 @use "sass:color";
 
+.hero-wrapper {
+  //   height: 285px;
+  min-height: calc(100vh + 70px);
+  margin-bottom: 68px;
+  background:
+    linear-gradient($primary-overlay, $primary-overlay),
+    url("/assets/images/mannequin_5.jpg") center/cover no-repeat fixed;
+  @include mixin.centered();
+
+  .title {
+    @include mixin.dynamic-text(800, clamp(42px, 10.4vw, 150px), #ffffff, center);
+  }
+}
+
   // ========================
   // 📚 PRODUCTS LISTING
   // ========================

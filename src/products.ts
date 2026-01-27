@@ -137,6 +137,7 @@ export const adsData: Record<CategoryKey, readonly AdCourse[]> = {
       description: 'Child-size mannequin suitable for kids clothing.',
     },
   ],
+
   linkedIn: [
     {
       id: 1,

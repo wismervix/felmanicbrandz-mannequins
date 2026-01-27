@@ -2,11 +2,11 @@
 @use "../../variables" as *;
 @use "sass:color";
 
-.container-cm{
+.container-cm {
   padding: 10px;
   margin: 0 5%;
 
-  @media(max-width: 650px){
+  @media (max-width: 650px) {
     margin: 0 2%;
   }
 }
@@ -71,6 +71,7 @@
     border: 0 !important;
     @include mixin.centered;
     transition: all 0.2s ease;
+    box-shadow: none !important;
     background-color: #eff0f2;
     @include mixin.dynamic-text(500, 15px, $secondary);
 

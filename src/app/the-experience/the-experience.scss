@@ -38,6 +38,7 @@ section {
   .more-info-cont {
     gap: 12px;
     display: flex;
+    width: fit-content;
     align-items: center;
 
     span {
