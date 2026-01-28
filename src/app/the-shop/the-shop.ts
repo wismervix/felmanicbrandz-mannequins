@@ -4,7 +4,7 @@ import {
   inject,
   ChangeDetectionStrategy,
 } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { Title } from '@angular/platform-browser';
 import { TitleCasePipe } from '@angular/common';
 
@@ -28,16 +28,12 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TheShop implements OnInit {
+  constructor(public router: Router) {}
   private titleService = inject(Title);
 
   // Reactive data
   readonly ads = adsData;
-  readonly categories: CategoryKey[] = [
-    'hangers',
-    'mannequins',
-    'linkedIn',
-    'facebook',
-  ];
+  readonly categories: CategoryKey[] = ['hangers', 'mannequins'];
 
   // Pagination state
   currentPage = 1;
@@ -47,7 +43,7 @@ export class TheShop implements OnInit {
   isLiveAgentAvailable = true;
 
   ngOnInit(): void {
-    this.titleService.setTitle('Ads University');
+    this.titleService.setTitle('Felmanic Mannequins | Shop');
   }
 
   getCoursesByCategory(category: CategoryKey) {

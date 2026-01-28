@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { TheTab } from './the-tab';
+import { TheTab } from './home-shop-tab';
 
 describe('TheTab', () => {
   let component: TheTab;
@@ -8,9 +8,8 @@ describe('TheTab', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [TheTab]
-    })
-    .compileComponents();
+      imports: [TheTab],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(TheTab);
     component = fixture.componentInstance;

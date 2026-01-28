@@ -1,7 +1,7 @@
 // ads.ts
 export type BestSelling = 0 | 1;
 
-export type Category = 'mannequins' | 'hangers' | 'linkedIn' | 'facebook';
+export type Category = 'mannequins' | 'hangers';
 
 export interface AdCourse {
   id: number;
@@ -135,120 +135,6 @@ export const adsData: Record<CategoryKey, readonly AdCourse[]> = {
       name: 'Kids Mannequin',
       image: `${ASSETS}/mannequin_2.png`,
       description: 'Child-size mannequin suitable for kids clothing.',
-    },
-  ],
-
-  linkedIn: [
-    {
-      id: 1,
-      price: 70000,
-      rating: 4.9,
-      bestSelling: 1,
-      name: 'Leather Handbag',
-      image: `${ASSETS}/course-1.jpg`,
-      description: 'Premium leather handbag, perfect for work and casual use.',
-    },
-    {
-      id: 2,
-      price: 30000,
-      rating: 3.5,
-      bestSelling: 0,
-      name: 'Fabric Tote Bag',
-      image: `${ASSETS}/course-1.jpg`,
-      description: 'Eco-friendly tote bag for everyday shopping and errands.',
-    },
-    {
-      id: 3,
-      price: 55000,
-      rating: 4.6,
-      bestSelling: 1,
-      name: 'Designer Wallet',
-      image: `${ASSETS}/course-1.jpg`,
-      description: 'Compact wallet crafted from quality materials.',
-    },
-    {
-      id: 4,
-      price: 40000,
-      rating: 4.2,
-      bestSelling: 1,
-      name: 'Silk Neck Tie',
-      image: `${ASSETS}/course-1.jpg`,
-      description: 'Elegant silk neck tie for formal occasions.',
-    },
-    {
-      id: 5,
-      price: 60000,
-      rating: 4.7,
-      bestSelling: 1,
-      name: 'Statement Necklace',
-      image: `${ASSETS}/course-1.jpg`,
-      description: 'Bold fashion necklace that elevates any outfit.',
-    },
-    {
-      id: 6,
-      price: 32000,
-      rating: 3.8,
-      bestSelling: 0,
-      name: 'Leather Keychain',
-      image: `${ASSETS}/course-1.jpg`,
-      description: 'Durable and stylish keychain for everyday use.',
-    },
-  ],
-  facebook: [
-    {
-      id: 1,
-      price: 45000,
-      rating: 4.8,
-      bestSelling: 1,
-      name: 'Wide Brim Hat',
-      image: `${ASSETS}/course-1.jpg`,
-      description:
-        'Stylish wide-brim hat to protect from sun while looking chic.',
-    },
-    {
-      id: 2,
-      price: 32000,
-      rating: 3.7,
-      bestSelling: 0,
-      name: 'Canvas Sneakers',
-      image: `${ASSETS}/course-1.jpg`,
-      description: 'Comfortable casual sneakers perfect for daily wear.',
-    },
-    {
-      id: 3,
-      price: 50000,
-      rating: 4.5,
-      bestSelling: 1,
-      name: 'Leather Sandals',
-      image: `${ASSETS}/course-1.jpg`,
-      description: 'Premium sandals crafted for comfort and style.',
-    },
-    {
-      id: 4,
-      price: 65000,
-      rating: 4.9,
-      bestSelling: 1,
-      name: 'Wool Scarf',
-      image: `${ASSETS}/course-1.jpg`,
-      description: 'Cozy wool scarf to keep warm during winter.',
-    },
-    {
-      id: 5,
-      price: 38000,
-      rating: 4.0,
-      bestSelling: 0,
-      name: 'Statement Earrings',
-      image: `${ASSETS}/course-1.jpg`,
-      description: 'Elegant earrings that add a touch of glamour.',
-    },
-    {
-      id: 6,
-      price: 34000,
-      rating: 3.9,
-      bestSelling: 0,
-      name: 'Leather Bracelet',
-      image: `${ASSETS}/course-1.jpg`,
-      description: 'Stylish bracelet for everyday fashion accessory.',
     },
   ],
 } as const;

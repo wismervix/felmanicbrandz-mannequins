@@ -10,12 +10,12 @@ import {
 import { Router, RouterModule } from '@angular/router';
 
 @Component({
-  selector: 'app-the-tab',
+  selector: 'app-home-shop-tab',
   imports: [RouterModule],
-  templateUrl: './the-tab.html',
-  styleUrl: './the-tab.scss',
+  templateUrl: './home-shop-tab.html',
+  styleUrl: './home-shop-tab.scss',
 })
-export class TheTab implements AfterViewInit, AfterViewChecked {
+export class HomeShopTab implements AfterViewInit, AfterViewChecked {
   @ViewChild('tabsWrapper') tabsWrapper!: ElementRef<HTMLDivElement>;
   @ViewChildren('tabEl') tabEls!: QueryList<ElementRef<HTMLElement>>;
 

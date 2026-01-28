@@ -17,6 +17,14 @@
   width: fit-content;
   align-items: center;
   margin: 0 clamp(2%, 12.13vw, 13%) 0 auto;
+  
+  // @media (min-width: 992px) and (max-width: 1200px) {
+  //   margin: 0 19% 0 auto;
+  //   }
+    
+  //   @media (min-width: 1200px) {
+  //     margin: 0 13% 0 auto;
+  //   }
 
   span {
     @include mixin.dynamic-text(400, 18px, #e58411);
