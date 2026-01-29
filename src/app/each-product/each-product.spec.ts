@@ -1,18 +1,17 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ShopTab } from './shop-tab';
+import { EachAd } from './each-product';
 
-describe('ShopTab', () => {
-  let component: ShopTab;
-  let fixture: ComponentFixture<ShopTab>;
+describe('EachAd', () => {
+  let component: EachAd;
+  let fixture: ComponentFixture<EachAd>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ShopTab]
-    })
-    .compileComponents();
+      imports: [EachAd],
+    }).compileComponents();
 
-    fixture = TestBed.createComponent(ShopTab);
+    fixture = TestBed.createComponent(EachAd);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

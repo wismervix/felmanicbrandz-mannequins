@@ -3,14 +3,18 @@ import { RouterModule } from '@angular/router';
 // import { TitleCasePipe } from '@angular/common';
 
 import { SvgIcon } from '../svg-icon/svg-icon';
-import { AdSlider } from '../ad-slider/ad-slider';
+import { BaseCarousel } from '../base-carousel/base-carousel';
 
-import { CategoryKey, adsData, getCoursesByCategory } from '../../products';
+import {
+  CategoryKey,
+  productsData,
+  getCoursesByCategory,
+} from '../../products';
 
 @Component({
   selector: 'app-mannequin-tab-view',
   standalone: true,
-  imports: [RouterModule, AdSlider, SvgIcon],
+  imports: [RouterModule, BaseCarousel, SvgIcon],
   // imports: [RouterModule, AdSlider, SvgIcon, TitleCasePipe],
   templateUrl: './mannequin-tab-view.html',
   styleUrl: './mannequin-tab-view.scss',

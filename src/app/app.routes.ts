@@ -8,7 +8,6 @@ import { TheShop } from './the-shop/the-shop';
 import { TheHome } from './the-home/the-home';
 import { AboutUs } from './about-us/about-us';
 import { ContactUs } from './contact-us/contact-us';
-import { ShopTab } from './shop-tab/shop-tab';
 import { HangerShopTabView } from './hanger-shop-tab-view/hanger-shop-tab-view';
 import { MannequinShopTabView } from './mannequin-shop-tab-view/mannequin-shop-tab-view';
 import { PrivacyPolicy } from './privacy-policy/privacy-policy';
@@ -35,16 +34,10 @@ export const routes: Routes = [
     path: 'shop',
     component: TheShop, // This will be rendered in app.component's router-outlet // This will contain your tab component
     children: [
-      {
-        path: '',
-        component: ShopTab,
-        children: [
-          // { path: '', redirectTo: '', pathMatch: 'full' },
-          { path: '', component: HangerShopTabView },
-          // { path: 'hanger', component: HangerShopTabView },
-          { path: 'mannequin', component: MannequinShopTabView },
-        ],
-      },
+      // { path: '', redirectTo: '', pathMatch: 'full' },
+      { path: '', component: HangerShopTabView },
+      // { path: 'hanger', component: HangerShopTabView },
+      { path: 'mannequin', component: MannequinShopTabView },
     ],
   },
   {

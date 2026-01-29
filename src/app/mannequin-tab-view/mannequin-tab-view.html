@@ -9,8 +9,8 @@
     <!-- <h2 class="small-title">
         {{ getCategoryDisplayName("hangers") | titlecase }}
       </h2> -->
-    <app-ad-slider
-      [ads]="getCoursesByCategory('mannequins')"
+    <app-base-carousel
+      [products]="getCoursesByCategory('mannequins')"
       category="mannequins"
     />
   </div>

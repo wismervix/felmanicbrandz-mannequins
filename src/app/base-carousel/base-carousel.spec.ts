@@ -1,18 +1,17 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { EachAd } from './each-ad';
+import { AdSlider } from './base-carousel';
 
-describe('EachAd', () => {
-  let component: EachAd;
-  let fixture: ComponentFixture<EachAd>;
+describe('AdSlider', () => {
+  let component: AdSlider;
+  let fixture: ComponentFixture<AdSlider>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [EachAd]
-    })
-    .compileComponents();
+      imports: [AdSlider],
+    }).compileComponents();
 
-    fixture = TestBed.createComponent(EachAd);
+    fixture = TestBed.createComponent(AdSlider);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

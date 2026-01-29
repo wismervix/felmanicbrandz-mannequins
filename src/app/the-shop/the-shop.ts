@@ -1,97 +1,72 @@
 import {
+  AfterViewInit,
+  AfterViewChecked,
   Component,
-  OnInit,
-  inject,
-  ChangeDetectionStrategy,
+  ElementRef,
+  ViewChild,
+  ViewChildren,
+  QueryList,
 } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
-import { Title } from '@angular/platform-browser';
-import { TitleCasePipe } from '@angular/common';
-
-// import { SvgIcon } from '../svg-icon/svg-icon';
-import { AdSlider } from '../ad-slider/ad-slider';
-
-import {
-  CategoryKey,
-  adsData,
-  getCoursesByCategory,
-  getCategoryFromCourse,
-} from '../../products';
 
 @Component({
   selector: 'app-the-shop',
   standalone: true,
-  imports: [RouterModule, AdSlider, TitleCasePipe],
-  // imports: [RouterModule, AdSlider, SvgIcon, TitleCasePipe],
+  imports: [RouterModule],
   templateUrl: './the-shop.html',
   styleUrl: './the-shop.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class TheShop implements OnInit {
-  constructor(public router: Router) {}
-  private titleService = inject(Title);
+export class TheShop implements AfterViewInit, AfterViewChecked {
+  @ViewChild('shopTabsWrapper') shopTabsWrapper!: ElementRef<HTMLDivElement>;
+  @ViewChildren('shopTabEl') shopTabEls!: QueryList<ElementRef<HTMLElement>>;
 
-  // Reactive data
-  readonly ads = adsData;
-  readonly categories: CategoryKey[] = ['hangers', 'mannequins'];
+  tabs = [
+    { name: 'shop-hanger', label: 'Hangers', route: ['/shop'] },
+    // { name: 'strip', label: 'Strip', route: 'strip' },
+    {
+      name: 'shop-mannequin',
+      label: 'Mannequins',
+      route: ['mannequin'],
+    },
+  ];
 
-  // Pagination state
-  currentPage = 1;
-  readonly totalPages = 3;
+  private hasScrolled = false;
 
-  // Customer care state
-  isLiveAgentAvailable = true;
+  constructor(private router: Router) {}
 
-  ngOnInit(): void {
-    this.titleService.setTitle('Felmanic Mannequins | Shop');
+  ngAfterViewInit() {
+    this.scrollActiveTabIntoView();
   }
 
-  getCoursesByCategory(category: CategoryKey) {
-    return getCoursesByCategory(category);
-  }
-
-  getCategoryFromCourse(courseId: number): string {
-    const category = getCategoryFromCourse(courseId);
-    return category ? category.toUpperCase() : 'Unknown Category';
-  }
-
-  getCategoryDisplayName(category: CategoryKey): string {
-    return category.charAt(0).toUpperCase() + category.slice(1);
-  }
-
-  // getPlatformDisplayName(platform: CategoryKey): string {
-  //   return this.platformService.getDisplayName(platform);
-  // }
-
-  goToPage(page: number): void {
-    if (page >= 1 && page <= this.totalPages) {
-      this.currentPage = page;
-      // In a real app, you would fetch data for this page
-      console.log(`Navigated to page ${page}`);
+  ngAfterViewChecked() {
+    // Prevent infinite scrolling loop
+    if (!this.hasScrolled) {
+      this.scrollActiveTabIntoView();
+      this.hasScrolled = true;
     }
   }
 
-  nextPage(): void {
-    if (this.currentPage < this.totalPages) {
-      this.goToPage(this.currentPage + 1);
-    }
+  goBack() {
+    window.history.back();
   }
 
-  prevPage(): void {
-    if (this.currentPage > 1) {
-      this.goToPage(this.currentPage - 1);
-    }
+  isActive(route: string): boolean {
+    return this.router.url === route;
   }
 
-  getPageNumbers(): number[] {
-    return Array.from({ length: this.totalPages }, (_, i) => i + 1);
-  }
+  scrollActiveTabIntoView(index?: number) {
+    const tabs = this.shopTabEls.toArray();
 
-  startChatWithAgent(): void {
-    if (this.isLiveAgentAvailable) {
-      console.log('Starting chat with live agent...');
-      // Implement chat functionality here
-      // e.g., window.open('chat://', '_blank');
-    }
+    const target =
+      index !== undefined
+        ? tabs[index]
+        : tabs.find((tab) => tab.nativeElement.classList.contains('active'));
+
+    target?.nativeElement.scrollIntoView({
+      behavior: 'smooth',
+      inline: 'center',
+      block: 'nearest',
+    });
   }
 }
+

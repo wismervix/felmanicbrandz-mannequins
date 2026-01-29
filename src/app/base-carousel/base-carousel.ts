@@ -9,19 +9,19 @@ import {
   computed,
   ChangeDetectionStrategy,
 } from '@angular/core';
-import { EachAd } from '../each-ad/each-ad';
-import { AdCourse, Category } from '../../products';
+import { EachProduct } from '../each-product/each-product';
+import { Product, Category } from '../../products';
 
 @Component({
-  selector: 'app-ad-slider',
+  selector: 'app-base-carousel',
   standalone: true,
-  imports: [EachAd],
-  templateUrl: './ad-slider.html',
-  styleUrl: './ad-slider.scss',
+  imports: [EachProduct],
+  templateUrl: './base-carousel.html',
+  styleUrl: './base-carousel.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AdSlider implements AfterViewInit, OnDestroy {
-  ads = input.required<AdCourse[]>();
+export class BaseCarousel implements AfterViewInit, OnDestroy {
+  products = input.required<Product[]>();
   category = input.required<Category>();
 
   @ViewChild('root', { static: true }) rootElement!: ElementRef<HTMLDivElement>;
@@ -41,7 +41,7 @@ export class AdSlider implements AfterViewInit, OnDestroy {
   canGoNext = computed(() => this.currentIndex() < this.maxIndex());
 
   // Track slide wrapper elements
-  trackByAdId = (_index: number, ad: AdCourse): number => ad.id;
+  trackByAdId = (_index: number, ad: Product): number => ad.id;
 
   ngAfterViewInit(): void {
     this.calculateDimensions();

@@ -1,33 +1,62 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import {
+  Component,
+  ChangeDetectionStrategy,
+  inject,
+  OnInit,
+} from '@angular/core';
 import { RouterModule } from '@angular/router';
-// import { TitleCasePipe } from '@angular/common';
+import { TitleCasePipe } from '@angular/common';
+import { Title } from '@angular/platform-browser';
 
-import { SvgIcon } from '../svg-icon/svg-icon';
-import { AdSlider } from '../ad-slider/ad-slider';
-
-import { CategoryKey, adsData, getCoursesByCategory } from '../../products';
+import { Product, CategoryKey, getCoursesByCategory } from '../../products';
 
 @Component({
   selector: 'app-mannequin-shop-tab-view',
   standalone: true,
-  imports: [RouterModule, AdSlider, SvgIcon],
+  imports: [TitleCasePipe, RouterModule],
   templateUrl: './mannequin-shop-tab-view.html',
   styleUrl: './mannequin-shop-tab-view.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class MannequinShopTabView {
+export class MannequinShopTabView implements OnInit {
+  private titleService = inject(Title);
+
+  ngOnInit(): void {
+    this.titleService.setTitle('Felmanic Mannequins | Shop | Mannequin');
+  }
   // Pagination state
   currentPage = 1;
   readonly totalPages = 3;
+  currentProducts: Product[] = [];
+
+  constructor() {
+    // Initialize with hangers products
+    this.loadProducts('mannequins');
+  }
 
   getCoursesByCategory(category: CategoryKey) {
     return getCoursesByCategory(category);
+  }
+
+  // Add method to load products
+  loadProducts(category: CategoryKey): void {
+    this.currentProducts = this.getCoursesByCategory(category);
   }
 
   getCategoryDisplayName(category: CategoryKey): string {
     return category.charAt(0).toUpperCase() + category.slice(1);
   }
 
+  // Helper method to get star rating for a specific product
+  getStarWidth(product: Product): number {
+    const rating = product?.rating ?? 0;
+    return (Math.min(Math.max(rating, 0), 5) / 5) * 100; // 0-100%
+  }
+
+  // Helper method to check if a product is best selling
+  isBestSelling(product: Product): boolean {
+    return product?.bestSelling === 1;
+  }
   goToPage(page: number): void {
     if (page >= 1 && page <= this.totalPages) {
       this.currentPage = page;

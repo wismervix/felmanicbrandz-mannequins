@@ -3,7 +3,7 @@ export type BestSelling = 0 | 1;
 
 export type Category = 'mannequins' | 'hangers';
 
-export interface AdCourse {
+export interface Product {
   id: number;
   price: number;
   rating: number;
@@ -13,12 +13,12 @@ export interface AdCourse {
   description: string;
 }
 
-// export type CategoryKey = keyof typeof adsData;
+// export type CategoryKey = keyof typeof productsData;
 export type CategoryKey = Category;
 
 const ASSETS = 'assets/images';
 
-export const adsData: Record<CategoryKey, readonly AdCourse[]> = {
+export const productsData: Record<CategoryKey, readonly Product[]> = {
   hangers: [
     {
       id: 1,
@@ -106,7 +106,7 @@ export const adsData: Record<CategoryKey, readonly AdCourse[]> = {
       rating: 4.8,
       bestSelling: 1,
       name: 'Adjustable Mannequin',
-      image: `${ASSETS}/experience_bg.jpg`,
+      image: `${ASSETS}/mannequin_3.jpg`,
       description: 'Height-adjustable mannequin for flexible store layouts.',
     },
     {
@@ -115,7 +115,7 @@ export const adsData: Record<CategoryKey, readonly AdCourse[]> = {
       rating: 4.7,
       bestSelling: 1,
       name: 'Female Display Mannequin',
-      image: `${ASSETS}/hero_bg.jpg`,
+      image: `${ASSETS}/mannequin_4.jpg`,
       description: 'Elegant female mannequin designed for fashion retail.',
     },
     {
@@ -124,7 +124,7 @@ export const adsData: Record<CategoryKey, readonly AdCourse[]> = {
       rating: 4,
       bestSelling: 0,
       name: 'Head Mannequin',
-      image: `${ASSETS}/mannequin_1.png`,
+      image: `${ASSETS}/mannequin_5.jpg`,
       description: 'Display head for wigs, hats, and accessories.',
     },
     {
@@ -133,7 +133,7 @@ export const adsData: Record<CategoryKey, readonly AdCourse[]> = {
       rating: 3.9,
       bestSelling: 0,
       name: 'Kids Mannequin',
-      image: `${ASSETS}/mannequin_2.png`,
+      image: `${ASSETS}/experience_bg.jpg`,
       description: 'Child-size mannequin suitable for kids clothing.',
     },
   ],
@@ -141,24 +141,24 @@ export const adsData: Record<CategoryKey, readonly AdCourse[]> = {
 
 // Type guard to check if a string is a valid Category
 export function isValidCategory(category: string): category is CategoryKey {
-  return category in adsData;
+  return category in productsData;
 }
 
 // Helper function to get courses by category
-export function getCoursesByCategory(category: CategoryKey): AdCourse[] {
-  return [...adsData[category]];
+export function getCoursesByCategory(category: CategoryKey): Product[] {
+  return [...productsData[category]];
 }
 
 // Helper to get all best selling courses
-export function getBestSellingCourses(): AdCourse[] {
-  return Object.values(adsData)
+export function getBestSellingCourses(): Product[] {
+  return Object.values(productsData)
     .flat()
     .filter((course) => course.bestSelling === 1);
 }
 
 // Additional useful helpers
-export function getCourseById(id: number): AdCourse | undefined {
-  return Object.values(adsData)
+export function getCourseById(id: number): Product | undefined {
+  return Object.values(productsData)
     .flat()
     .find((course) => course.id === id);
 }
@@ -167,7 +167,7 @@ export function getCourseById(id: number): AdCourse | undefined {
 export function getCategoryFromCourse(
   courseId: number,
 ): CategoryKey | undefined {
-  for (const [category, courses] of Object.entries(adsData)) {
+  for (const [category, courses] of Object.entries(productsData)) {
     if (courses.some((course) => course.id === courseId)) {
       return category as CategoryKey;
     }
@@ -175,4 +175,4 @@ export function getCategoryFromCourse(
   return undefined;
 }
 
-export default adsData;
+export default productsData;

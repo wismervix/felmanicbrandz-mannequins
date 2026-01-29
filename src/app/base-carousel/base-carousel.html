@@ -1,10 +1,12 @@
 <div #root class="testimonial-layout">
   <div class="limiter">
     <div #wrapper class="testimonial-wrapper">
-      @for (ad of ads(); track trackByAdId($index, ad)) {
+      @for (product of products(); track trackByAdId($index, product)) {
         <div class="slide-wrapper">
-          <app-each-ad [ad]="ad" [category]="category()" />
+          <app-each-product [product]="product" [category]="category()" />
         </div>
+      } @empty {
+        <p>No product available!</p>
       }
     </div>
   </div>
