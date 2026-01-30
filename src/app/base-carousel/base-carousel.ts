@@ -25,6 +25,8 @@ export class BaseCarousel implements AfterViewInit, OnDestroy {
   category = input.required<Category>();
 
   @ViewChild('root', { static: true }) rootElement!: ElementRef<HTMLDivElement>;
+  @ViewChild('limiter', { static: true })
+  limiterElement!: ElementRef<HTMLDivElement>;
   @ViewChild('wrapper', { static: true })
   wrapperElement!: ElementRef<HTMLDivElement>;
 
@@ -35,13 +37,69 @@ export class BaseCarousel implements AfterViewInit, OnDestroy {
 
   private readonly EXTRA_GAP = 350;
   private resizeObserver: ResizeObserver | null = null;
+  private visibleIndices = signal<number[]>([]);
 
   // Computed values
   canGoPrev = computed(() => this.currentIndex() > 0);
   canGoNext = computed(() => this.currentIndex() < this.maxIndex());
+  progress = computed(() => (this.currentIndex() + 1) / (this.maxIndex() + 1));
+  totalProducts = computed(() => this.products().length);
+
+  visibleRange = computed(() => {
+    const currentIdx = this.currentIndex();
+    const cardW = this.cardWidth();
+    const total = this.totalProducts();
+
+    if (!this.limiterElement || cardW === 0 || total === 0) {
+      return { from: 1, to: 1 };
+    }
+
+    const viewportWidth = this.limiterElement.nativeElement.offsetWidth;
+
+    // Calculate actual scroll position (same logic as updateSliderPosition)
+    let scrollLeft = currentIdx * cardW;
+
+    // Add extra breathing room at the end (same as updateSliderPosition)
+    if (currentIdx === this.maxIndex()) {
+      const wrapper = this.wrapperElement.nativeElement;
+      const totalWidth = wrapper.scrollWidth;
+      const maxOffset = Math.max(
+        0,
+        totalWidth - viewportWidth + this.EXTRA_GAP,
+      );
+      scrollLeft = Math.min(scrollLeft + this.EXTRA_GAP, maxOffset);
+    }
+
+    // Find items that are at least 60% visible
+    const visibleItems: number[] = [];
+
+    for (let i = 0; i < total; i++) {
+      const itemStart = i * cardW;
+      const itemEnd = (i + 1) * cardW;
+
+      // Calculate visible portion of this item
+      const visibleStart = Math.max(itemStart, scrollLeft);
+      const visibleEnd = Math.min(itemEnd, scrollLeft + viewportWidth);
+      const visibleWidth = Math.max(0, visibleEnd - visibleStart);
+
+      // Check if item is 100% visible
+      if (visibleWidth >= 1.0 * cardW) {
+        visibleItems.push(i + 1); // 1-based indexing
+      }
+    }
+
+    if (visibleItems.length === 0) {
+      return { from: 1, to: 1 };
+    }
+
+    return {
+      from: Math.min(...visibleItems),
+      to: Math.max(...visibleItems),
+    };
+  });
 
   // Track slide wrapper elements
-  trackByAdId = (_index: number, ad: Product): number => ad.id;
+  trackByProductId = (_index: number, product: Product): number => product.id;
 
   ngAfterViewInit(): void {
     this.calculateDimensions();
@@ -63,6 +121,60 @@ export class BaseCarousel implements AfterViewInit, OnDestroy {
     this.updateSliderPosition();
   }
 
+  onKeydown(event: KeyboardEvent): void {
+    switch (event.key) {
+      case 'ArrowLeft':
+        this.move(-1);
+        event.preventDefault();
+        console.log('Event: ', event.key);
+        break;
+
+      case 'ArrowRight':
+        this.move(1);
+        event.preventDefault();
+        console.log('Event: ', event.key);
+        break;
+
+      case 'Home':
+        this.goToIndex(0);
+        event.preventDefault();
+        console.log('Event: ', event.key);
+        break;
+
+      case 'End':
+        this.goToIndex(this.maxIndex());
+        event.preventDefault();
+        console.log('Event: ', event.key);
+        break;
+    }
+  }
+
+  onSeekStart(event: PointerEvent): void {
+    const progressEl = event.currentTarget as HTMLElement;
+    const rect = progressEl.getBoundingClientRect();
+
+    const seek = (clientX: number) => {
+      const ratio = Math.min(
+        1,
+        Math.max(0, (clientX - rect.left) / rect.width),
+      );
+
+      const index = Math.round(ratio * this.maxIndex());
+      this.goToIndex(index);
+    };
+
+    seek(event.clientX);
+
+    const move = (e: PointerEvent) => seek(e.clientX);
+    const up = () => {
+      window.removeEventListener('pointermove', move);
+      window.removeEventListener('pointerup', up);
+    };
+
+    window.addEventListener('pointermove', move);
+    window.addEventListener('pointerup', up);
+  }
+
   private calculateDimensions(): void {
     const wrapper = this.wrapperElement.nativeElement;
     const slideWrappers =
@@ -78,7 +190,7 @@ export class BaseCarousel implements AfterViewInit, OnDestroy {
     this.cardWidth.set(cardWidth + marginRight);
 
     // Calculate max index
-    const visibleWidth = this.rootElement.nativeElement.offsetWidth;
+    const visibleWidth = this.limiterElement.nativeElement.offsetWidth;
     const totalWidth = wrapper.scrollWidth;
     const maxOffset = Math.max(0, totalWidth - visibleWidth + this.EXTRA_GAP);
     this.maxIndex.set(Math.ceil(maxOffset / this.cardWidth()));
@@ -86,10 +198,10 @@ export class BaseCarousel implements AfterViewInit, OnDestroy {
 
   private updateSliderPosition(): void {
     const wrapper = this.wrapperElement.nativeElement;
-    const root = this.rootElement.nativeElement;
+    const limiter = this.limiterElement.nativeElement;
 
     const totalWidth = wrapper.scrollWidth;
-    const visibleWidth = root.offsetWidth;
+    const visibleWidth = limiter.offsetWidth;
     const maxOffset = totalWidth - visibleWidth + this.EXTRA_GAP;
 
     // Calculate base scroll amount
@@ -111,7 +223,7 @@ export class BaseCarousel implements AfterViewInit, OnDestroy {
         this.updateSliderPosition();
       });
 
-      this.resizeObserver.observe(this.rootElement.nativeElement);
+      this.resizeObserver.observe(this.limiterElement.nativeElement);
       this.resizeObserver.observe(this.wrapperElement.nativeElement);
     } else {
       // Fallback for older browsers

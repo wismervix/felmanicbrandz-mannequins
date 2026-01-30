@@ -1,8 +1,13 @@
-<div #root class="testimonial-layout">
-  <div class="limiter">
+<div
+  #root
+  class="testimonial-layout"
+  tabindex="0"
+  (keydown)="onKeydown($event)"
+>
+  <div class="limiter" #limiter>
     <div #wrapper class="testimonial-wrapper">
-      @for (product of products(); track trackByAdId($index, product)) {
-        <div class="slide-wrapper">
+      @for (product of products(); track trackByProductId($index, product)) {
+        <div class="slide-wrapper" [attr.data-index]="$index">
           <app-each-product [product]="product" [category]="category()" />
         </div>
       } @empty {
@@ -12,7 +17,7 @@
   </div>
 
   <div class="controls">
-    <button 
+    <button
       type="button"
       (click)="move(-1)"
       class="prev-btn-testimonial"
@@ -22,8 +27,8 @@
     >
       <i class="fa-solid fa-angle-left"></i>
     </button>
-    
-    <button 
+
+    <button
       type="button"
       (click)="move(1)"
       class="next-btn-testimonial"
@@ -36,7 +41,7 @@
   </div>
 
   <!-- Optional: Dots indicator -->
-  @if (maxIndex() > 0) {
+  <!-- @if (maxIndex() > 0) {
     <div class="dots-indicator">
       @for (dot of [].constructor(maxIndex() + 1); track $index) {
         <button
@@ -48,5 +53,13 @@
         ></button>
       }
     </div>
-  }
+  } -->
+
+  <div class="counter">
+    {{ visibleRange().from }} – {{ visibleRange().to }} of {{ totalProducts() }}
+  </div>
+
+  <div class="progress" (pointerdown)="onSeekStart($event)">
+    <div class="progress-bar" [style.width.%]="progress() * 100"></div>
+  </div>
 </div>
