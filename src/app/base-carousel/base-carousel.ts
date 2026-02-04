@@ -10,17 +10,42 @@ import {
   ChangeDetectionStrategy,
 } from '@angular/core';
 import { EachProduct } from '../each-product/each-product';
+import { OrderConfirmModal } from '../order-confirm-modal/order-confirm-modal';
 import { Product, Category } from '../../products';
+import { OrderService } from '../services/order';
+import { OrderPayload } from '../order-confirm-modal/order-confirm-modal';
 
 @Component({
   selector: 'app-base-carousel',
   standalone: true,
-  imports: [EachProduct],
+  imports: [EachProduct, OrderConfirmModal],
   templateUrl: './base-carousel.html',
   styleUrl: './base-carousel.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BaseCarousel implements AfterViewInit, OnDestroy {
+  pendingOrder: OrderPayload | null = null;
+
+  constructor(private orderService: OrderService) {}
+
+  flash(msg: string) {
+    alert(msg); // replace later with toast
+  }
+
+  handleModal(action: 'confirm' | 'cancel') {
+    if (!this.pendingOrder) return;
+
+    if (action === 'confirm') {
+      this.orderService.openWhatsApp(this.pendingOrder);
+    }
+
+    if (action === 'cancel') {
+      this.flash('Order cancelled');
+    }
+
+    this.pendingOrder = null;
+  }
+
   products = input.required<Product[]>();
   category = input.required<Category>();
 

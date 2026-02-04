@@ -1,0 +1,26 @@
+<div class="whatsapp-wrapper" [class.open]="isOpen">
+
+  <!-- Pills -->
+  <div class="pill-stack">
+    @for (contact of contacts; track contact.number) {
+      <a
+        class="whatsapp-pill"
+        [href]="getWhatsAppLink(contact.number)"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <i class="fa-brands fa-whatsapp icon"></i>
+        <div class="text">
+          <span class="label">{{ contact.label }}</span>
+          <small class="number">{{ formatNumber(contact.number) }}</small>
+        </div>
+      </a>
+    }
+  </div>
+
+  <!-- FAB -->
+  <button class="whatsapp-fab" (click)="toggle()">
+    <i class="fa-brands fa-whatsapp"></i>
+  </button>
+
+</div>

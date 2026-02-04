@@ -3,15 +3,15 @@ import {
   input,
   computed,
   signal,
-  effect,
+  output,
   ChangeDetectionStrategy,
 } from '@angular/core';
 import { Product, Category } from '../../products';
-import { TitleCasePipe } from '@angular/common';
+import { TitleCasePipe, DecimalPipe } from '@angular/common';
 
 @Component({
   selector: 'app-each-product',
-  imports: [TitleCasePipe],
+  imports: [TitleCasePipe, DecimalPipe],
   templateUrl: './each-product.html',
   styleUrl: './each-product.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -30,6 +30,20 @@ export class EachProduct {
   // }
 
   // Computed signals for reactive values
+  quantity = signal(1);
+
+  increment() {
+    this.quantity.update((q) => q + 1);
+  }
+
+  decrement() {
+    this.quantity.update((q) => Math.max(1, q - 1));
+  }
+
+  resetQuantity() {
+    this.quantity.set(1);
+  }
+
   starWidth = computed(() => {
     const rating = this.product()?.rating ?? 0;
     return (Math.min(Math.max(rating, 0), 5) / 5) * 100; // 0-100%
@@ -37,14 +51,15 @@ export class EachProduct {
 
   isBestSelling = computed(() => this.product()?.bestSelling === 1);
 
-  // Event handler
-  onButtonClick() {
-    if (this.isBestSelling()) {
-      console.log('Continue studying:', this.product()?.name);
-      // Emit event or navigate
-      // this.continueStudy.emit(this.product()!);
-    } else {
-      console.log('Course locked:', this.product()?.name);
-    }
+  buy = output<{
+    product: Product;
+    quantity: number;
+  }>();
+
+  openConfirm() {
+    this.buy.emit({
+      product: this.product(),
+      quantity: this.quantity(),
+    });
   }
 }

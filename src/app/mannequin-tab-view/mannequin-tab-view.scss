@@ -28,18 +28,4 @@
 // ========================
 .products-listing {
   padding: 20px 0 50px;
-
-  .small-title {
-    margin-bottom: 33px;
-    @include mixin.dynamic-text(700, clamp(25px, 3vw, 43px), $primary);
-  }
-
-  .no-courses {
-    text-align: center;
-    padding: 60px 20px;
-    background: rgba($primary, 0.05);
-    border-radius: 12px;
-    @include mixin.dynamic-text(500, 18px, rgba($primary, 0.7));
-    border: 2px dashed rgba($primary, 0.2);
-  }
 }

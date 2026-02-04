@@ -8,7 +8,7 @@
   // margin-bottom: 68px;
   background:
     linear-gradient($primary-overlay, $primary-overlay),
-    url("/assets/images/mannequin_5.jpg") center/cover no-repeat fixed;
+    url("/assets/images/mannequin_7.jpg") center/cover no-repeat fixed;
   @include mixin.centered();
 
   .title {
@@ -17,7 +17,7 @@
 }
 
 section.shop-content {
-  // background-color: #f7f7f7;
+  background-color: #f7f7f7;
   padding: clamp(30px, 5.2vw, 75px) 0 clamp(50px, 9.1vw, 131px);
 
   h2.title {

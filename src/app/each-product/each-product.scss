@@ -4,11 +4,25 @@
 
 .each-product {
   height: 100%;
-  padding: 20px 0 0;
   max-width: 268px;
+  min-height: 460px;
+  padding: 5px 0 0;
   border-radius: 14px 14px 20px 20px;
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    transparent 40%,
+    #fff 40%,
+    #fff 100%
+  );
+  @include mixin.spread(0, start, column);
+
+  &:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+  }
 
   .img-cont {
+    width: 100%;
     height: 244px; // Added for consistent image container
     overflow: hidden;
     position: relative;
@@ -57,13 +71,12 @@
 
   .product-details {
     // min-height: 235px;
+    flex-grow: 1;
     background: #fff;
     padding: 18px 13px;
     border-radius: 0 0 20px 20px;
-
-    &:hover {
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
-    }
+    @include mixin.spread(20px, start, column);
+    // @include mixin.spread(clamp(20px, 2.1vw, 30px), start, column);
 
     .price-spread {
       @include mixin.spread();
@@ -109,14 +122,15 @@
     }
 
     .cta-spread {
-      margin-top: clamp(20px, 2.1vw, 30px);
+      width: 100%;
       @include mixin.spread();
+      // margin-top: clamp(20px, 2.1vw, 30px);
 
-      @media(min-width: 600px) and (max-width: 800px){
+      @media (min-width: 600px) and (max-width: 800px) {
         @include mixin.spread(15px, start, column);
       }
 
-      @media(max-width: 500px){
+      @media (max-width: 500px) {
         @include mixin.spread(15px, start, column);
       }
 
@@ -152,8 +166,8 @@
         height: clamp(30px, 2.4vw, 34px);
         @include mixin.dynamic-text(500, clamp(15.5px, 1.3vw, 18px), #fff);
 
-        &:hover{
-          background-color: #613B2E;
+        &:hover {
+          background-color: #613b2e;
         }
       }
     }

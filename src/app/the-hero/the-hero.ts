@@ -10,8 +10,7 @@ export class TheHero implements OnInit {
   slides = [
     'assets/images/hero_bg.jpg',
     'assets/images/experience_bg.jpg',
-    'assets/images/mannequin_1.png',
-    // 'assets/images/course-1.jpg',
+    'assets/images/mannequin_4.jpg',
   ];
 
   current = 0;

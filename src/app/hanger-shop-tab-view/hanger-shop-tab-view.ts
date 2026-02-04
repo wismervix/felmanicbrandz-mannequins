@@ -21,15 +21,17 @@ import { Product, CategoryKey, getCoursesByCategory } from '../../products';
 export class HangerShopTabView implements OnInit {
   private titleService = inject(Title);
 
-  ngOnInit(): void {
-    this.titleService.setTitle('Felmanic Mannequins | Shop | Hanger');
-  }
-  // Pagination state
+  // Pagination config
+  readonly pageSize = 12;
   currentPage = 1;
-  readonly totalPages = 3;
+  totalPages = 0;
+
+  // Data
+  allProducts: Product[] = [];
   currentProducts: Product[] = [];
 
-  constructor() {
+  ngOnInit(): void {
+    this.titleService.setTitle('Felmanic Mannequins | Shop | Hanger');
     // Initialize with hangers products
     this.loadProducts('hangers');
   }
@@ -40,29 +42,26 @@ export class HangerShopTabView implements OnInit {
 
   // Add method to load products
   loadProducts(category: CategoryKey): void {
-    this.currentProducts = this.getCoursesByCategory(category);
+    this.allProducts = this.getCoursesByCategory(category);
+
+    this.totalPages = Math.ceil(this.allProducts.length / this.pageSize);
+    this.currentPage = 1;
+
+    this.updateCurrentProducts();
   }
 
-  getCategoryDisplayName(category: CategoryKey): string {
-    return category.charAt(0).toUpperCase() + category.slice(1);
+  updateCurrentProducts(): void {
+    const startIndex = (this.currentPage - 1) * this.pageSize;
+    const endIndex = startIndex + this.pageSize;
+
+    this.currentProducts = this.allProducts.slice(startIndex, endIndex);
   }
 
-  // Helper method to get star rating for a specific product
-  getStarWidth(product: Product): number {
-    const rating = product?.rating ?? 0;
-    return (Math.min(Math.max(rating, 0), 5) / 5) * 100; // 0-100%
-  }
-
-  // Helper method to check if a product is best selling
-  isBestSelling(product: Product): boolean {
-    return product?.bestSelling === 1;
-  }
   goToPage(page: number): void {
-    if (page >= 1 && page <= this.totalPages) {
-      this.currentPage = page;
-      // In a real app, you would fetch data for this page
-      console.log(`Navigated to page ${page}`);
-    }
+    if (page < 1 || page > this.totalPages) return;
+
+    this.currentPage = page;
+    this.updateCurrentProducts();
   }
 
   nextPage(): void {
@@ -79,5 +78,20 @@ export class HangerShopTabView implements OnInit {
 
   getPageNumbers(): number[] {
     return Array.from({ length: this.totalPages }, (_, i) => i + 1);
+  }
+
+  getCategoryDisplayName(category: CategoryKey): string {
+    return category.charAt(0).toUpperCase() + category.slice(1);
+  }
+
+  // Helper method to get star rating for a specific product
+  getStarWidth(product: Product): number {
+    const rating = product?.rating ?? 0;
+    return (Math.min(Math.max(rating, 0), 5) / 5) * 100; // 0-100%
+  }
+
+  // Helper method to check if a product is best selling
+  isBestSelling(product: Product): boolean {
+    return product?.bestSelling === 1;
   }
 }
