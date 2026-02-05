@@ -3,7 +3,7 @@
   <div class="row products-listing">
     @for (product of currentProducts; track product.id) {
       <div class="col-md-4 col-sm-6 mb-4">
-        <app-each-product [product]="product" [category]="'hangers'" />
+        <app-each-product [product]="product" />
       </div>
     } @empty {
       <p>No product available!</p>

@@ -16,8 +16,4 @@ export class MannequinTabView {
   getCoursesByCategory(category: CategoryKey) {
     return getCoursesByCategory(category);
   }
-
-  getCategoryDisplayName(category: CategoryKey): string {
-    return category.charAt(0).toUpperCase() + category.slice(1);
-  }
 }

@@ -3,10 +3,9 @@ import {
   input,
   computed,
   signal,
-  output,
   ChangeDetectionStrategy,
 } from '@angular/core';
-import { Product, Category } from '../../products';
+import { Product } from '../../products';
 import { TitleCasePipe, DecimalPipe } from '@angular/common';
 import { CartService } from '../services/cart';
 import { ToastService } from '../services/toast';
@@ -20,7 +19,6 @@ import { ToastService } from '../services/toast';
 })
 export class EachProduct {
   product = input.required<Product>();
-  category = input.required<Category>();
 
   constructor(
     private cart: CartService,
@@ -29,23 +27,13 @@ export class EachProduct {
 
   addToCart() {
     this.cart.add(this.product(), this.quantity());
-    // this.toast.show(`Added ${this.product()?.name} to cart`);
     this.toast.show(
       `Added ${this.quantity()} × ${this.product().name} to cart`,
       'success',
     );
-    console.log('Cart: ', this.cart.getItems()());
+    // console.log('Cart: ', this.cart.getItems()());
     this.resetQuantity();
   }
-
-  // constructor() {
-  //   effect(() => {
-  //     const product = this.product();
-  //     if (product) {
-  //       console.log('Product mounted:', product);
-  //     }
-  //   });
-  // }
 
   // Computed signals for reactive values
   quantity = signal(1);

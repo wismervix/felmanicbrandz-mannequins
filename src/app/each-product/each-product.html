@@ -16,7 +16,7 @@
   <div class="product-details w-100">
     <div class="product-info w-100">
       <div class="price-spread">
-        <span class="category">{{ category() | titlecase }}</span>
+        <span class="category">{{ product().category | titlecase }}</span>
         <span class="price">₦{{ product().price }}</span>
       </div>
       <h3 class="name">{{ product().name }}</h3>

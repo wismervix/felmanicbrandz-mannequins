@@ -10,7 +10,7 @@ import {
   ChangeDetectionStrategy,
 } from '@angular/core';
 import { EachProduct } from '../each-product/each-product';
-import { Product, Category, OrderPayload } from '../../products';
+import { Product } from '../../products';
 
 @Component({
   selector: 'app-base-carousel',
@@ -22,7 +22,6 @@ import { Product, Category, OrderPayload } from '../../products';
 })
 export class BaseCarousel implements AfterViewInit, OnDestroy {
   products = input.required<Product[]>();
-  category = input.required<Category>();
 
   @ViewChild('root', { static: true }) rootElement!: ElementRef<HTMLDivElement>;
   @ViewChild('limiter', { static: true })

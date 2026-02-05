@@ -79,19 +79,4 @@ export class HangerShopTabView implements OnInit {
   getPageNumbers(): number[] {
     return Array.from({ length: this.totalPages }, (_, i) => i + 1);
   }
-
-  getCategoryDisplayName(category: CategoryKey): string {
-    return category.charAt(0).toUpperCase() + category.slice(1);
-  }
-
-  // Helper method to get star rating for a specific product
-  getStarWidth(product: Product): number {
-    const rating = product?.rating ?? 0;
-    return (Math.min(Math.max(rating, 0), 5) / 5) * 100; // 0-100%
-  }
-
-  // Helper method to check if a product is best selling
-  isBestSelling(product: Product): boolean {
-    return product?.bestSelling === 1;
-  }
 }
