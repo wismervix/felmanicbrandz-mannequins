@@ -1,0 +1,14 @@
+<div class="toast-container position-fixed end-0 p-3">
+  @for (t of toast.getToasts()(); track t.id) {
+    <div
+      class="toast show mb-2 text-white"
+      [class.bg-success]="t.type === 'success'"
+      [class.bg-danger]="t.type === 'error'"
+      [class.bg-dark]="t.type === 'info'"
+    >
+      <div class="toast-body">
+        {{ t.message }}
+      </div>
+    </div>
+  }
+</div>

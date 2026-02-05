@@ -1,22 +1,84 @@
 <div class="modal-backdrop" (click)="close()"></div>
 
 <div class="cart-modal">
-  MODAL IS ALIVE
-  @if (cart.getItems()().length) {
-    @for (item of cart.getItems()(); track item.product.id) {
-      <p>{{ item.product.name }}</p>
+  <div class="cart-scroll">
+    <!-- HEADER -->
+    <div class="header">
+      <h3>Review your order</h3>
+      <p class="subtitle">
+        Make sure everything looks right before sending to WhatsApp
+      </p>
+    </div>
 
-      <button (click)="dec(item)">-</button>
-      {{ item.quantity }}
-      <button (click)="inc(item)">+</button>
+    @if (cart.getItems()().length) {
+      <!-- ITEMS -->
+      <div class="items">
+        @for (item of cart.getItems()(); track item.product.id) {
+          <div class="item">
+            <!-- PRODUCT IMAGE -->
+            <img
+              class="thumb"
+              [src]="item.product.image"
+              [alt]="item.product.name"
+            />
 
-      <button (click)="remove(item)">✕</button>
+            <!-- PRODUCT INFO -->
+            <div class="info">
+              <p class="name">{{ item.product.name }}</p>
+              <p class="price">₦{{ item.product.price }}</p>
+              <p class="line-total">
+                ₦{{ item.product.price * item.quantity }}
+              </p>
+            </div>
+
+            <!-- QUANTITY CONTROLS -->
+            <div class="controls">
+              <button (click)="dec(item)"><i class="fa-solid fa-minus"></i></button>
+              <span>{{ item.quantity }}</span>
+              <button (click)="inc(item)"><i class="fa-solid fa-plus"></i></button>
+            </div>
+
+            <!-- REMOVE -->
+            <button class="remove text-danger" (click)="remove(item)"><i class="fa-solid fa-x"></i></button>
+          </div>
+        }
+      </div>
+
+      <!-- SUMMARY -->
+      <div class="summary">
+        <div class="each-strip">
+          <span>Total items</span>
+          <strong>{{ totalItems() }}</strong>
+        </div>
+
+        <div class="each-strip">
+          <span>Subtotal</span>
+          <strong>₦{{ totalPrice() }}</strong>
+        </div>
+
+        <div class="divider"></div>
+
+        <p class="info-note">✔ You can edit quantities before sending</p>
+
+        <p class="info-note">
+          ✔ Admin will confirm availability & delivery on WhatsApp
+        </p>
+
+        <p class="whatsapp-note">You’ll continue this order in WhatsApp.</p>
+      </div>
+
+      <!-- ACTIONS -->
+      <div class="actions">
+        <button class="place" (click)="placeOrder()">
+          Continue to WhatsApp
+        </button>
+        <button class="cancel" (click)="close()">Not now</button>
+      </div>
+    } @else {
+      <div class="empty">
+        <p>Your cart is empty</p>
+        <span>Add items to start an order</span>
+      </div>
     }
-
-    <button (click)="placeOrder()">Place Order</button>
-  } @else {
-    <p>Your cart is empty</p>
-  }
-
-  <button (click)="close()">Not now</button>
+  </div>
 </div>

@@ -6,10 +6,11 @@ import { TheNavbar } from './the-navbar/the-navbar';
 import { TheHome } from "./the-home/the-home";
 import { TheFooter } from "./the-footer/the-footer";
 import { WhatsappFloat } from "./whatsapp-float/whatsapp-float";
+import { ToastContainer } from "./toast-container/toast-container";
 
 @Component({
   selector: 'app-root',
-  imports: [TheNavbar, RouterOutlet, TheFooter, WhatsappFloat],
+  imports: [TheNavbar, RouterOutlet, TheFooter, WhatsappFloat, ToastContainer],
   // imports: [TheNavbar, TheHome, RouterOutlet],
   templateUrl: './app.html',
   styleUrl: './app.scss',

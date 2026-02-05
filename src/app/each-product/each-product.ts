@@ -9,6 +9,7 @@ import {
 import { Product, Category } from '../../products';
 import { TitleCasePipe, DecimalPipe } from '@angular/common';
 import { CartService } from '../services/cart';
+import { ToastService } from '../services/toast';
 
 @Component({
   selector: 'app-each-product',
@@ -20,13 +21,20 @@ import { CartService } from '../services/cart';
 export class EachProduct {
   product = input.required<Product>();
   category = input.required<Category>();
-  
-  constructor(private cart: CartService) {}
+
+  constructor(
+    private cart: CartService,
+    private toast: ToastService,
+  ) {}
 
   addToCart() {
     this.cart.add(this.product(), this.quantity());
+    // this.toast.show(`Added ${this.product()?.name} to cart`);
+    this.toast.show(
+      `Added ${this.quantity()} × ${this.product().name} to cart`,
+      'success',
+    );
     console.log('Cart: ', this.cart.getItems()());
-    
   }
 
   // constructor() {
