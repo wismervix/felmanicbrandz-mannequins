@@ -9,12 +9,13 @@
   z-index: 1000;
 }
 
-.modal {
+.cart-modal {
   position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background: #fff;
+  background: #111;
+  color: white;
   padding: 24px;
   border-radius: 14px;
   width: 320px;

@@ -25,6 +25,8 @@ export class EachProduct {
 
   addToCart() {
     this.cart.add(this.product(), this.quantity());
+    console.log('Cart: ', this.cart.getItems()());
+    
   }
 
   // constructor() {

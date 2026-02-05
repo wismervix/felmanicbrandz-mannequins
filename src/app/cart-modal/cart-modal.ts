@@ -1,5 +1,10 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { OrderService } from '../services/order';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  Output,
+} from '@angular/core';
+import { CheckoutService } from '../services/checkout';
 import { CartService } from '../services/cart';
 @Component({
   selector: 'app-cart-modal',
@@ -10,12 +15,12 @@ import { CartService } from '../services/cart';
 })
 export class CartModal {
   constructor(
-    private orderService: OrderService,
+    private checkoutService: CheckoutService,
     public cart: CartService,
   ) {}
 
   placeOrder() {
-    this.orderService.openWhatsApp(this.cart.getItems()());
+    this.checkoutService.openWhatsApp(this.cart.getItems()());
     this.cart.clear();
   }
 
@@ -33,7 +38,9 @@ export class CartModal {
     this.cart.remove(item.product.id);
   }
 
+  @Output() closed = new EventEmitter<void>();
+
   close() {
-    // emit close or toggle visibility
+    this.closed.emit();
   }
 }

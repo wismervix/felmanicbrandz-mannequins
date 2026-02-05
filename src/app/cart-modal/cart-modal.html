@@ -1,14 +1,22 @@
-@if (cart.getItems()().length) {
-  <div class="modal">
+<div class="modal-backdrop" (click)="close()"></div>
+
+<div class="cart-modal">
+  MODAL IS ALIVE
+  @if (cart.getItems()().length) {
     @for (item of cart.getItems()(); track item.product.id) {
       <p>{{ item.product.name }}</p>
+
       <button (click)="dec(item)">-</button>
       {{ item.quantity }}
       <button (click)="inc(item)">+</button>
+
       <button (click)="remove(item)">✕</button>
     }
 
     <button (click)="placeOrder()">Place Order</button>
-    <button (click)="close()">Not now</button>
-  </div>
-}
+  } @else {
+    <p>Your cart is empty</p>
+  }
+
+  <button (click)="close()">Not now</button>
+</div>

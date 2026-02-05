@@ -38,7 +38,7 @@
       </div>
 
       <div class="nav-end">
-        <div class="cart-icon">
+        <div class="cart-icon" (click)="toggleCart()">
           <span><i class="fa-solid fa-bag-shopping"></i></span>
           <div class="cart-badge">{{ cart.totalQuantity() }}</div>
         </div>
@@ -47,3 +47,7 @@
     </div>
   </div>
 </nav>
+
+@if (showCart) {
+  <app-cart-modal (closed)="closeCart()" />
+}

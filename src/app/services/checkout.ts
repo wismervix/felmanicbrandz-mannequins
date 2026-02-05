@@ -3,7 +3,7 @@ import { CartItem, OrderPayload } from '../../products';
 @Injectable({
   providedIn: 'root',
 })
-export class OrderService {
+export class CheckoutService {
   adminNumber = '2349021866293';
 
   openWhatsApp(items: CartItem[]) {

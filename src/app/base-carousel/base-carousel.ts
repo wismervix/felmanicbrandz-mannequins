@@ -11,7 +11,6 @@ import {
 } from '@angular/core';
 import { EachProduct } from '../each-product/each-product';
 import { Product, Category, OrderPayload } from '../../products';
-import { OrderService } from '../services/order';
 
 @Component({
   selector: 'app-base-carousel',

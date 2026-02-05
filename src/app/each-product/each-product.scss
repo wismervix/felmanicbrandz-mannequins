@@ -160,9 +160,9 @@
 
       .buy {
         gap: 6px;
+        width: fit-content;
         border-radius: 8px;
         background-color: $primary;
-        width: clamp(80px, 6.7vw, 97px);
         height: clamp(30px, 2.4vw, 34px);
         @include mixin.dynamic-text(500, clamp(15.5px, 1.3vw, 18px), #fff);
 

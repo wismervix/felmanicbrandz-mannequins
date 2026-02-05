@@ -8,11 +8,12 @@ import {
 import { RouterModule, Router, NavigationEnd } from '@angular/router';
 import { filter, Subscription } from 'rxjs';
 import { CartService } from '../services/cart';
+import { CartModal } from '../cart-modal/cart-modal';
 // import { SvgIcon } from '../svg-icon/svg-icon';
 
 @Component({
   selector: 'app-the-navbar',
-  imports: [RouterModule],
+  imports: [RouterModule, CartModal],
   // imports: [SvgIcon],
   templateUrl: './the-navbar.html',
   styleUrl: './the-navbar.scss',
@@ -22,6 +23,7 @@ export class TheNavbar implements OnInit, OnDestroy, AfterViewInit {
   private timeInterval: any;
 
   lastScrollTop = 0;
+  showCart = false;
   // showNavbar = true;
   showNavbar = false;
   // heroHeight = 0;
@@ -36,6 +38,17 @@ export class TheNavbar implements OnInit, OnDestroy, AfterViewInit {
     private router: Router,
     public cart: CartService,
   ) {}
+
+  toggleCart() {
+    // this.showCart = !this.showCart;
+    this.showCart = true;
+    console.log('Show Cart: ', this.showCart);
+  }
+
+  closeCart() {
+    this.showCart = false;
+    console.log('Show Cart: ', this.showCart);
+  }
 
   ngOnInit() {
     this.updateTime();
