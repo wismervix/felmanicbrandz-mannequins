@@ -3,65 +3,7 @@
   <div class="row products-listing">
     @for (product of currentProducts; track product.id) {
       <div class="col-md-4 col-sm-6 mb-4">
-        <div class="each-product">
-          <div class="img-cont">
-            <img
-              [src]="product.image"
-              [alt]="product.name"
-              [style.object-fit]="'cover'"
-            />
-            <div class="icon-cont">
-              <i class="fa-solid fa-heart"></i>
-            </div>
-            @if (isBestSelling(product)) {
-              <div class="c-badge">BEST SELLING</div>
-            }
-          </div>
-
-          <div class="product-details">
-            <div class="product-info w-100">
-              <div class="price-spread">
-                <span class="category">{{
-                  getCategoryDisplayName("hangers") | titlecase
-                }}</span>
-                <span class="price">₦{{ product.price }}</span>
-              </div>
-              <h3 class="name">{{ product.name }}</h3>
-
-              <div class="rating">
-                <div class="stars-outer">
-                  @for (_ of [1, 2, 3, 4, 5]; track _) {
-                    <i class="fa-solid fa-star"></i>
-                  }
-
-                  <div
-                    class="stars-inner"
-                    [style.width.%]="getStarWidth(product)"
-                  >
-                    @for (_ of [1, 2, 3, 4, 5]; track _) {
-                      <i class="fa-solid fa-star"></i>
-                    }
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="cta-spread">
-              <div class="counter-layer">
-                <button class="btn counter-btn">
-                  <i class="fa-solid fa-minus"></i>
-                </button>
-                <span class="counter-text">02</span>
-                <button class="btn counter-btn">
-                  <i class="fa-solid fa-plus"></i>
-                </button>
-              </div>
-              <button class="btn buy">
-                <i class="fa-solid fa-cart-shopping"></i> Buy
-              </button>
-            </div>
-          </div>
-        </div>
+        <app-each-product [product]="product" [category]="'hangers'" />
       </div>
     } @empty {
       <p>No product available!</p>

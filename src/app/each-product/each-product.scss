@@ -125,14 +125,7 @@
       width: 100%;
       @include mixin.spread();
       // margin-top: clamp(20px, 2.1vw, 30px);
-
-      @media (min-width: 600px) and (max-width: 800px) {
-        @include mixin.spread(15px, start, column);
-      }
-
-      @media (max-width: 500px) {
-        @include mixin.spread(15px, start, column);
-      }
+      @include mixin.spread(15px, start, column);
 
       .counter-layer {
         gap: 12px;

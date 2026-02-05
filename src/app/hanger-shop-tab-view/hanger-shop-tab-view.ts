@@ -5,15 +5,15 @@ import {
   OnInit,
 } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { TitleCasePipe } from '@angular/common';
 import { Title } from '@angular/platform-browser';
 
 import { Product, CategoryKey, getCoursesByCategory } from '../../products';
+import { EachProduct } from "../each-product/each-product";
 
 @Component({
   selector: 'app-hanger-shop-tab-view',
   standalone: true,
-  imports: [TitleCasePipe, RouterModule],
+  imports: [RouterModule, EachProduct],
   templateUrl: './hanger-shop-tab-view.html',
   styleUrl: './hanger-shop-tab-view.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

@@ -3,17 +3,18 @@ import {
   ChangeDetectionStrategy,
   inject,
   OnInit,
+  signal,
 } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { TitleCasePipe } from '@angular/common';
 import { Title } from '@angular/platform-browser';
 
 import { Product, CategoryKey, getCoursesByCategory } from '../../products';
+import { EachProduct } from "../each-product/each-product";
 
 @Component({
   selector: 'app-mannequin-shop-tab-view',
   standalone: true,
-  imports: [TitleCasePipe, RouterModule],
+  imports: [RouterModule, EachProduct],
   templateUrl: './mannequin-shop-tab-view.html',
   styleUrl: './mannequin-shop-tab-view.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -31,9 +32,9 @@ export class MannequinShopTabView implements OnInit {
   currentProducts: Product[] = [];
 
   ngOnInit(): void {
-    this.titleService.setTitle('Felmanic Mannequins | Shop | Hanger');
-    // Initialize with hangers products
-    this.loadProducts('hangers');
+    this.titleService.setTitle('Felmanic Mannequins | Shop | Mannequins');
+    // Initialize with mannequins products
+    this.loadProducts('mannequins');
   }
 
   getCoursesByCategory(category: CategoryKey) {
