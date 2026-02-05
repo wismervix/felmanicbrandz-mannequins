@@ -35,6 +35,7 @@ export class EachProduct {
       'success',
     );
     console.log('Cart: ', this.cart.getItems()());
+    this.resetQuantity();
   }
 
   // constructor() {

@@ -13,7 +13,12 @@ export class CartService {
 
   add(product: Product, quantity = 1) {
     this.items.update((items) => {
-      const existing = items.find((i) => i.product.id === product.id);
+      const existing = items.find(
+        (i) =>
+          i.product.id === product.id &&
+          i.product.category === product.category,
+      );
+
       if (existing) {
         existing.quantity += quantity;
         return [...items];
@@ -22,18 +27,24 @@ export class CartService {
     });
   }
 
-  remove(productId: number) {
+  remove(product: Product) {
     this.items.update((items) =>
-      items.filter((i) => i.product.id !== productId),
+      items.filter(
+        (i) =>
+          i.product.id !== product.id ||
+          i.product.category !== product.category,
+      ),
     );
   }
 
-  updateQty(productId: number, qty: number) {
-    this.items.update((items) =>
-      items.map((i) =>
-        i.product.id === productId ? { ...i, quantity: qty } : i,
-      ),
-    );
+  updateQty(product: Product, qty: number) {
+  this.items.update((items) =>
+    items.map((i) =>
+      i.product.id === product.id && i.product.category === product.category
+        ? { ...i, quantity: qty }
+        : i,
+    ),
+  );
   }
 
   clear() {

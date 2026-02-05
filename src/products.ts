@@ -15,6 +15,7 @@ export interface CartItem {
 
 export interface Product {
   id: number;
+  category: Category;
   price: number;
   rating: number;
   bestSelling: BestSelling;
@@ -101,6 +102,7 @@ export const productsData: Record<CategoryKey, readonly Product[]> = {
     return {
       ...item,
       id: i + 1,
+      category: 'hangers',
       name: `${item.name} #${i + 1}`,
       price: randomizePrice(item.price),
       rating: randomizeRating(item.rating),
@@ -162,6 +164,7 @@ export const productsData: Record<CategoryKey, readonly Product[]> = {
     const item = base[i % base.length];
     return {
       ...item,
+      category: 'mannequins',
       id: i + 1,
       name: `${item.name} #${i + 1}`,
       price: randomizePrice(item.price),

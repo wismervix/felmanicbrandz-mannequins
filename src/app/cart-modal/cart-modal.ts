@@ -29,17 +29,17 @@ export class CartModal {
   }
 
   inc(item: any) {
-    this.cart.updateQty(item.product.id, item.quantity + 1);
+    this.cart.updateQty(item.product, item.quantity + 1);
   }
 
   dec(item: any) {
     if (item.quantity > 1) {
-      this.cart.updateQty(item.product.id, item.quantity - 1);
+      this.cart.updateQty(item.product, item.quantity - 1);
     }
   }
 
   remove(item: any) {
-    this.cart.remove(item.product.id);
+    this.cart.remove(item.product);
   }
 
   totalItems() {
