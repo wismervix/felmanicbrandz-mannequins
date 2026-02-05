@@ -143,6 +143,14 @@
           background-color: transparent;
           width: clamp(30px, 2.7vw, 39px);
           height: clamp(30px, 2.1vw, 30px);
+          transition:
+            color 0.2s ease,
+            background-color 0.2s ease,
+            transform 0.2s ease;
+
+          &:active {
+            transform: scale(1.02);
+          }
 
           &:hover {
             color: #fff;
@@ -158,6 +166,13 @@
         background-color: $primary;
         height: clamp(30px, 2.4vw, 34px);
         @include mixin.dynamic-text(500, clamp(15.5px, 1.3vw, 18px), #fff);
+        transition:
+          background-color 0.2s ease,
+          transform 0.2s ease;
+
+        &:active {
+          transform: scale(1.02);
+        }
 
         &:hover {
           background-color: #613b2e;
