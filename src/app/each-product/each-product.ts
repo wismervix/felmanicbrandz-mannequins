@@ -8,6 +8,7 @@ import {
 } from '@angular/core';
 import { Product, Category } from '../../products';
 import { TitleCasePipe, DecimalPipe } from '@angular/common';
+import { CartService } from '../services/cart';
 
 @Component({
   selector: 'app-each-product',
@@ -19,6 +20,12 @@ import { TitleCasePipe, DecimalPipe } from '@angular/common';
 export class EachProduct {
   product = input.required<Product>();
   category = input.required<Category>();
+  
+  constructor(private cart: CartService) {}
+
+  addToCart() {
+    this.cart.add(this.product(), this.quantity());
+  }
 
   // constructor() {
   //   effect(() => {
@@ -50,16 +57,4 @@ export class EachProduct {
   });
 
   isBestSelling = computed(() => this.product()?.bestSelling === 1);
-
-  buy = output<{
-    product: Product;
-    quantity: number;
-  }>();
-
-  openConfirm() {
-    this.buy.emit({
-      product: this.product(),
-      quantity: this.quantity(),
-    });
-  }
 }

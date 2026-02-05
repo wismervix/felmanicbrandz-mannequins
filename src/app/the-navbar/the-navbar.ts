@@ -7,6 +7,7 @@ import {
 } from '@angular/core';
 import { RouterModule, Router, NavigationEnd } from '@angular/router';
 import { filter, Subscription } from 'rxjs';
+import { CartService } from '../services/cart';
 // import { SvgIcon } from '../svg-icon/svg-icon';
 
 @Component({
@@ -31,7 +32,10 @@ export class TheNavbar implements OnInit, OnDestroy, AfterViewInit {
   private heroObserver?: IntersectionObserver;
   private routerSubscription?: Subscription;
 
-  constructor(private router: Router) {}
+  constructor(
+    private router: Router,
+    public cart: CartService,
+  ) {}
 
   ngOnInit() {
     this.updateTime();

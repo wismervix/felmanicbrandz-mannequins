@@ -1,0 +1,14 @@
+@if (cart.getItems()().length) {
+  <div class="modal">
+    @for (item of cart.getItems()(); track item.product.id) {
+      <p>{{ item.product.name }}</p>
+      <button (click)="dec(item)">-</button>
+      {{ item.quantity }}
+      <button (click)="inc(item)">+</button>
+      <button (click)="remove(item)">✕</button>
+    }
+
+    <button (click)="placeOrder()">Place Order</button>
+    <button (click)="close()">Not now</button>
+  </div>
+}

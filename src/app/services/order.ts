@@ -1,25 +1,33 @@
 import { Injectable } from '@angular/core';
-import { OrderPayload } from '../order-confirm-modal/order-confirm-modal';
-
+import { CartItem, OrderPayload } from '../../products';
 @Injectable({
   providedIn: 'root',
 })
 export class OrderService {
   adminNumber = '2349021866293';
 
-  openWhatsApp(order: OrderPayload) {
+  openWhatsApp(items: CartItem[]) {
+    const lines = items.map(
+      (i) =>
+        `• ${i.product.name} × ${i.quantity} – ₦${i.product.price * i.quantity}`,
+    );
+
+    const total = items.reduce(
+      (sum, i) => sum + i.product.price * i.quantity,
+      0,
+    );
+
     const msg = `
 Hello, I want to place an order.
 
-Product: ${order.product.name}
-Price: ₦${order.product.price}
-Quantity: ${order.quantity}
-Total: ₦${order.product.price * order.quantity}
-    `.trim();
+${lines.join('\n')}
 
-    const url =
-      `https://wa.me/${this.adminNumber}?text=` + encodeURIComponent(msg);
+Total: ₦${total}
+`.trim();
 
-    window.open(url, '_blank');
+    window.open(
+      `https://wa.me/${this.adminNumber}?text=${encodeURIComponent(msg)}`,
+      '_blank',
+    );
   }
 }
