@@ -7,10 +7,11 @@ import {
 } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 // import { SearchFilter } from "../search-filter/search-filter";
+import { NgClass } from '@angular/common';
 
 @Component({
   selector: 'app-home-shop-tab',
-  imports: [RouterModule],
+  imports: [RouterModule, NgClass],
   // imports: [RouterModule, SearchFilter],
   templateUrl: './home-shop-tab.html',
   styleUrl: './home-shop-tab.scss',
@@ -20,11 +21,11 @@ export class HomeShopTab {
   @ViewChildren('tabEl') tabEls!: QueryList<ElementRef<HTMLElement>>;
 
   tabs = [
-    { name: 'hanger', label: 'Hangers', route: '/hangers' },
+    { name: 'hanger', label: 'Hangers', route: 'hangers' },
     {
       name: 'mannequins',
       label: 'Mannequins',
-      route: '/mannequins',
+      route: 'mannequins',
     },
   ];
 
@@ -32,6 +33,21 @@ export class HomeShopTab {
 
   goBack() {
     window.history.back();
+  }
+
+  isActiveTab(route: string): boolean {
+    const currentUrl = this.router.url;
+
+    if (route === 'hangers') {
+      // Activate tab if URL is '' (home) or 'hangers'
+      return currentUrl === '/' || currentUrl.includes('/hangers');
+    }
+
+    if (route === 'mannequins') {
+      return currentUrl.includes('/mannequins');
+    }
+
+    return false;
   }
 
   scrollActiveTabIntoView(index?: number) {

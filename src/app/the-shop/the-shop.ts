@@ -7,11 +7,12 @@ import {
 } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { SearchFilter } from '../search-filter/search-filter';
+import { NgClass } from '@angular/common';
 
 @Component({
   selector: 'app-the-shop',
   standalone: true,
-  imports: [RouterModule, SearchFilter],
+  imports: [RouterModule, SearchFilter, NgClass],
   templateUrl: './the-shop.html',
   styleUrl: './the-shop.scss',
 })
@@ -28,6 +29,21 @@ export class TheShop {
 
   goBack() {
     window.history.back();
+  }
+
+  isActiveTab(route: string): boolean {
+    const currentUrl = this.router.url;
+
+    if (route === 'hangers') {
+      // Activate tab if URL is '' (shop) or 'hangers'
+      return currentUrl === '/shop' || currentUrl.includes('/hangers');
+    }
+
+    if (route === 'mannequins') {
+      return currentUrl.includes('/mannequins');
+    }
+
+    return false;
   }
 
   scrollActiveTabIntoView(index?: number) {

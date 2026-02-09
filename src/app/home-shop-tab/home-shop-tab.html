@@ -12,9 +12,8 @@
         #tabEl
         class="each-tab"
         [routerLink]="tab.route"
-        routerLinkActive="active"
-        [routerLinkActiveOptions]="{ exact: true }"
         (click)="scrollActiveTabIntoView(i)"
+        [ngClass]="{ active: isActiveTab(tab.route) }"
       >
         {{ tab.label }}
       </a>

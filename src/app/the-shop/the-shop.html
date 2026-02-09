@@ -12,6 +12,8 @@
   <!-- <button type="button" class="back-link" (click)="goBack()">
     &larr; Back
   </button> -->
+  <!-- routerLinkActive="active"
+  [routerLinkActiveOptions]="{ exact: true }" -->
 
   <nav class="prod-tabs-cont" #shopTabsWrapper>
     @for (tab of tabs; track tab.name; let i = $index) {
@@ -19,9 +21,8 @@
         #shopTabEl
         class="each-tab"
         [routerLink]="tab.route"
-        routerLinkActive="active"
-        [routerLinkActiveOptions]="{ exact: true }"
         (click)="scrollActiveTabIntoView(i)"
+        [ngClass]="{ active: isActiveTab(tab.route) }"
       >
         {{ tab.label }}
       </a>
