@@ -8,9 +8,11 @@ import {
   signal,
   computed,
   ChangeDetectionStrategy,
+  effect,
 } from '@angular/core';
 import { EachProduct } from '../each-product/each-product';
 import { Product } from '../../products';
+import { ProductFilterService } from '../services/product-filter';
 
 @Component({
   selector: 'app-base-carousel',
@@ -22,6 +24,17 @@ import { Product } from '../../products';
 })
 export class BaseCarousel implements AfterViewInit, OnDestroy {
   products = input.required<Product[]>();
+  filteredProducts; // declare without initializing
+
+  constructor(public filter: ProductFilterService) {
+    // Sync products to the service whenever products change
+    effect(() => {
+      this.filter.setProducts(this.products());
+    });
+
+    // Now we can safely assign filteredProducts
+    this.filteredProducts = this.filter.filteredProducts;
+  }
 
   @ViewChild('root', { static: true }) rootElement!: ElementRef<HTMLDivElement>;
   @ViewChild('limiter', { static: true })

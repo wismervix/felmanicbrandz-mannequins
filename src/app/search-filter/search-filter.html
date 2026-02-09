@@ -1,0 +1,55 @@
+<div class="search-filter">
+  <!-- SEARCH -->
+  <div class="search-box">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <input
+      type="text"
+      placeholder="Search products..."
+      [value]="filter.searchTerm()"
+      (input)="onSearch($any($event.target).value)"
+    />
+  </div>
+
+  <!-- SORT -->
+  <app-ui-dropdown
+    [options]="sortOptions"
+    [value]="filter.sort()"
+    placeholder="Sort products"
+    (changed)="onSort($event)"
+  />
+
+  <!-- PRICE RANGE -->
+  <app-ui-price-range />
+
+  <!-- CATEGORY FILTER -->
+  <div class="categories">
+    <button
+      (click)="onCategory('all')"
+      class="chip active"
+      [class.active]="filter.category() === 'all'"
+    >
+      All
+    </button>
+    <button
+      (click)="onCategory('mannequins')"
+      class="chip"
+      [class.active]="filter.category() === 'mannequins'"
+    >
+      Mannequins
+    </button>
+    <button
+      (click)="onCategory('hangers')"
+      class="chip"
+      [class.active]="filter.category() === 'hangers'"
+    >
+      Hangers
+    </button>
+    <button
+      (click)="onCategory('accessories')"
+      class="chip"
+      [class.active]="filter.category() === 'accessories'"
+    >
+      Accessories
+    </button>
+  </div>
+</div>

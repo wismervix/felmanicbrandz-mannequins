@@ -1,23 +1,23 @@
 <div class="container-cm">
   <div class="row products-listing">
-    @for (product of currentProducts; track product.id) {
+    @for (product of pagedProducts(); track product.id) {
       <div class="col-md-4 col-sm-6 mb-4">
         <app-each-product [product]="product" />
       </div>
     } @empty {
-      <p>No product available!</p>
+      <p class="text-center fs-6">No product available!</p>
     }
   </div>
 
   <!-- Pagination -->
-  @if (totalPages > 1) {
+  @if (totalPages() > 1) {
     <nav aria-label="Course pagination">
       <ul class="pagination justify-content-center">
-        <li class="page-item" [class.disabled]="currentPage === 1">
+        <li class="page-item" [class.disabled]="currentPage() === 1">
           <button
             class="page-link"
             (click)="prevPage()"
-            [attr.disabled]="currentPage === 1 ? true : null"
+            [attr.disabled]="currentPage() === 1 ? true : null"
             aria-label="Previous page"
           >
             &lt;
@@ -25,11 +25,11 @@
         </li>
 
         @for (page of getPageNumbers(); track page) {
-          <li class="page-item" [class.active]="currentPage === page">
+          <li class="page-item" [class.active]="currentPage() === page">
             <button
               class="page-link"
               (click)="goToPage(page)"
-              [attr.aria-current]="currentPage === page ? 'page' : null"
+              [attr.aria-current]="currentPage() === page ? 'page' : null"
               [attr.aria-label]="'Page ' + page"
             >
               {{ page }}
@@ -37,11 +37,11 @@
           </li>
         }
 
-        <li class="page-item" [class.disabled]="currentPage === totalPages">
+        <li class="page-item" [class.disabled]="currentPage() === totalPages()">
           <button
             class="page-link"
             (click)="nextPage()"
-            [attr.disabled]="currentPage === totalPages ? true : null"
+            [attr.disabled]="currentPage() === totalPages() ? true : null"
             aria-label="Next page"
           >
             &gt;

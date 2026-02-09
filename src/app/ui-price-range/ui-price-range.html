@@ -1,0 +1,26 @@
+<div class="price-range">
+
+  <div class="labels">
+    <span>₦{{ localMin() | number }}</span>
+    <span>₦{{ localMax() | number }}</span>
+  </div>
+
+  <div class="sliders">
+    <input
+      type="range"
+      [min]="min()"
+      [max]="max()"
+      [value]="localMin()"
+      (input)="onMinChange($any($event.target).valueAsNumber)"
+    />
+
+    <input
+      type="range"
+      [min]="min()"
+      [max]="max()"
+      [value]="localMax()"
+      (input)="onMaxChange($any($event.target).valueAsNumber)"
+    />
+  </div>
+
+</div>

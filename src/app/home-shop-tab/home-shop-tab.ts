@@ -1,6 +1,4 @@
 import {
-  AfterViewInit,
-  AfterViewChecked,
   Component,
   ElementRef,
   ViewChild,
@@ -8,49 +6,32 @@ import {
   QueryList,
 } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
+// import { SearchFilter } from "../search-filter/search-filter";
 
 @Component({
   selector: 'app-home-shop-tab',
   imports: [RouterModule],
+  // imports: [RouterModule, SearchFilter],
   templateUrl: './home-shop-tab.html',
   styleUrl: './home-shop-tab.scss',
 })
-export class HomeShopTab implements AfterViewInit, AfterViewChecked {
+export class HomeShopTab {
   @ViewChild('tabsWrapper') tabsWrapper!: ElementRef<HTMLDivElement>;
   @ViewChildren('tabEl') tabEls!: QueryList<ElementRef<HTMLElement>>;
 
   tabs = [
-    { name: 'hanger', label: 'Hangers', route: '' },
-    // { name: 'strip', label: 'Strip', route: 'strip' },
+    { name: 'hanger', label: 'Hangers', route: '/hangers' },
     {
-      name: 'mannequin',
+      name: 'mannequins',
       label: 'Mannequins',
-      route: 'mannequin',
+      route: '/mannequins',
     },
   ];
 
-  private hasScrolled = false;
-
   constructor(private router: Router) {}
-
-  ngAfterViewInit() {
-    this.scrollActiveTabIntoView();
-  }
-
-  ngAfterViewChecked() {
-    // Prevent infinite scrolling loop
-    if (!this.hasScrolled) {
-      this.scrollActiveTabIntoView();
-      this.hasScrolled = true;
-    }
-  }
 
   goBack() {
     window.history.back();
-  }
-
-  isActive(route: string): boolean {
-    return this.router.url === route;
   }
 
   scrollActiveTabIntoView(index?: number) {

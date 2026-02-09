@@ -1,6 +1,7 @@
 .whatsapp-wrapper {
   position: fixed;
-  top: 90px;
+  // top: 90px;
+  bottom: 90px;
   right: 24px;
   z-index: 1000;
 }
@@ -27,8 +28,8 @@
 /* Pills container */
 .pill-stack {
   position: absolute;
-  //   bottom: 70px;
-  top: 70px;
+    bottom: 70px;
+  // top: 70px;
   right: 0;
   display: flex;
   flex-direction: column;

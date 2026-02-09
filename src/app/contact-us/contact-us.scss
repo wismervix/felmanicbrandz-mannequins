@@ -4,7 +4,7 @@
 /* ---------------- Hero ---------------- */
 
 .hero-wrapper {
-  min-height: 100vh;
+  min-height: calc(100vh + 70px);
   background:
     linear-gradient($primary-overlay, $primary-overlay),
     url("/assets/images/mannequin_3.jpg") center / cover no-repeat fixed;

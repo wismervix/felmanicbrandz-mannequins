@@ -17,15 +17,15 @@ export const routes: Routes = [
   {
     path: '',
     component: TheHome, // This will contain your tab component
+    data: { scrollToTop: true },
     children: [
       {
         path: '',
         component: HomeShopTab,
         children: [
-          { path: '', redirectTo: 'hanger', pathMatch: 'full' },
           { path: '', component: HangerTabView },
-          // { path: 'hanger', component: HangerTabView },
-          { path: 'mannequin', component: MannequinTabView },
+          { path: 'hangers', component: HangerTabView },
+          { path: 'mannequins', component: MannequinTabView },
         ],
       },
     ],
@@ -33,28 +33,32 @@ export const routes: Routes = [
   {
     path: 'shop',
     component: TheShop, // This will be rendered in app.component's router-outlet // This will contain your tab component
+    data: { scrollToTop: true },
     children: [
-      // { path: '', redirectTo: '', pathMatch: 'full' },
       { path: '', component: HangerShopTabView },
-      // { path: 'hanger', component: HangerShopTabView },
-      { path: 'mannequin', component: MannequinShopTabView },
+      { path: 'hangers', component: HangerShopTabView },
+      { path: 'mannequins', component: MannequinShopTabView },
     ],
   },
   {
     path: 'about',
     component: AboutUs, // This will be rendered in app.component's router-outlet
+    data: { scrollToTop: true },
   },
   {
     path: 'contact',
     component: ContactUs, // This will be rendered in app.component's router-outlet
+    data: { scrollToTop: true },
   },
   {
     path: 'privacy-policy',
     component: PrivacyPolicy, // This will be rendered in app.component's router-outlet
+    data: { scrollToTop: true },
   },
   {
     path: 'terms-and-conditions',
     component: TermsAndConditions, // This will be rendered in app.component's router-outlet
+    data: { scrollToTop: true },
   },
   { path: '**', redirectTo: '' }, // fallback
 ];

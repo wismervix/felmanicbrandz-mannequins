@@ -20,21 +20,31 @@
           routerLink="/"
           routerLinkActive="active"
           [routerLinkActiveOptions]="{ exact: true }"
+          (click)="collapseNav()"
           >Home</a
         >
         <a
           class="nav-link active"
           routerLink="/about"
           routerLinkActive="active"
+          (click)="collapseNav()"
         >
           About
         </a>
         <a
           class="nav-link active"
-           routerLink="/shop" routerLinkActive="active"
+          routerLink="/shop"
+          routerLinkActive="active"
+          (click)="collapseNav()"
           >shop</a
         >
-        <a class="nav-link" routerLink="/contact" routerLinkActive="active">Contact</a>
+        <a
+          class="nav-link"
+          routerLink="/contact"
+          routerLinkActive="active"
+          (click)="collapseNav()"
+          >Contact</a
+        >
       </div>
 
       <div class="nav-end">

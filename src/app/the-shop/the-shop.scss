@@ -12,6 +12,7 @@
   @include mixin.centered();
 
   .title {
+    margin-bottom: clamp(40px, 6.9vw, 100px);
     @include mixin.dynamic-text(800, clamp(42px, 10.4vw, 150px), #ffffff, center);
   }
 }

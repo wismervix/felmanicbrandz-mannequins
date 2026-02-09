@@ -22,7 +22,7 @@ export class CartModal {
   ) {}
 
   placeOrder() {
-    this.checkoutService.openWhatsApp(this.cart.getItems()());
+    this.checkoutService.openWhatsApp(this.cart.getItems());
     this.cart.clear();
 
     this.toast.show('Order sent to WhatsApp', 'success');
@@ -43,14 +43,12 @@ export class CartModal {
   }
 
   totalItems() {
-    return this.cart
-      .getItems()()
-      .reduce((sum, i) => sum + i.quantity, 0);
+    return this.cart.getItems().reduce((sum, i) => sum + i.quantity, 0);
   }
 
   totalPrice() {
     return this.cart
-      .getItems()()
+      .getItems()
       .reduce((sum, i) => sum + i.product.price * i.quantity, 0);
   }
 

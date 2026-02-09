@@ -4,7 +4,7 @@ import { CartItem, OrderPayload } from '../../products';
   providedIn: 'root',
 })
 export class CheckoutService {
-  adminNumber = '2349021866293';
+  adminNumber = '2349165710396';
 
   openWhatsApp(items: CartItem[]) {
     const lines = items.map(
@@ -20,9 +20,14 @@ export class CheckoutService {
     const msg = `
 Hello, I want to place an order.
 
+Items:
 ${lines.join('\n')}
 
 Total: ₦${total}
+
+Name:
+Delivery location:
+Preferred time:
 `.trim();
 
     window.open(

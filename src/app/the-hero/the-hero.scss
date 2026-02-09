@@ -59,23 +59,26 @@
       max-width: 455px;
       margin: 40px auto 36px;
       @include mixin.dynamic-text(400, 24px, #fff, center);
-    }
 
-    input {
-      height: 56px;
-      max-width: 344px;
-      color: #ffffff26;
-      margin: 0 auto 300px;
-      border-radius: 9999px;
-      backdrop-filter: blur(8px);
-      box-shadow: none !important;
-      background-color: transparent;
-      border: 0.86px solid #ffffff99;
-
-      &::placeholder {
-        color: #ffffff26;
+      & + * {
+        margin: 0 auto 300px;
       }
     }
+
+    // input {
+    //   height: 56px;
+    //   max-width: 344px;
+    //   color: #ffffff26;
+    //   border-radius: 9999px;
+    //   backdrop-filter: blur(8px);
+    //   box-shadow: none !important;
+    //   background-color: transparent;
+    //   border: 0.86px solid #ffffff99;
+
+    //   &::placeholder {
+    //     color: #ffffff26;
+    //   }
+    // }
   }
 
   .dots {

@@ -1,17 +1,43 @@
-import { Injectable, signal } from '@angular/core';
+import { Injectable, signal, effect, computed } from '@angular/core';
 import { Product, CartItem } from '../../products';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CartService {
-  private items = signal<CartItem[]>([]);
+  private readonly STORAGE_KEY = 'manniquin_cart';
 
-  getItems() {
-    return this.items.asReadonly();
+  private items = signal<CartItem[]>(this.loadFromStorage());
+
+  constructor() {
+    // auto-persist cart changes
+    effect(() => {
+      if (typeof window !== 'undefined') {
+        localStorage.setItem(this.STORAGE_KEY, JSON.stringify(this.items()));
+      }
+    });
   }
 
-  add(product: Product, quantity = 1) {
+  // -------------------------
+  // READ
+  // -------------------------
+
+  getItems = computed(() => this.items());
+
+  totalQuantity = computed(() =>
+    this.items().reduce((sum, i) => sum + i.quantity, 0),
+  );
+
+  // (optional extra)
+  totalPrice = computed(() =>
+    this.items().reduce((sum, i) => sum + i.product.price * i.quantity, 0),
+  );
+
+  // -------------------------
+  // WRITE
+  // -------------------------
+
+  add(product: Product, quantity: number) {
     this.items.update((items) => {
       const existing = items.find(
         (i) =>
@@ -20,9 +46,13 @@ export class CartService {
       );
 
       if (existing) {
-        existing.quantity += quantity;
-        return [...items];
+        return items.map((i) =>
+          i.product.id === product.id && i.product.category === product.category
+            ? { ...i, quantity: i.quantity + quantity }
+            : i,
+        );
       }
+
       return [...items, { product, quantity }];
     });
   }
@@ -38,20 +68,31 @@ export class CartService {
   }
 
   updateQty(product: Product, qty: number) {
-  this.items.update((items) =>
-    items.map((i) =>
-      i.product.id === product.id && i.product.category === product.category
-        ? { ...i, quantity: qty }
-        : i,
-    ),
-  );
+    if (qty <= 0) return this.remove(product);
+
+    this.items.update((items) =>
+      items.map((i) =>
+        i.product.id === product.id && i.product.category === product.category
+          ? { ...i, quantity: qty }
+          : i,
+      ),
+    );
   }
 
   clear() {
     this.items.set([]);
   }
 
-  totalQuantity() {
-    return this.items().reduce((sum, i) => sum + i.quantity, 0);
+  // -------------------------
+  // STORAGE
+  // -------------------------
+
+  private loadFromStorage(): CartItem[] {
+    try {
+      const data = localStorage.getItem(this.STORAGE_KEY);
+      return data ? JSON.parse(data) : [];
+    } catch {
+      return [];
+    }
   }
 }

@@ -31,7 +31,7 @@ export class EachProduct {
       `Added ${this.quantity()} × ${this.product().name} to cart`,
       'success',
     );
-    // console.log('Cart: ', this.cart.getItems()());
+    // console.log('Cart: ', this.cart.getItems());
     this.resetQuantity();
   }
 

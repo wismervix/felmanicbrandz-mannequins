@@ -10,10 +10,10 @@
       </p>
     </div>
 
-    @if (cart.getItems()().length) {
+    @if (cart.getItems().length) {
       <!-- ITEMS -->
       <div class="items">
-        @for (item of cart.getItems()(); track item.product.id) {
+        @for (item of cart.getItems(); track item.product.id) {
           <div class="item">
             <!-- PRODUCT IMAGE -->
             <img

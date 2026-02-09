@@ -11,6 +11,9 @@ import { CartService } from '../services/cart';
 import { CartModal } from '../cart-modal/cart-modal';
 // import { SvgIcon } from '../svg-icon/svg-icon';
 
+import * as bootstrap from 'bootstrap';
+// declare var bootstrap: any;
+
 @Component({
   selector: 'app-the-navbar',
   imports: [RouterModule, CartModal],
@@ -39,7 +42,28 @@ export class TheNavbar implements OnInit, OnDestroy, AfterViewInit {
     public cart: CartService,
   ) {}
 
+  collapseNav() {
+    const nav = document.getElementById('pageNav');
+
+    if (!nav) return;
+
+    const bsCollapse = bootstrap.Collapse.getInstance(nav);
+
+    if (bsCollapse) {
+      bsCollapse.hide();
+    }
+  }
+
   toggleCart() {
+    const nav = document.getElementById('pageNav');
+
+    if (!nav) return;
+
+    const bsCollapse = bootstrap.Collapse.getInstance(nav);
+
+    if (bsCollapse) {
+      bsCollapse.hide();
+    }
     // this.showCart = !this.showCart;
     this.showCart = true;
     console.log('Show Cart: ', this.showCart);
