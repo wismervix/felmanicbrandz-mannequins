@@ -8,10 +8,19 @@ section {
     max-width: 200px;
     // max-width: 267px;
     @include mixin.dynamic-text(600, clamp(30px, 2.9vw, 42px), $primary);
+
+    @media (max-width: 576px) {
+      max-width: 100%;
+      text-align: center;
+    }
   }
 
   .e-reason {
     max-width: 317px;
+
+    @media (max-width: 576px) {
+      max-width: 90%;
+    }
 
     .sub-title {
       opacity: 90%;

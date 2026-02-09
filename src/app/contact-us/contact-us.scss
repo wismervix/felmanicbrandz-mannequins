@@ -27,6 +27,16 @@ section.content {
   gap: clamp(40px, 6vw, 120px);
   align-items: start;
 
+  // background:
+  //   linear-gradient(
+  //     to right,
+  //     #fff 0%,
+  //     #fff 65%,
+  //     transparent 65%,
+  //     transparent 100%
+  //   ),
+  //   linear-gradient($primary-overlay, $primary-overlay),
+  //   url("/assets/images/mannequin_3.jpg") center / cover no-repeat fixed;
   background:
     linear-gradient(
       to right,
@@ -35,10 +45,10 @@ section.content {
       transparent 65%,
       transparent 100%
     ),
-    linear-gradient($primary-overlay, $primary-overlay),
+    linear-gradient($white-overlay, $white-overlay),
     url("/assets/images/mannequin_3.jpg") center / cover no-repeat fixed;
 
-  filter: drop-shadow(0 4px 4px rgba(0, 0, 0, 0.25));
+  // filter: drop-shadow(0 4px 4px rgba(0, 0, 0, 0.25));
 
   /* -------- Left -------- */
 
@@ -161,21 +171,11 @@ section.content {
   section.content {
     grid-template-columns: 1fr;
     background:
-      linear-gradient($primary-overlay, $primary-overlay),
+      linear-gradient($white-overlay, $white-overlay),
       url("/assets/images/mannequin_3.jpg") center / cover no-repeat fixed;
 
     .elevated-wrapper {
       justify-self: start;
     }
-  }
-}
-
-@media (max-width: 768px) {
-  .hero-wrapper {
-    background-attachment: scroll;
-  }
-
-  section.content {
-    padding: 40px 16px;
   }
 }
