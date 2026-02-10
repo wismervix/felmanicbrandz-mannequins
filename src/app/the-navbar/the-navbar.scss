@@ -4,7 +4,7 @@
 
 .custom-navbar {
   top: 0;
-  height: 70px;
+  height: 100px;
   z-index: 1500;
   position: fixed;
   // position: sticky;
@@ -50,8 +50,15 @@
   }
 
   .navbar-brand {
-    // color: #f2e8dc;
-    color: $primary;
+    max-width: 214px;
+    max-height: 90px;
+    overflow: hidden;
+    display: inline-block;
+    img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
   }
 
   .navbar-collapse {
