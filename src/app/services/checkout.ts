@@ -4,7 +4,7 @@ import { CartItem, OrderPayload } from '../../products';
   providedIn: 'root',
 })
 export class CheckoutService {
-  adminNumber = '2349165710396';
+  adminNumber = '2349021866293';
 
   openWhatsApp(items: CartItem[]) {
     const lines = items.map(

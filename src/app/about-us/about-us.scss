@@ -11,6 +11,41 @@
   @include mixin.centered();
 
   .title {
-    @include mixin.dynamic-text(800, clamp(42px, 10.4vw, 150px), #ffffff, center);
+    @include mixin.dynamic-text(
+      800,
+      clamp(42px, 10.4vw, 150px),
+      #ffffff,
+      center
+    );
+  }
+}
+.founder {
+  background-color: #f9f9f9;
+
+  .img-cont {
+    overflow: hidden;
+    max-width: 400px;
+    max-height: 500px;
+    border-radius: 12px;
+
+    @media (max-width: 767px) {
+      max-width: 90%;
+      max-height: none;
+    }
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 12px;
+    }
+  }
+
+  .title {
+    @include mixin.dynamic-text(700, clamp(28px, 6vw, 48px), $secondary, left);
+  }
+
+  .description {
+    @include mixin.dynamic-text(400, clamp(14px, 3vw, 18px), #555, left);
   }
 }

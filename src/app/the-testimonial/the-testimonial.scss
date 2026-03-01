@@ -103,6 +103,7 @@ section.testimonials {
           }
 
           .name {
+            text-transform: capitalize;
             @include mixin.dynamic-text(500, clamp(14px, 1.3vw, 18px), #090d23);
           }
         }

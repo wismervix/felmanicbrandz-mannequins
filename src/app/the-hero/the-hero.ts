@@ -10,8 +10,8 @@ import { SearchFilter } from "../search-filter/search-filter";
 export class TheHero implements OnInit {
   slides = [
     'assets/images/hero_bg.jpg',
-    'assets/images/experience_bg.jpg',
-    'assets/images/mannequin_4.jpg',
+    'assets/images/mannequin_10.jpeg',
+    'assets/images/mannequin_11.jpeg',
   ];
 
   current = 0;

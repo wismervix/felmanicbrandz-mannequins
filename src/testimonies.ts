@@ -12,73 +12,51 @@ const ASSETS = 'assets/images';
 export const testimonialData: readonly Testimony[] = [
   {
     id: 1,
-    name: 'John Doe',
+    name: 'Nancy Aigbokhan',
     rating: 5,
-    testimony: 'This is an amazing service. Highly recommended!',
-    photo: `${ASSETS}/testimonial_1.png`,
+    testimony:
+      "My Go-to everytime for durable and affordable mannequins and hangers. They don't disappoint, you get your goods delivered to you wherever you are on the agreed date. I like the good customer service relationship too. I highly recommend💯",
+    photo: `${ASSETS}/testimony_nancy.jpeg`,
   },
   {
     id: 2,
-    name: 'Jane Smith',
+    name: 'Henry Autoz.E',
     rating: 5,
-    testimony: 'Fantastic experience working with this team.',
-    photo: `${ASSETS}/testimonial_2.jpg`,
+    testimony:
+      'I recently bought a Mannequin at [FelManicBrandz] and was thoroughly impressed by what I got and the impeccable service. I truly say this Brand is the best I’ve ever gotten a Mannequin. I can’t recommend [FelManicBrandz] enough for where you can get a unique Mannequin.',
+    photo: `${ASSETS}/testimony_henry.png`,
   },
   {
     id: 3,
-    name: 'Michael Brown',
+    name: 'Rasmus Elm',
     rating: 4.3,
     testimony:
-      'The level of professionalism and attention to detail exceeded our expectations.',
-    photo: `${ASSETS}/testimonial_2.jpg`,
+      "I must commend the transparency in dealings with buyers, customers and affiliates. There's no questioning their transparency, that's for sure. 💯. Moreso, they're always available and within reach, borderline dedication no doubt - reliable. Then, the quality goods comin' at so very affordable prices in comparison with the business's contemporaries, that's definitely getting a thumbs up from me👍🏽",
+    photo: `${ASSETS}/testimony_rasmus.png`,
   },
   {
     id: 4,
-    name: 'Emily Johnson',
+    name: 'aniekan boluwatife',
     rating: 5,
     testimony:
-      'Working with them was seamless. Communication was clear and the results were excellent.',
-    photo: `${ASSETS}/testimonial_2.jpg`,
+      "The services here is top-notch, good customer relationship. He really is the best at what he does, he sells quality goods and also very affordable. I give him a 5 star rating because he'll give you the best for your money",
+    photo: `${ASSETS}/testimony_aniekan.png`,
   },
   {
     id: 5,
-    name: 'David Wilson',
+    name: 'Ehiabhi Mary',
     rating: 4.7,
     testimony:
-      'They delivered exactly what we needed, on time and with great technical expertise.',
-    photo: `${ASSETS}/testimonial_2.jpg`,
+      "Their service is one of its kind, trustworthy, reliable and transparent. delivery is nation wide💯.....I must say they are good at what they do...... Got some mannequins from them and haven't regretted it, you won't either✌️💯",
+    photo: `${ASSETS}/testimony_ehiabhi.png`,
   },
   {
     id: 6,
-    name: 'Sophia Martinez',
+    name: 'Lucy Isaac',
     rating: 5,
     testimony:
-      'Reliable, efficient, and easy to work with. I would gladly collaborate again.',
-    photo: `${ASSETS}/testimonial_2.jpg`,
-  },
-  {
-    id: 7,
-    name: 'Chris Anderson',
-    rating: 5,
-    testimony:
-      'Their support and guidance made a huge difference in our project’s success.',
-    photo: `${ASSETS}/testimonial_2.jpg`,
-  },
-  {
-    id: 8,
-    name: 'Olivia Taylor',
-    rating: 4.6,
-    testimony:
-      'A very smooth process from start to finish. The team truly understands client needs.',
-    photo: `${ASSETS}/testimonial_2.jpg`,
-  },
-  {
-    id: 9,
-    name: 'Daniel Lee',
-    rating: 5,
-    testimony:
-      'High-quality work, great collaboration, and strong problem-solving skills.',
-    photo: `${ASSETS}/testimonial_2.jpg`,
+      'Please patronize him he sells qualities I have bought from him and no complain.',
+    photo: `${ASSETS}/testimony_lucy.jpeg`,
   },
 ] as const;
 
