@@ -1,0 +1,84 @@
+<div class="container mt-4">
+  <app-card>
+    <h2 card-header class="p-2">User List (Total: {{ usersStore.usersResponse().users.length }})</h2>
+  
+    <app-data-table
+      [data]="users()"
+      [pagination]="true"
+      [currentPage]="currentPage()"
+      [totalPages]="totalPages()"
+      (pageChange)="goToPage($event)"
+    >
+      <!-- TABLE HEADER -->
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th class="d-none d-sm-table-cell">Username</th>
+          <th>Name</th>
+          <th class="d-none d-sm-table-cell">Role</th>
+          <th>Email</th>
+          <th>Location</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+  
+      <!-- TABLE BODY -->
+      <tbody>
+        @for (user of users(); track user.id) {
+          <tr>
+            <td>{{ user.id }}</td>
+  
+            <td class="d-none d-sm-table-cell">
+              <div class="d-flex align-items-center gap-2 flex-wrap">
+                <img
+                  [src]="apiService.getMediaUrl(user.image)"
+                  class="img-thumbnail user-thumb"
+                />
+  
+                <a routerLink="/admin/users/{{ user.id }}/edit">
+                  {{ user.username }}
+                </a>
+              </div>
+            </td>
+  
+            <td>{{ user.first_name }} {{ user.last_name }}</td>
+  
+            <td class="d-none d-sm-table-cell">
+              <span
+                class="badge"
+                [ngClass]="{
+                  'bg-primary': user.role === 'admin',
+                  'bg-success': user.role === 'user',
+                  'bg-warning': user.role === 'moderator',
+                }"
+                >{{ user.role }}</span
+              >
+            </td>
+  
+            <td>{{ user.email }}</td>
+  
+            <td>
+              {{ user.address }}, {{ user.city }}, {{ user.state }},
+              {{ user.country }}
+            </td>
+  
+            <td>
+              <div class="actions">
+                <a routerLink="/admin/users/{{ user.id }}/edit">
+                  <i class="fa-regular fa-pen-to-square"></i>
+                </a>
+  
+                <button
+                  class="btn btn-link text-danger p-0"
+                  (click)="deleteUser(user.id)"
+                >
+                  <i class="fa-regular fa-trash-can"></i>
+                </button>
+              </div>
+            </td>
+          </tr>
+        }
+      </tbody>
+    </app-data-table>
+  </app-card>
+</div>

@@ -33,7 +33,10 @@
             "styles": [
               "src/styles.scss"
             ],
-            "outputPath": "dist/felmanicbrandz-mannequins"
+            "outputPath": "dist/felmanicbrandz-mannequins",
+            "stylePreprocessorOptions": {
+              "includePaths": ["src/styles"]
+            }
           },
           "configurations": {
             "production": {

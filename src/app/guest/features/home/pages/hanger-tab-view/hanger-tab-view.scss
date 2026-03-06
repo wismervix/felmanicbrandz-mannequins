@@ -1,0 +1,30 @@
+@use "../../../../../../styles/mixins.scss" as mixin;
+@use "sass:color";
+
+.container-cm {
+  padding: 10px;
+  margin: 0 5%;
+
+  @media (max-width: 650px) {
+    margin: 0 2%;
+  }
+}
+
+.view-all-cont {
+  gap: 12px;
+  display: flex;
+  width: fit-content;
+  align-items: center;
+  margin: 0 clamp(2%, 12.13vw, 13%) 0 auto;
+
+  span {
+    @include mixin.dynamic-text(400, 18px, #e58411);
+  }
+}
+
+// ========================
+// 📚 PRODUCTS LISTING
+// ========================
+.products-listing {
+  padding: 20px 0 50px;
+}

@@ -1,0 +1,71 @@
+.user-header {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+
+  img {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #e5e7eb;
+  }
+
+  .role-badge {
+    display: inline-block;
+    padding: 0.3rem 0.7rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    background: #e5e7eb;
+
+    &.admin {
+      background: #fee2e2;
+      color: #b91c1c;
+    }
+  }
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1rem;
+  color: #6b7280;
+}
+
+.readonly-section {
+  margin-top: 2rem;
+  padding: 1rem;
+  background: #f9fafb;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  display: grid;
+  gap: 0.5rem;
+}
+
+.actions {
+  margin-top: 2rem;
+  text-align: right;
+
+  button {
+    padding: 0.7rem 1.4rem;
+    border-radius: 8px;
+    border: none;
+    background: #3b82f6;
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+
+    &:hover {
+      background: #2563eb;
+    }
+
+    &:disabled {
+      background: #9ca3af;
+      cursor: not-allowed;
+    }
+  }
+}
+
+.btn{
+  width: fit-content;
+}

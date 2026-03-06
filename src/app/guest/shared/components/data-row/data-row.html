@@ -1,0 +1,47 @@
+<div class="container">
+  <!-- Products Listing -->
+  @if (data().length > 0) {
+    <div class="row">
+      @for (item of data(); track item) {
+        <div class="col-md-4 col-sm-6 mb-4">
+          <ng-container
+            [ngTemplateOutlet]="itemTemplate"
+            [ngTemplateOutletContext]="{ $implicit: item }"
+          ></ng-container>
+        </div>
+      }
+    </div>
+  } @else {
+    <p>No data available</p>
+  }
+
+  <!-- PAGINATION -->
+  @if (pagination() && totalPages() > 1) {
+    <nav aria-label="Table pagination">
+      <ul class="pagination justify-content-center my-4">
+        <li class="page-item" [class.disabled]="currentPage() === 0">
+          <button class="page-link" (click)="prevPage()">
+            <i class="fa-solid fa-angles-left"></i>
+          </button>
+        </li>
+
+        @for (i of pageNumbers(); track i) {
+          <li class="page-item" [class.active]="i === currentPage()">
+            <button class="page-link" (click)="goToPage(i)">
+              {{ i + 1 }}
+            </button>
+          </li>
+        }
+
+        <li
+          class="page-item"
+          [class.disabled]="currentPage() === totalPages() - 1"
+        >
+          <button class="page-link" (click)="nextPage()">
+            <i class="fa-solid fa-angles-right"></i>
+          </button>
+        </li>
+      </ul>
+    </nav>
+  }
+</div>

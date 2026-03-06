@@ -1,0 +1,11 @@
+<app-data-row
+  [data]="products()"
+  [pagination]="true"
+  [currentPage]="currentPage()"
+  [totalPages]="totalPages()"
+  (pageChange)="goToPage($event)"
+>
+  <ng-template #itemTemplate let-product>
+    <app-each-product [product]="product" />
+  </ng-template>
+</app-data-row>

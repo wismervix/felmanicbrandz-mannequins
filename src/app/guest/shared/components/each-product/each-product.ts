@@ -1,0 +1,63 @@
+import {
+  Component,
+  input,
+  computed,
+  signal,
+  ChangeDetectionStrategy,
+  inject,
+} from '@angular/core';
+// import { Product } from '../../data/products';
+import { Product } from '../../../../core/models/products.model';
+import { TitleCasePipe, DecimalPipe } from '@angular/common';
+import { CartService } from '../../services/cart/cart';
+import { ToastService } from '../../services/toast/toast';
+import { ApiService } from '../../../../core/services/api.service';
+
+@Component({
+  selector: 'app-each-product',
+  imports: [TitleCasePipe, DecimalPipe],
+  templateUrl: './each-product.html',
+  styleUrl: './each-product.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+})
+export class EachProduct {
+  public apiService = inject(ApiService);
+  product = input.required<Product>();
+
+  constructor(
+    private cart: CartService,
+    private toast: ToastService,
+  ) {}
+
+  // addToCart() {
+  //   this.cart.add(this.product(), this.quantity());
+  //   this.toast.show(
+  //     `Added ${this.quantity()} × ${this.product().title} to cart`,
+  //     'success',
+  //   );
+  //   // console.log('Cart: ', this.cart.getItems());
+  //   this.resetQuantity();
+  // }
+
+  // Computed signals for reactive values
+  quantity = signal(1);
+
+  increment() {
+    this.quantity.update((q) => q + 1);
+  }
+
+  decrement() {
+    this.quantity.update((q) => Math.max(1, q - 1));
+  }
+
+  resetQuantity() {
+    this.quantity.set(1);
+  }
+
+  starWidth = computed(() => {
+    const rating = this.product()?.rating ?? 0;
+    return (Math.min(Math.max(rating, 0), 5) / 5) * 100; // 0-100%
+  });
+
+  // isBestSelling = computed(() => this.product()?.bestSelling === 1);
+}

@@ -1,0 +1,12 @@
+<div class="edit-page-container">
+  @if (product(); as p) {
+    <app-product-form
+      [product]="p"
+      (save)="handleUpdate($event)"
+    />
+  } @else {
+    <div class="loading">
+      <p>Loading product...</p>
+    </div>
+  }
+</div>

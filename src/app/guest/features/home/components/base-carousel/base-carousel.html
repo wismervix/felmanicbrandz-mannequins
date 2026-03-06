@@ -1,0 +1,65 @@
+<div
+  #root
+  class="testimonial-layout"
+  tabindex="0"
+  (keydown)="onKeydown($event)"
+>
+  <div class="limiter" #limiter>
+    <div #wrapper class="testimonial-wrapper">
+      @for (product of products(); track product.id) {
+        <div class="slide-wrapper" [attr.data-index]="$index">
+          <app-each-product [product]="product" />
+        </div>
+      } @empty {
+        <p class="text-center fs-6">No product available!</p>
+      }
+    </div>
+  </div>
+
+  <div class="controls">
+    <button
+      type="button"
+      (click)="move(-1)"
+      class="prev-btn-testimonial"
+      [attr.disabled]="!canGoPrev() ? true : null"
+      [class.disabled]="!canGoPrev()"
+      aria-label="Previous slide"
+    >
+      <i class="fa-solid fa-angle-left"></i>
+    </button>
+
+    <button
+      type="button"
+      (click)="move(1)"
+      class="next-btn-testimonial"
+      [attr.disabled]="!canGoNext() ? true : null"
+      [class.disabled]="!canGoNext()"
+      aria-label="Next slide"
+    >
+      <i class="fa-solid fa-angle-right"></i>
+    </button>
+  </div>
+
+  <!-- Optional: Dots indicator -->
+  <!-- @if (maxIndex() > 0) {
+    <div class="dots-indicator">
+      @for (dot of [].constructor(maxIndex() + 1); track $index) {
+        <button
+          type="button"
+          (click)="goToIndex($index)"
+          class="dot"
+          [class.active]="currentIndex() === $index"
+          [attr.aria-label]="'Go to slide ' + ($index + 1)"
+        ></button>
+      }
+    </div>
+  } -->
+
+  <div class="counter">
+    {{ visibleRange().from }} – {{ visibleRange().to }} of {{ totalProducts() }}
+  </div>
+
+  <div class="progress" (pointerdown)="onSeekStart($event)">
+    <div class="progress-bar" [style.width.%]="progress() * 100"></div>
+  </div>
+</div>

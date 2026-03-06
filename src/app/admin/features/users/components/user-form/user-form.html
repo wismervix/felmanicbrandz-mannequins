@@ -1,0 +1,126 @@
+@if (userSignal(); as u) {
+  <app-card>
+    <div card-header>
+      <div class="user-header">
+        <img
+          [src]="apiService.getMediaUrl(form.value.image || u.image)"
+          alt="User avatar"
+        />
+        <div>
+          <h2>{{ form.value.first_name }} {{ form.value.last_name }}</h2>
+          <span class="role-badge" [class.admin]="form.value.role === 'admin'">
+            {{ form.value.role }}
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <form [formGroup]="form" (ngSubmit)="submit()">
+      <div class="row">
+        <div class="col-md-4 col-sm-6 form-group">
+          <label class="form-label">User Profile Image</label>
+          <input
+            class="form-control"
+            type="file"
+            accept="image/*"
+            (change)="onImageSelected($event)"
+          />
+
+          @if (imagePreview()) {
+            <img
+              [src]="imagePreview()"
+              style="width: 120px; margin-top: 10px"
+            />
+          }
+        </div>
+
+        <div class="col-md-4 col-sm-6 form-group">
+          <label class="form-label">First Name</label>
+          <input
+            class="form-control"
+            type="text"
+            formControlName="first_name"
+          />
+        </div>
+
+        <div class="col-md-4 col-sm-6 form-group">
+          <label class="form-label">Last Name</label>
+          <input class="form-control" type="text" formControlName="last_name" />
+        </div>
+
+        <div class="col-md-4 col-sm-6 form-group">
+          <label class="form-label">Email</label>
+          <input class="form-control" type="email" formControlName="email" />
+        </div>
+
+        <div class="col-md-4 col-sm-6 form-group">
+          <label class="form-label">Username</label>
+          <input class="form-control" type="text" formControlName="username" />
+        </div>
+
+        <div class="col-md-4 col-sm-6 form-group">
+          <label class="form-label">Password</label>
+          <input
+            class="form-control"
+            type="password"
+            formControlName="password"
+          />
+        </div>
+
+        <div class="col-md-4 col-sm-6 form-group">
+          <label class="form-label">Birth Date</label>
+          <input class="form-control" type="date" formControlName="birthDate" />
+        </div>
+
+        <div class="col-md-4 col-sm-6 form-group">
+          <label class="form-label">Gender</label>
+          <select class="form-select" formControlName="gender">
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+
+        <div class="col-md-4 col-sm-6 form-group">
+          <label class="form-label">Role</label>
+          <select class="form-select" formControlName="role">
+            <option value="user">User</option>
+            <option value="admin">Admin</option>
+            <option value="moderator">Moderator</option>
+          </select>
+        </div>
+
+        <div class="col-md-4 col-sm-6 form-group">
+          <label class="form-label">Address</label>
+          <input class="form-control" type="text" formControlName="address" />
+        </div>
+
+        <div class="col-md-4 col-sm-6 form-group">
+          <label class="form-label">City</label>
+          <input class="form-control" type="text" formControlName="city" />
+        </div>
+
+        <div class="col-md-4 col-sm-6 form-group">
+          <label class="form-label">State</label>
+          <input class="form-control" type="text" formControlName="state" />
+        </div>
+
+        <div class="col-md-4 col-sm-6 form-group">
+          <label class="form-label">Country</label>
+          <input class="form-control" type="text" formControlName="country" />
+        </div>
+      </div>
+
+      <div class="readonly-section">
+        <div><strong>ID:</strong> {{ u.id }}</div>
+        <div><strong>Age:</strong> {{ calculatedAge() ?? u.age }}</div>
+        <div><strong>Created:</strong> {{ u.created_at | date: "medium" }}</div>
+        <div><strong>Updated:</strong> {{ u.updated_at | date: "medium" }}</div>
+      </div>
+
+      <div class="actions">
+        <button type="submit" [disabled]="form.invalid">Save Changes</button>
+      </div>
+    </form>
+  </app-card>
+}
