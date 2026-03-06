@@ -2,11 +2,11 @@ import { Component, OnInit, inject } from '@angular/core';
 import { RouterModule, Router, NavigationEnd } from '@angular/router';
 import { Title } from '@angular/platform-browser';
 // import { SvgIcon } from './svg-icon/svg-icon';
-import { TheNavbar } from './the-navbar/the-navbar';
-import { TheHome } from "./the-home/the-home";
-import { TheFooter } from "./the-footer/the-footer";
-import { WhatsappFloat } from "./whatsapp-float/whatsapp-float";
-import { ToastContainer } from "./toast-container/toast-container";
+import { TheNavbar } from './layout/the-navbar/the-navbar';
+import { TheHome } from './features/home/pages/the-home/the-home';
+import { TheFooter } from './shared/components/the-footer/the-footer';
+import { WhatsappFloat } from './shared/components/whatsapp-float/whatsapp-float';
+import { ToastContainer } from './shared/components/toast-container/toast-container';
 import { filter } from 'rxjs';
 
 @Component({

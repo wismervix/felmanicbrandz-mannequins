@@ -1,0 +1,61 @@
+@use "../../../../../styles/mixins.scss" as mixin;
+@use "../../../../../styles/variables" as *;
+@use "sass:color";
+
+.container-cm {
+  padding: 10px;
+  margin: 0 5%;
+
+  @media (max-width: 650px) {
+    margin: 0 2%;
+  }
+}
+
+// ========================
+// 📄 PAGINATION
+// ========================
+.pagination {
+  @include mixin.centered(10px);
+  margin-top: clamp(50px, 6.9vw, 100px);
+
+  .page-item {
+    &.disabled .page-link {
+      opacity: 0.5;
+      pointer-events: none;
+    }
+
+    &.active .page-link {
+      color: #fff !important;
+      border-radius: 8px;
+      background-color: $primary;
+      box-shadow: none !important;
+    }
+  }
+
+  .page-link {
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    border-radius: 8px;
+    border: 0 !important;
+    @include mixin.centered;
+    transition: all 0.2s ease;
+    box-shadow: none !important;
+    background-color: #eff0f2;
+    @include mixin.dynamic-text(500, 15px, $secondary);
+
+    &:hover:not(:disabled) {
+      transform: translateY(-2px);
+      background-color: color.adjust(#fff, $lightness: -5%);
+    }
+
+    &:active:not(:disabled) {
+      transform: translateY(0);
+    }
+
+    &:focus-visible {
+      outline: 2px solid $primary;
+      outline-offset: 2px;
+    }
+  }
+}

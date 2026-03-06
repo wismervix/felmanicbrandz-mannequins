@@ -1,5 +1,5 @@
-@use "../mixins" as mixin;
-@use "../variables" as *;
+@use "../styles/mixins.scss" as mixin;
+@use "../styles/variables.scss" as *;
 
 /* ===== MAIN LAYOUT ===== */
 .main {

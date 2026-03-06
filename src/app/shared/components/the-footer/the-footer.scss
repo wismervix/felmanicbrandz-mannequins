@@ -1,0 +1,57 @@
+@use "../../../../styles/mixins.scss" as mixin;
+@use "../../../../styles/variables" as *;
+
+footer {
+  background-color: #f7f7f7;
+  padding: clamp(56px, 6.3vw, 90px) 0 56px;
+  .footer-col-cont {
+    max-width: 293px;
+
+    .logo {
+      width: 100%;
+      display: block;
+      max-width: 300px;
+      margin: -15px 0 30px;
+      img {
+        width: 100%;
+        height: auto;
+      }
+    }
+
+    .desc {
+      opacity: 80%;
+      @include mixin.dynamic-text(400, 18px, $secondary);
+    }
+
+    &.sm {
+      max-width: unset;
+    //   max-width: 113px;
+
+      .title {
+        margin-bottom: 16px;
+        @include mixin.dynamic-text(500, 17px, $primary);
+      }
+
+      .desc {
+        gap: 10px;
+        opacity: 80%;
+        display: flex;
+        align-items: center;
+        margin-bottom: 16px;
+        @include mixin.dynamic-text(400, 15px, $secondary);
+      }
+    }
+  }
+
+  .bottom-spread {
+    opacity: 80%;
+    @include mixin.spread(15px);
+    margin-top: clamp(56px, 8.2vw, 118px);
+    @include mixin.dynamic-text(400, 15px, $secondary);
+
+    .copyright {
+      opacity: 50%;
+      @include mixin.dynamic-text(400, 15px, #1e2833);
+    }
+  }
+}

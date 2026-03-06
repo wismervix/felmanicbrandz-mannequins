@@ -1,0 +1,181 @@
+@use "../../../../../styles/mixins.scss" as mixin;
+@use "../../../../../styles/variables" as *;
+
+/* ---------------- Hero ---------------- */
+
+.hero-wrapper {
+  min-height: calc(100vh + 100px);
+  background:
+    linear-gradient($primary-overlay, $primary-overlay),
+    url("/assets/images/mannequin_3.jpg") center / cover no-repeat fixed;
+
+  @include mixin.centered();
+
+  .title {
+    @include mixin.dynamic-text(800, clamp(42px, 10vw, 150px), #fff, center);
+  }
+}
+
+/* ---------------- Content ---------------- */
+
+section.content {
+  position: relative;
+  padding: clamp(40px, 6vw, 80px) clamp(16px, 5vw, 80px);
+
+  display: grid;
+  grid-template-columns: minmax(0, 520px) 1fr;
+  gap: clamp(40px, 6vw, 120px);
+  align-items: start;
+
+  // background:
+  //   linear-gradient(
+  //     to right,
+  //     #fff 0%,
+  //     #fff 65%,
+  //     transparent 65%,
+  //     transparent 100%
+  //   ),
+  //   linear-gradient($primary-overlay, $primary-overlay),
+  //   url("/assets/images/mannequin_3.jpg") center / cover no-repeat fixed;
+  background:
+    linear-gradient(
+      to right,
+      #fff 0%,
+      #fff 65%,
+      transparent 65%,
+      transparent 100%
+    ),
+    linear-gradient($white-overlay, $white-overlay),
+    url("/assets/images/mannequin_3.jpg") center / cover no-repeat fixed;
+
+  // filter: drop-shadow(0 4px 4px rgba(0, 0, 0, 0.25));
+
+  /* -------- Left -------- */
+
+  .left-cont {
+    max-width: 520px;
+
+    h2.title {
+      text-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
+      @include mixin.dynamic-text(700, clamp(28px, 3vw, 40px), $secondary);
+    }
+
+    h3.subtitle {
+      margin: 24px 0 44px;
+      opacity: 0.5;
+      text-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+      @include mixin.dynamic-text(400, clamp(15px, 1.6vw, 20px), $secondary);
+    }
+
+    .contact-box-wrapper {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 32px;
+    }
+
+    .contact-box {
+      padding: 16px;
+      border-radius: 8px;
+      transition: transform 0.3s ease;
+      box-shadow:
+        0 5px 10px rgba(0, 0, 0, 0.12),
+        inset 0 1px 0 rgba(255, 255, 255, 0.05);
+
+      &:hover {
+        transform: translateY(-4px);
+        box-shadow:
+          0 10px 20px rgba(0, 0, 0, 0.15),
+          inset 0 1px 0 rgba(255, 255, 255, 0.05);
+      }
+
+      .icon-cont {
+        width: 53px;
+        height: 53px;
+        font-size: 33px;
+        border-radius: 12px;
+        @include mixin.centered();
+
+        &.red {
+          color: #fd5845;
+          background: #fff4ec;
+        }
+
+        &.purple {
+          color: #9f70fc;
+          background: #f6f2ff;
+        }
+
+        &.green {
+          color: #34c759;
+          background: #e6f7f2;
+        }
+      }
+
+      .title {
+        margin-top: 24px;
+        @include mixin.dynamic-text(400, clamp(18px, 1.6vw, 24px), $secondary);
+      }
+
+      .subtitle {
+        margin: 16px 0;
+        opacity: 0.5;
+        @include mixin.dynamic-text(400, clamp(14px, 1.4vw, 20px), $secondary);
+      }
+
+      .text-primary-cm {
+        @include mixin.dynamic-text(400, clamp(14px, 1.4vw, 20px), $primary);
+      }
+    }
+  }
+
+  /* -------- Map -------- */
+
+  .elevated-wrapper {
+    align-self: center;
+    justify-self: end;
+
+    width: min(560px, 100%);
+    padding: 16px;
+    border-radius: 8px;
+
+    backdrop-filter: blur(5px);
+    background: rgba(255, 255, 255, 0.1);
+
+    transition:
+      transform 0.3s ease,
+      box-shadow 0.3s ease;
+
+    box-shadow:
+      0 8px 16px rgba(0, 0, 0, 0.15),
+      0 2px 6px rgba(0, 0, 0, 0.1);
+
+    &:hover {
+      transform: translateY(-6px);
+      box-shadow:
+        0 20px 40px rgba(0, 0, 0, 0.25),
+        0 8px 16px rgba(0, 0, 0, 0.15);
+    }
+
+    iframe {
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      border-radius: 8px;
+      border: none;
+    }
+  }
+}
+
+/* ---------------- Responsive ---------------- */
+
+@media (max-width: 1024px) {
+  section.content {
+    grid-template-columns: 1fr;
+    background:
+      linear-gradient($white-overlay, $white-overlay),
+      url("/assets/images/mannequin_3.jpg") center / cover no-repeat fixed;
+
+    .elevated-wrapper {
+      justify-self: start;
+    }
+  }
+}
