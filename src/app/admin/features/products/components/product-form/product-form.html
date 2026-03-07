@@ -83,6 +83,17 @@
       </div>
 
       <div class="col-md-4 col-sm-6 form-group">
+        <label>Rating</label>
+        <input
+          type="number"
+          formControlName="rating"
+          step="0.01"
+          min="0"
+          max="5"
+        />
+      </div>
+
+      <div class="col-md-4 col-sm-6 form-group">
         <label>Stock</label>
         <input type="number" formControlName="stock" />
       </div>

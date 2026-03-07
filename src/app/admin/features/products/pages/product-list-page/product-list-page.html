@@ -6,7 +6,11 @@
         {{ productsStore.productsResponse().products.length }})
       </h2>
 
-      <a routerLink="/admin/products/new" class="btn btn-primary" style="width: fit-content;">
+      <a
+        routerLink="/admin/products/new"
+        class="btn btn-primary"
+        style="width: fit-content"
+      >
         <i class="fa-solid fa-plus"></i> Add Product
       </a>
     </div>
@@ -37,7 +41,14 @@
         @for (product of products(); track product.id) {
           <tr>
             <td>{{ product.id }}</td>
-            <td>{{ product.title }}</td>
+            <td>
+              <a
+                routerLink="/admin/products/{{ product.id }}/edit"
+                routerLinkActive="active-link"
+              >
+                {{ product.title }}
+              </a>
+            </td>
             <td>{{ product.category }}</td>
             <td>${{ product.price }}</td>
             <td class="d-none d-md-table-cell">{{ product.stock }}</td>
