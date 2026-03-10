@@ -4,9 +4,9 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class ApiService {
-  // public baseUrl = 'http://127.0.0.1:8000/api';
-  public baseUrl =
-    'https://felmanicbrandz-mannequins-api-production.up.railway.app/api';
+  public baseUrl = 'http://127.0.0.1:8000/api';
+  // public baseUrl =
+  //   'https://felmanicbrandz-mannequins-api-production.up.railway.app/api';
 
   getMediaUrl(path?: string | null): string {
     if (!path) return '';
