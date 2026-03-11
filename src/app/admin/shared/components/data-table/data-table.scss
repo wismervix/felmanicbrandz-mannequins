@@ -121,10 +121,6 @@
   }
 }
 
-:host ::ng-deep .premium-table td::before {
-  content: attr(data-label);
-}
-
 @media (max-width: 830px) {
   :host ::ng-deep .premium-table thead {
     display: none;
@@ -156,5 +152,9 @@
   :host ::ng-deep .premium-table td::before {
     font-weight: 600;
     color: #6b7280;
+  }
+
+  :host ::ng-deep .premium-table td::before {
+    content: attr(data-label);
   }
 }

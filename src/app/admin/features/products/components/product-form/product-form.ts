@@ -183,7 +183,7 @@ export class ProductForm {
   form: FormGroup = this.fb.group({
     title: ['', [Validators.required, Validators.maxLength(255)]],
     description: [''],
-    category: [''],
+    category: ['mannequins'],
     price: [0, [Validators.required, Validators.min(0)]],
     discount_percentage: [0, [Validators.min(0), Validators.max(100)]],
     rating: [0, [Validators.min(0), Validators.max(5)]],

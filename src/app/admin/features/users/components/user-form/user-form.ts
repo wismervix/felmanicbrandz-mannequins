@@ -17,11 +17,12 @@ import {
 import { User } from '../../../../../core/models/user.model';
 import { ApiService } from '../../../../../core/services/api.service';
 import { calculateAge } from '../../../../../core/utils/date.utils';
-import { Card } from "../../../../shared/components/card/card";
+import { Card } from '../../../../shared/components/card/card';
+import { JsonPipe } from '@angular/common';
 
 @Component({
   selector: 'app-user-form',
-  imports: [CommonModule, ReactiveFormsModule, Card],
+  imports: [CommonModule, ReactiveFormsModule, Card, JsonPipe],
   templateUrl: './user-form.html',
   styleUrl: './user-form.scss',
 })
@@ -30,6 +31,8 @@ export class UserForm {
     this.form.get('birthDate')?.valueChanges.subscribe((value) => {
       this.birthDateSignal.set(value);
     });
+
+    console.log('user: ', this.userSignal());
   }
 
   private fb = inject(FormBuilder);
@@ -56,6 +59,15 @@ export class UserForm {
     this.imagePreview.set(URL.createObjectURL(file));
   }
 
+  get formControlsDebug() {
+    return Object.entries(this.form.controls).map(([key, control]) => ({
+      key,
+      value: control.value,
+      valid: control.valid,
+      errors: control.errors,
+    }));
+  }
+
   @Input() set user(value: User | null) {
     this._user.set(value);
     if (value) {
@@ -72,12 +84,21 @@ export class UserForm {
   @Output() save = new EventEmitter<{ user: User; image?: File | null }>();
 
   form: FormGroup = this.fb.group({
-    first_name: ['', [Validators.required, Validators.maxLength(50)]],
-    last_name: ['', [Validators.required, Validators.maxLength(50)]],
+    first_name: [
+      '',
+      [Validators.required, Validators.minLength(2), Validators.maxLength(50)],
+    ],
+    last_name: [
+      '',
+      [Validators.required, Validators.minLength(2), Validators.maxLength(50)],
+    ],
     gender: ['other', Validators.required],
     email: ['', [Validators.required, Validators.email]],
     username: ['', [Validators.required, Validators.minLength(3)]],
-    password: ['', [Validators.minLength(8), Validators.maxLength(100)]],
+    password: [
+      '',
+      [Validators.required, Validators.minLength(8), Validators.maxLength(100)],
+    ],
     birthDate: ['', Validators.required],
     image: [''],
     role: ['user', Validators.required],

@@ -1,3 +1,5 @@
+@use "../../../../../../styles/mixins.scss" as mixin;
+
 .product-form-container {
   background: white;
   padding: 2rem;
@@ -100,12 +102,6 @@
 
 .image-wrapper {
   position: relative;
-  width: 100px;
-
-  img {
-    width: 100%;
-    border-radius: 6px;
-  }
 
   .delete-btn {
     position: absolute;
@@ -122,6 +118,80 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    transition: transform 0.3s ease;
+
+    &:hover{
+      transform: scale(1.08);
+    }
+  }
+}
+
+.file-upload-section {
+  padding: 10px;
+  border-radius: 8px;
+  background: #fafafe;
+
+  .form-label,
+  .text-muted {
+    font-size: 13px;
+  }
+
+  .upload-dropzone {
+    position: relative;
+    width: 75px;
+    padding: 15px 0;
+    text-align: center;
+    cursor: pointer;
+
+    background: #f9f9ff;
+    border: 2px dashed #c5c5f0;
+    border-radius: 6px;
+
+    input[type="file"] {
+      position: absolute;
+      inset: 0;
+      max-width: 75px;
+      opacity: 0;
+      cursor: pointer;
+      z-index: 100;
+    }
+
+    .upload-icon svg {
+      display: block;
+      margin: auto;
+    }
+  }
+
+  .preview-box {
+    display: flex;
+    gap: 12px;
+  }
+
+  .preview {
+    padding: 3px;
+    border-radius: 50%;
+    @include mixin.centered();
+
+    width: 60px;
+    height: 60px;
+
+    font-size: 22px;
+    color: #999;
+
+    border: 1px solid #8e8e93;
+    transition: 0.2s ease;
+
+    img{
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    &:hover {
+      border-color: #6de86b;
+      color: #6de86b;
+    }
   }
 }
 
