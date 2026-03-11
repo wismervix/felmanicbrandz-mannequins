@@ -1,6 +1,6 @@
 <div class="container mt-4">
   <app-card>
-    <h2 card-header class="p-2">User List (Total: {{ usersStore.usersResponse().users.length }})</h2>
+    <h5 card-header class="m-0">User List (Total: {{ usersStore.usersResponse().users.length }})</h5>
   
     <app-data-table
       [data]="users()"
@@ -10,12 +10,12 @@
       (pageChange)="goToPage($event)"
     >
       <!-- TABLE HEADER -->
-      <thead>
+      <thead class="table-dark">
         <tr>
           <th>ID</th>
-          <th class="d-none d-sm-table-cell">Username</th>
+          <th>Username</th>
           <th>Name</th>
-          <th class="d-none d-sm-table-cell">Role</th>
+          <th>Role</th>
           <th>Email</th>
           <th>Location</th>
           <th>Actions</th>
@@ -26,13 +26,13 @@
       <tbody>
         @for (user of users(); track user.id) {
           <tr>
-            <td>{{ user.id }}</td>
+            <td data-label="ID">{{ user.id }}</td>
   
-            <td class="d-none d-sm-table-cell">
+            <td data-label="Username">
               <div class="d-flex align-items-center gap-2 flex-wrap">
                 <img
                   [src]="apiService.getMediaUrl(user.image)"
-                  class="img-thumbnail user-thumb"
+                  class="img-thumb"
                 />
   
                 <a routerLink="/admin/users/{{ user.id }}/edit">
@@ -41,9 +41,9 @@
               </div>
             </td>
   
-            <td>{{ user.first_name }} {{ user.last_name }}</td>
+            <td data-label="Name">{{ user.first_name }} {{ user.last_name }}</td>
   
-            <td class="d-none d-sm-table-cell">
+            <td data-label="Role">
               <span
                 class="badge"
                 [ngClass]="{
@@ -55,14 +55,14 @@
               >
             </td>
   
-            <td>{{ user.email }}</td>
+            <td data-label="Email">{{ user.email }}</td>
   
-            <td>
+            <td data-label="Location">
               {{ user.address }}, {{ user.city }}, {{ user.state }},
               {{ user.country }}
             </td>
   
-            <td>
+            <td data-label="Actions">
               <div class="actions">
                 <a routerLink="/admin/users/{{ user.id }}/edit">
                   <i class="fa-regular fa-pen-to-square"></i>

@@ -1,15 +1,15 @@
 <div class="container mt-4">
   <app-card>
     <div card-header>
-      <h2>
+      <h5>
         Product List (Total:
         {{ productsStore.productsResponse().products.length }})
-      </h2>
+      </h5>
 
       <a
         routerLink="/admin/products/new"
-        class="btn btn-primary"
-        style="width: fit-content"
+        class="btn btn-primary gap-1"
+        style="width: fit-content; font-size: 0.7rem;"
       >
         <i class="fa-solid fa-plus"></i> Add Product
       </a>
@@ -28,9 +28,9 @@
           <th>Title</th>
           <th>Category</th>
           <th>Price</th>
-          <th class="d-none d-md-table-cell">Stock</th>
+          <th>Stock</th>
           <th>Rating</th>
-          <th class="d-none d-md-table-cell">Brand</th>
+          <th>Brand</th>
           <th>Thumbnail</th>
           <th>Actions</th>
         </tr>
@@ -40,8 +40,8 @@
       <tbody>
         @for (product of products(); track product.id) {
           <tr>
-            <td>{{ product.id }}</td>
-            <td>
+            <td data-label="ID">{{ product.id }}</td>
+            <td data-label="Title">
               <a
                 routerLink="/admin/products/{{ product.id }}/edit"
                 routerLinkActive="active-link"
@@ -49,25 +49,20 @@
                 {{ product.title }}
               </a>
             </td>
-            <td>{{ product.category }}</td>
-            <td>${{ product.price }}</td>
-            <td class="d-none d-md-table-cell">{{ product.stock }}</td>
-            <td>{{ product.rating }}</td>
-            <td class="d-none d-md-table-cell">{{ product.brand }}</td>
-            <td>
-              <!-- [src]="'http://localhost:8000' + product.thumbnail" -->
+            <td data-label="Category">{{ product.category }}</td>
+            <td data-label="Price">${{ product.price }}</td>
+            <td data-label="Stock">{{ product.stock }}</td>
+            <td data-label="Rating">{{ product.rating }}</td>
+            <td data-label="Brand">{{ product.brand }}</td>
+            <td data-label="Thumbnail">
               <img
                 [src]="apiService.getMediaUrl(product.thumbnail)"
                 alt="{{ product.title }}"
-                width="60"
-                height="60"
-                class="img-thumbnail"
+                class="img-thumb"
               />
             </td>
-            <td>
-              <div
-                class="d-flex gap-2 align-items-center justify-content-center"
-              >
+            <td data-label="Actions">
+              <div class="actions">
                 <a
                   routerLink="/admin/products/{{ product.id }}/edit"
                   routerLinkActive="active-link"

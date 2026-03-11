@@ -1,3 +1,5 @@
+@use "../../../../../styles/mixins.scss" as mixin;
+
 .premium-table-container {
   background: #ffffff;
   border-radius: 16px;
@@ -22,10 +24,9 @@
     background: #1f2937;
 
     th {
-      font-size: 0.85rem;
       letter-spacing: 0.05em;
       text-transform: uppercase !important;
-      font-weight: 700;
+      font: 700 0.7rem sans-serif;
       padding: 16px 20px;
       border-bottom: 2px solid #374151;
       border-right: 2px solid #374151;
@@ -38,14 +39,15 @@
       border-radius: 12px;
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
       transition: all 0.25s ease;
-      
+
       &:hover {
         transform: translateY(-2px);
         background: #f3f4f6;
       }
     }
-    
+
     td {
+      font-size: 0.88rem;
       padding: 14px 16px;
       vertical-align: middle;
       border-right: 2px solid #374151;
@@ -57,7 +59,7 @@
   }
 }
 
-:host ::ng-deep .user-thumb {
+:host ::ng-deep .img-thumb {
   width: 40px;
   height: 40px;
   object-fit: cover;
@@ -65,36 +67,26 @@
   border: 1px solid #e5e7eb;
 }
 
-.actions {
-  display: flex;
-  gap: 12px;
-  justify-content: center;
-  align-items: center;
+:host ::ng-deep .actions {
+  @include mixin.centered(5px, center, wrap);
 
   a,
   button {
-    transition: all 0.2s ease;
+    cursor: pointer;
     color: #6b7280;
+    width: fit-content;
+    transition: all 0.2s ease;
 
     &:hover {
       color: #111827;
       transform: scale(1.1);
     }
   }
-
-  button {
-    background: transparent;
-    border: none;
-    cursor: pointer;
-  }
 }
 
 .empty-state {
-  text-align: center;
   padding: 60px;
-  color: #9ca3af;
-  font-size: 1rem;
-  font-style: italic;
+  @include mixin.dynamic-text(600, 1rem, #9ca3af, center);
 }
 
 .pagination {
@@ -126,5 +118,43 @@
       pointer-events: none;
       background: #f9fafb;
     }
+  }
+}
+
+:host ::ng-deep .premium-table td::before {
+  content: attr(data-label);
+}
+
+@media (max-width: 830px) {
+  :host ::ng-deep .premium-table thead {
+    display: none;
+  }
+
+  :host ::ng-deep .premium-table,
+  :host ::ng-deep .premium-table tbody,
+  :host ::ng-deep .premium-table tr,
+  :host ::ng-deep .premium-table td {
+    display: block;
+    width: 100%;
+  }
+
+  :host ::ng-deep .premium-table tr {
+    margin-bottom: 16px;
+    padding: 14px;
+    border-radius: 12px;
+    border: 1px solid #e5e7eb;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+  }
+
+  :host ::ng-deep .premium-table td {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0;
+    border: none;
+  }
+
+  :host ::ng-deep .premium-table td::before {
+    font-weight: 600;
+    color: #6b7280;
   }
 }
