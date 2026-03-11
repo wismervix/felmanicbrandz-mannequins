@@ -18,11 +18,12 @@ import { User } from '../../../../../core/models/user.model';
 import { ApiService } from '../../../../../core/services/api.service';
 import { calculateAge } from '../../../../../core/utils/date.utils';
 import { Card } from '../../../../shared/components/card/card';
-import { JsonPipe } from '@angular/common';
+// import { JsonPipe } from '@angular/common';
 
 @Component({
   selector: 'app-user-form',
-  imports: [CommonModule, ReactiveFormsModule, Card, JsonPipe],
+  // imports: [CommonModule, ReactiveFormsModule, Card, JsonPipe],
+  imports: [CommonModule, ReactiveFormsModule, Card],
   templateUrl: './user-form.html',
   styleUrl: './user-form.scss',
 })
