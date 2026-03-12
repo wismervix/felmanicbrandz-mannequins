@@ -17,8 +17,14 @@ export const HOME_ROUTES: Routes = [
           {
             path: '',
             loadComponent: () =>
-              import('./pages/hanger-tab-view/hanger-tab-view')
-                .then((m) => m.HangerTabView),
+              import('./pages/all-tab-view/all-tab-view')
+                .then((m) => m.AllTabView),
+          },
+          {
+            path: 'all',
+            loadComponent: () =>
+              import('./pages/all-tab-view/all-tab-view')
+                .then((m) => m.AllTabView),
           },
           {
             path: 'hangers',

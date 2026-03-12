@@ -6,7 +6,6 @@ import {
   ChangeDetectionStrategy,
   inject,
 } from '@angular/core';
-// import { Product } from '../../data/products';
 import { Product } from '../../../../core/models/products.model';
 import { TitleCasePipe, DecimalPipe } from '@angular/common';
 import { CartService } from '../../services/cart/cart';

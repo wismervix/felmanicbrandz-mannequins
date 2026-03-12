@@ -2,10 +2,8 @@ import {
   Component,
   ChangeDetectionStrategy,
   inject,
-  OnInit,
   computed,
-  effect,
-  signal,
+  OnInit,
 } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { Title } from '@angular/platform-browser';
@@ -26,12 +24,21 @@ import { ApiService } from '../../../../../core/services/api.service';
 })
 // export class HangerShopTabView implements OnInit {
 export class HangerShopTabView {
+  public filterService = inject(ProductFilterService);
   public productsStore = inject(ProductsStore);
   public apiService = inject(ApiService);
 
   constructor() {
     this.productsStore.setCategory('hangers');
   }
+
+  // ngOnInit(): void {
+  //   // RESET FILTERS when entering this tab
+  //   this.filterService.setSearch('');
+  //   this.filterService.setCategory('hangers');
+  //   this.filterService.setSort('default');
+  //   this.filterService.setPriceRange(null);
+  // }
 
   products = this.productsStore.paginatedProducts;
   totalPages = this.productsStore.totalPages;

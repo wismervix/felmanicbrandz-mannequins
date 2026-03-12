@@ -4,21 +4,21 @@ import { SvgIcon } from '../../../../shared/components/svg-icon/svg-icon';
 import { BaseCarousel } from '../../components/base-carousel/base-carousel';
 import { ProductsStore } from '../../../../../core/data/products.store';
 import { ProductFilterService } from '../../../../shared/services/product-filter/product-filter';
+
 @Component({
-  selector: 'app-mannequin-tab-view',
-  standalone: true,
-  imports: [RouterModule, BaseCarousel, SvgIcon],
-  templateUrl: './mannequin-tab-view.html',
-  styleUrl: './mannequin-tab-view.scss',
+  selector: 'app-all-tab-view',
+  imports: [RouterModule, SvgIcon, BaseCarousel],
+  templateUrl: './all-tab-view.html',
+  styleUrl: './all-tab-view.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-// export class MannequinTabView implements OnInit {
-export class MannequinTabView {
+// export class AllTabView implements OnInit {
+export class AllTabView {
   public filterService = inject(ProductFilterService);
   public productsStore = inject(ProductsStore);
 
   constructor() {
-    this.productsStore.setCategory('mannequins');
+    this.productsStore.setCategory(null);
   }
 
   // ngOnInit(): void {

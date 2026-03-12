@@ -10,8 +10,15 @@ export const SHOP_ROUTES: Routes = [
       {
         path: '',
         loadComponent: () =>
-          import('./pages/hanger-shop-tab-view/hanger-shop-tab-view').then(
-            (m) => m.HangerShopTabView,
+          import('./pages/all-shop-tab-view/all-shop-tab-view').then(
+            (m) => m.AllShopTabView,
+          ),
+      },
+      {
+        path: 'all',
+        loadComponent: () =>
+          import('./pages/all-shop-tab-view/all-shop-tab-view').then(
+            (m) => m.AllShopTabView,
           ),
       },
       {

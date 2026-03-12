@@ -2,36 +2,33 @@ import {
   Component,
   ChangeDetectionStrategy,
   inject,
-  OnInit,
   computed,
-  effect,
-  signal,
+  OnInit,
 } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { Title } from '@angular/platform-browser';
-
 import { EachProduct } from '../../../../shared/components/each-product/each-product';
 import { ProductFilterService } from '../../../../shared/services/product-filter/product-filter';
 import { DataRow } from '../../../../shared/components/data-row/data-row';
 import { ProductsStore } from '../../../../../core/data/products.store';
 import { ApiService } from '../../../../../core/services/api.service';
 
+
 @Component({
-  selector: 'app-mannequin-shop-tab-view',
-  standalone: true,
+  selector: 'app-all-shop-tab-view',
   imports: [RouterModule, EachProduct, DataRow],
-  templateUrl: './mannequin-shop-tab-view.html',
-  styleUrl: './mannequin-shop-tab-view.scss',
+  templateUrl: './all-shop-tab-view.html',
+  styleUrl: './all-shop-tab-view.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-// export class MannequinShopTabView implements OnInit {
-export class MannequinShopTabView {
+// export class AllShopTabView implements OnInit {
+export class AllShopTabView {
   public filterService = inject(ProductFilterService);
   public productsStore = inject(ProductsStore);
   public apiService = inject(ApiService);
 
   constructor() {
-    this.productsStore.setCategory('mannequins');
+    this.productsStore.setCategory(null);
   }
 
   // ngOnInit(): void {

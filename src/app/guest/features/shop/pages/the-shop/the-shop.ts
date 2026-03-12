@@ -21,6 +21,7 @@ export class TheShop {
   @ViewChildren('shopTabEl') shopTabEls!: QueryList<ElementRef<HTMLElement>>;
 
   tabs = [
+    { name: 'shop-all', label: 'All', route: 'all' },
     { name: 'shop-hanger', label: 'Hangers', route: 'hangers' },
     { name: 'shop-mannequin', label: 'Mannequins', route: 'mannequins' },
   ];
@@ -34,9 +35,14 @@ export class TheShop {
   isActiveTab(route: string): boolean {
     const currentUrl = this.router.url;
 
+    if (route === 'all') {
+      // Activate tab if URL is '' (shop) or 'hangers'
+      return currentUrl === '/shop' || currentUrl.includes('/all');
+    }
+
     if (route === 'hangers') {
       // Activate tab if URL is '' (shop) or 'hangers'
-      return currentUrl === '/shop' || currentUrl.includes('/hangers');
+      return currentUrl.includes('/hangers');
     }
 
     if (route === 'mannequins') {
