@@ -8,10 +8,13 @@
     <div class="icon-cont">
       <i class="fa-solid fa-heart"></i>
     </div>
-    <div class="c-badge">BEST SELLING</div>
-    <!-- @if (isBestSelling()) {
-      <div class="c-badge">BEST SELLING</div>
-    } -->
+    <!-- <div class="c-badge">BEST SELLING</div> -->
+    <!-- Show the badge only if availabilityBadge exists -->
+     @if (availabilityBadge) {
+       <div class="c-badge" [ngClass]="availabilityBadge.class">
+         {{ availabilityBadge.text }}
+        </div>
+      }
   </div>
 
   <div class="product-details w-100">
@@ -47,8 +50,7 @@
           <i class="fa-solid fa-plus"></i>
         </button>
       </div>
-      <!-- <button class="btn buy" (click)="addToCart()"> -->
-      <button class="btn buy">
+        <button class="btn buy" (click)="addToCart()">
         <i class="fa-solid fa-cart-shopping"></i> Add to Cart
       </button>
     </div>

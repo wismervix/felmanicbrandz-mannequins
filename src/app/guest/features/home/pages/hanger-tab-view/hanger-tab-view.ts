@@ -20,5 +20,11 @@ import { ProductsStore } from '../../../../../core/data/products.store';
 export class HangerTabView {
   public productsStore = inject(ProductsStore);
 
-  products = this.productsStore.products;
+  constructor() {
+    this.productsStore.setCategory('hangers');
+  }
+
+  products = this.productsStore.paginatedProducts;
+  totalPages = this.productsStore.totalPages;
+  currentPage = this.productsStore.currentPageIndex;
 }

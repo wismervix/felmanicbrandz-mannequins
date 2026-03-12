@@ -7,6 +7,7 @@ import {
 import { CheckoutService } from '../../services/checkout/checkout';
 import { CartService } from '../../services/cart/cart';
 import { ToastService } from '../../services/toast/toast';
+import { ApiService } from '../../../../core/services/api.service';
 @Component({
   selector: 'app-cart-modal',
   imports: [],
@@ -18,6 +19,7 @@ export class CartModal {
   constructor(
     private checkoutService: CheckoutService,
     public cart: CartService,
+    public apiService: ApiService,
     private toast: ToastService,
   ) {}
 

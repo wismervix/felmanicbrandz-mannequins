@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { CartItem, OrderPayload } from '../../data/products';
+import { CartItem, OrderPayload } from '../../models/checkout';
 @Injectable({
   providedIn: 'root',
 })
@@ -9,7 +9,7 @@ export class CheckoutService {
   openWhatsApp(items: CartItem[]) {
     const lines = items.map(
       (i) =>
-        `• ${i.product.name} × ${i.quantity} – ₦${i.product.price * i.quantity}`,
+        `• ${i.product.title} × ${i.quantity} – ₦${i.product.price * i.quantity}`,
     );
 
     const total = items.reduce(

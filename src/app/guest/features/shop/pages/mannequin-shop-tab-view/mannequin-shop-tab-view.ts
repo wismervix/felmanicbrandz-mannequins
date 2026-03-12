@@ -10,11 +10,6 @@ import {
 import { RouterModule } from '@angular/router';
 import { Title } from '@angular/platform-browser';
 
-import {
-  Product,
-  CategoryKey,
-  getCoursesByCategory,
-} from '../../../../shared/data/products';
 import { EachProduct } from '../../../../shared/components/each-product/each-product';
 import { ProductFilterService } from '../../../../shared/services/product-filter/product-filter';
 import { DataRow } from '../../../../shared/components/data-row/data-row';
@@ -33,9 +28,13 @@ export class MannequinShopTabView {
   public productsStore = inject(ProductsStore);
   public apiService = inject(ApiService);
 
-  products = this.productsStore.products;
-  currentPage = this.productsStore.currentPageIndex;
+  constructor() {
+    this.productsStore.setCategory('mannequins');
+  }
+
+  products = this.productsStore.paginatedProducts;
   totalPages = this.productsStore.totalPages;
+  currentPage = this.productsStore.currentPageIndex;
 
   nextPage() {
     this.productsStore.nextPage();

@@ -12,10 +12,11 @@ import { TitleCasePipe, DecimalPipe } from '@angular/common';
 import { CartService } from '../../services/cart/cart';
 import { ToastService } from '../../services/toast/toast';
 import { ApiService } from '../../../../core/services/api.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-each-product',
-  imports: [TitleCasePipe, DecimalPipe],
+  imports: [TitleCasePipe, DecimalPipe, CommonModule],
   templateUrl: './each-product.html',
   styleUrl: './each-product.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -29,15 +30,15 @@ export class EachProduct {
     private toast: ToastService,
   ) {}
 
-  // addToCart() {
-  //   this.cart.add(this.product(), this.quantity());
-  //   this.toast.show(
-  //     `Added ${this.quantity()} × ${this.product().title} to cart`,
-  //     'success',
-  //   );
-  //   // console.log('Cart: ', this.cart.getItems());
-  //   this.resetQuantity();
-  // }
+  addToCart() {
+    this.cart.add(this.product(), this.quantity());
+    this.toast.show(
+      `Added ${this.quantity()} × ${this.product().title} to cart`,
+      'success',
+    );
+    // console.log('Cart: ', this.cart.getItems());
+    this.resetQuantity();
+  }
 
   // Computed signals for reactive values
   quantity = signal(1);
@@ -59,5 +60,16 @@ export class EachProduct {
     return (Math.min(Math.max(rating, 0), 5) / 5) * 100; // 0-100%
   });
 
-  // isBestSelling = computed(() => this.product()?.bestSelling === 1);
+  // Determine the badge text and class based on availability
+
+  get availabilityBadge() {
+    const status = this.product()?.availability_status;
+    if (status === 'Out of Stock') {
+      return { text: 'Out of Stock', class: 'badge-out-of-stock' };
+    } else if (status === 'Preorder') {
+      return { text: 'Ships Soon', class: 'badge-preorder' };
+    } else {
+      return null;
+    }
+  }
 }

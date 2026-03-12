@@ -3,6 +3,7 @@ import { Product, ProductsApiResponse } from '../models/products.model';
 import { HttpClient } from '@angular/common/http';
 import { tap } from 'rxjs';
 import { ApiService } from '../services/api.service';
+import { Category } from '../models/products.model';
 
 @Injectable({
   providedIn: 'root',
@@ -13,23 +14,30 @@ export class ProductsStore {
 
   private productsUrl = `${this.apiService.baseUrl}/products`;
 
+  selectedCategory = signal<Category | null>(null);
+
   // Pagination state
   private skipSignal = signal(0);
   private limit = 30;
 
   productsResponse = signal<ProductsApiResponse>({ products: [] });
 
-  // products = computed(() => this.productsResponse().products);
+  readonly filteredProducts = computed(() => {
+    const category = this.selectedCategory();
+    const products = this.productsResponse().products;
 
-  // Computed list of products for the current page
-  readonly products = computed(() => {
-    const allProducts = this.productsResponse().products;
+    if (!category) return products;
+
+    return products.filter((p) => p.category === category);
+  });
+
+  readonly paginatedProducts = computed(() => {
     const skip = this.skipSignal();
-    return allProducts.slice(skip, skip + this.limit);
+    return this.filteredProducts().slice(skip, skip + this.limit);
   });
 
   readonly totalPages = computed(() =>
-    Math.ceil(this.productsResponse().products.length / this.limit),
+    Math.ceil(this.filteredProducts().length / this.limit),
   );
 
   readonly currentPageIndex = computed(() =>
@@ -41,6 +49,11 @@ export class ProductsStore {
       .get<ProductsApiResponse>(this.productsUrl)
       .pipe(tap((res) => this.productsResponse.set(res)))
       .subscribe();
+
+    effect(() => {
+      this.selectedCategory();
+      this.skipSignal.set(0);
+    });
   }
 
   getProductById(id: number): Product | undefined {
@@ -125,9 +138,13 @@ export class ProductsStore {
     );
   }
 
+  setCategory(category: Category | null) {
+    this.selectedCategory.set(category);
+  }
+
   nextPage() {
     const nextSkip = this.skipSignal() + this.limit;
-    if (nextSkip < this.productsResponse().products.length) {
+    if (nextSkip < this.filteredProducts().length) {
       this.skipSignal.set(nextSkip);
     }
   }
@@ -141,7 +158,7 @@ export class ProductsStore {
 
   goToPage(pageIndex: number) {
     const newSkip = pageIndex * this.limit;
-    if (newSkip >= 0 && newSkip < this.productsResponse().products.length) {
+    if (newSkip >= 0 && newSkip < this.filteredProducts().length) {
       this.skipSignal.set(newSkip);
     }
   }

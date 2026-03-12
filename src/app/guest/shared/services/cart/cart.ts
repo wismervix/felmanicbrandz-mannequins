@@ -1,11 +1,12 @@
 import { Injectable, signal, effect, computed } from '@angular/core';
-import { Product, CartItem } from '../../data/products';
+import { CartItem } from '../../models/checkout';
+import { Product } from '../../../../core/models/products.model';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CartService {
-  private readonly STORAGE_KEY = 'manniquin_cart';
+  private readonly STORAGE_KEY = 'mannequin_cart';
 
   private items = signal<CartItem[]>(this.loadFromStorage());
 

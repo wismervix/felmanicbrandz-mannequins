@@ -6,7 +6,7 @@ export interface Product {
   id: number;
   title: string;
   description: string;
-  category: string;
+  category: Category;
   price: number;
   discountPercentage: number;
   rating: number;
@@ -16,18 +16,23 @@ export interface Product {
   sku: string;
   weight: number;
   dimensions: Dimensions;
-  warrantyInformation: string;
-  shippingInformation: string;
-  availabilityStatus: string;
+  warranty_information: string;
+  shipping_information: string;
+  availability_status: string;
   reviews: Review[];
-  returnPolicy: string;
-  minimumOrderQuantity: number;
+  return_policy: string;
+  minimum_order_quantity: number;
   meta: Meta;
   images: string[];
   thumbnail: string;
   created_at: string; // ISO date string
   updated_at: string; // ISO date string
 }
+
+export type Category = 'mannequins' | 'hangers';
+
+export type CategoryKey = Category;
+
 
 export interface Dimensions {
   width: number;

@@ -1,5 +1,5 @@
 import { computed, Injectable, signal } from '@angular/core';
-import { Product } from '../../data/products';
+import { Product } from '../../../../core/models/products.model';
 
 @Injectable({
   providedIn: 'root',
@@ -63,7 +63,7 @@ export class ProductFilterService {
     }
 
     if (search) {
-      result = result.filter((p) => p.name.toLowerCase().includes(search));
+      result = result.filter((p) => p.title.toLowerCase().includes(search));
     }
 
     if (sort === 'priceLow') {
@@ -75,11 +75,11 @@ export class ProductFilterService {
     }
 
     if (sort === 'nameAZ') {
-      result = [...result].sort((a, b) => a.name.localeCompare(b.name));
+      result = [...result].sort((a, b) => a.title.localeCompare(b.title));
     }
 
     if (sort === 'nameZA') {
-      result = [...result].sort((a, b) => b.name.localeCompare(a.name));
+      result = [...result].sort((a, b) => b.title.localeCompare(a.title));
     }
 
     return result;

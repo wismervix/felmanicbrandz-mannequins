@@ -61,11 +61,20 @@
       left: 6%;
       padding: 3px 8px;
       position: absolute;
-      background-color: #e76811;
       @include mixin.dynamic-text(500, 10px, #fff);
       border-radius: 3px;
       text-transform: uppercase;
       letter-spacing: 0.5px;
+    }
+
+    /* Out of stock: red */
+    .badge-out-of-stock {
+      background-color: #e74c3c; /* bright red */
+    }
+
+    /* Preorder: orange */
+    .badge-preorder {
+      background-color: #f39c12; /* vibrant orange */
     }
   }
 
