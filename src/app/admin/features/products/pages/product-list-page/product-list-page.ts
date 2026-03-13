@@ -15,11 +15,7 @@ export class ProductListPage {
   public productsStore = inject(ProductsStore);
   public apiService = inject(ApiService);
 
-  constructor() {
-    this.productsStore.setCategory(null);
-  }
-
-  products = this.productsStore.paginatedProducts;
+  products = this.productsStore.products;
   currentPage = this.productsStore.currentPageIndex;
   totalPages = this.productsStore.totalPages;
 

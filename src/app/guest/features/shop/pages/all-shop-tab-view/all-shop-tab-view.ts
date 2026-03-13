@@ -8,7 +8,7 @@ import {
 import { RouterModule } from '@angular/router';
 import { Title } from '@angular/platform-browser';
 import { EachProduct } from '../../../../shared/components/each-product/each-product';
-import { ProductFilterService } from '../../../../shared/services/product-filter/product-filter';
+import { PaginatedProductsService } from '../../../../shared/services/paginated-products/paginated-products';
 import { DataRow } from '../../../../shared/components/data-row/data-row';
 import { ProductsStore } from '../../../../../core/data/products.store';
 import { ApiService } from '../../../../../core/services/api.service';
@@ -21,38 +21,29 @@ import { ApiService } from '../../../../../core/services/api.service';
   styleUrl: './all-shop-tab-view.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-// export class AllShopTabView implements OnInit {
-export class AllShopTabView {
-  public filterService = inject(ProductFilterService);
-  public productsStore = inject(ProductsStore);
+// export class AllShopTabView {
+export class AllShopTabView implements OnInit {
+  public paginatedProducts = inject(PaginatedProductsService);
   public apiService = inject(ApiService);
 
-  constructor() {
-    this.productsStore.setCategory(null);
+  ngOnInit(): void {
+    this.paginatedProducts.setCategory('all');
   }
 
-  // ngOnInit(): void {
-  //   // RESET FILTERS when entering this tab
-  //   this.filterService.setSearch('');
-  //   this.filterService.setCategory('all');
-  //   this.filterService.setSort('default');
-  //   this.filterService.setPriceRange(null);
-  // }
-
-  products = this.productsStore.paginatedProducts;
-  totalPages = this.productsStore.totalPages;
-  currentPage = this.productsStore.currentPageIndex;
+  products = this.paginatedProducts.products;
+  totalPages = this.paginatedProducts.totalPages;
+  currentPage = this.paginatedProducts.currentPage;
 
   nextPage() {
-    this.productsStore.nextPage();
+    this.paginatedProducts.nextPage();
   }
 
   prevPage() {
-    this.productsStore.prevPage();
+    this.paginatedProducts.prevPage();
   }
 
   goToPage(page: number) {
-    this.productsStore.goToPage(page);
+    this.paginatedProducts.goToPage(page);
   }
 
   pageNumbers = computed(() =>

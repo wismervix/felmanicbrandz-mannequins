@@ -48,7 +48,6 @@ export class ProductFilterService {
 
   filteredProducts = computed(() => {
     let result = this.productsStore.productsResponse().products; // always reactive to store
-    console.log('result-products: ', result);
 
     const search = this.searchTerm();
     const category = this.category();
@@ -74,7 +73,6 @@ export class ProductFilterService {
       result = [...result].sort((a, b) => a.title.localeCompare(b.title));
     if (sort === 'nameZA')
       result = [...result].sort((a, b) => b.title.localeCompare(a.title));
-    console.log('End Result: ', result);
 
     return result;
   });

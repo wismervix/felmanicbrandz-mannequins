@@ -22,22 +22,15 @@ export class ProductsStore {
 
   productsResponse = signal<ProductsApiResponse>({ products: [] });
 
-  readonly filteredProducts = computed(() => {
-    const category = this.selectedCategory();
-    const products = this.productsResponse().products;
-
-    if (!category) return products;
-
-    return products.filter((p) => p.category === category);
-  });
-
-  readonly paginatedProducts = computed(() => {
+  // Computed list of products for the current page
+  readonly products = computed(() => {
+    const allProducts = this.productsResponse().products;
     const skip = this.skipSignal();
-    return this.filteredProducts().slice(skip, skip + this.limit);
+    return allProducts.slice(skip, skip + this.limit);
   });
 
   readonly totalPages = computed(() =>
-    Math.ceil(this.filteredProducts().length / this.limit),
+    Math.ceil(this.productsResponse().products.length / this.limit),
   );
 
   readonly currentPageIndex = computed(() =>
@@ -138,13 +131,9 @@ export class ProductsStore {
     );
   }
 
-  setCategory(category: Category | null) {
-    this.selectedCategory.set(category);
-  }
-
   nextPage() {
     const nextSkip = this.skipSignal() + this.limit;
-    if (nextSkip < this.filteredProducts().length) {
+    if (nextSkip < this.productsResponse().products.length) {
       this.skipSignal.set(nextSkip);
     }
   }
@@ -158,7 +147,7 @@ export class ProductsStore {
 
   goToPage(pageIndex: number) {
     const newSkip = pageIndex * this.limit;
-    if (newSkip >= 0 && newSkip < this.filteredProducts().length) {
+    if (newSkip >= 0 && newSkip < this.productsResponse().products.length) {
       this.skipSignal.set(newSkip);
     }
   }

@@ -1,9 +1,13 @@
-import { Component, ChangeDetectionStrategy, inject, OnInit } from '@angular/core';
+import {
+  Component,
+  ChangeDetectionStrategy,
+  inject,
+  OnInit,
+} from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { SvgIcon } from '../../../../shared/components/svg-icon/svg-icon';
 import { BaseCarousel } from '../../components/base-carousel/base-carousel';
-import { ProductsStore } from '../../../../../core/data/products.store';
-import { ProductFilterService } from '../../../../shared/services/product-filter/product-filter';
+import { PaginatedProductsService } from '../../../../shared/services/paginated-products/paginated-products';
 @Component({
   selector: 'app-mannequin-tab-view',
   standalone: true,
@@ -12,24 +16,15 @@ import { ProductFilterService } from '../../../../shared/services/product-filter
   styleUrl: './mannequin-tab-view.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-// export class MannequinTabView implements OnInit {
-export class MannequinTabView {
-  public filterService = inject(ProductFilterService);
-  public productsStore = inject(ProductsStore);
+// export class MannequinTabView {
+export class MannequinTabView implements OnInit {
+  public paginatedProducts = inject(PaginatedProductsService);
 
-  constructor() {
-    this.productsStore.setCategory('mannequins');
+  ngOnInit(): void {
+    this.paginatedProducts.setCategory('mannequins');
   }
 
-  // ngOnInit(): void {
-  //   // RESET FILTERS when entering this tab
-  //   this.filterService.setSearch('');
-  //   this.filterService.setCategory('all');
-  //   this.filterService.setSort('default');
-  //   this.filterService.setPriceRange(null);
-  // }
-
-  products = this.productsStore.paginatedProducts;
-  totalPages = this.productsStore.totalPages;
-  currentPage = this.productsStore.currentPageIndex;
+  products = this.paginatedProducts.products;
+  totalPages = this.paginatedProducts.totalPages;
+  currentPage = this.paginatedProducts.currentPage;
 }
