@@ -1,0 +1,50 @@
+<div class="login-wrapper d-flex align-items-center justify-content-center">
+  <div class="card shadow-lg border-0 login-card">
+    <div class="card-body p-5">
+      <h3 class="text-center mb-4 fw-bold">Admin Login</h3>
+
+      <form [formGroup]="loginForm" (ngSubmit)="submit()">
+        <!-- Email -->
+        <div class="mb-3">
+          <label class="form-label">Email</label>
+          <input
+            type="email"
+            class="form-control form-control-lg"
+            formControlName="email"
+            placeholder="admin@email.com"
+          />
+        </div>
+
+        <!-- Password -->
+        <div class="mb-3">
+          <label class="form-label">Password</label>
+          <input
+            type="password"
+            class="form-control form-control-lg"
+            formControlName="password"
+            placeholder="Enter password"
+          />
+        </div>
+
+        <!-- Error -->
+        @if (errorMessage()) {
+          <div class="alert alert-danger">
+            {{ errorMessage() }}
+          </div>
+        }
+
+        <!-- Button -->
+        <button
+          class="btn btn-primary w-100 btn-lg mt-3"
+          [disabled]="loading()"
+        >
+          @if (loading()) {
+            <span class="spinner-border spinner-border-sm"></span>
+          } @else {
+            <span>Login</span>
+          }
+        </button>
+      </form>
+    </div>
+  </div>
+</div>
