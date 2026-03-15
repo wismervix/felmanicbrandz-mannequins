@@ -7,12 +7,16 @@ import { ApiService } from '../../../core/services/api.service';
 })
 export class AuthService {
   private http = inject(HttpClient);
-    private apiService = inject(ApiService);
+  private apiService = inject(ApiService);
 
   login(email: string, password: string) {
     return this.http.post<any>(`${this.apiService.baseUrl}/login`, {
       email,
       password,
     });
+  }
+
+  logout() {
+    return this.http.post(`${this.apiService.baseUrl}/logout`, {});
   }
 }
