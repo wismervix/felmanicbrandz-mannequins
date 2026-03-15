@@ -39,8 +39,7 @@
         <div class="file-upload-section">
           <label class="form-label d-block"
             >Drag & drop files or
-            <span
-              class="text-primary text-decoration-underline"
+            <span class="text-primary text-decoration-underline"
               >Browse</span
             ></label
           >
@@ -79,16 +78,51 @@
             }
           </div>
         </div>
+
+        @if (control("thumbnail")?.touched && control("thumbnail")?.invalid) {
+          <span class="text-danger">
+            @if (control("thumbnail")?.errors?.["required"]) {
+              Thumbnail is required
+            }
+          </span>
+        }
       </div>
 
       <div class="col-md-4 col-sm-6 form-group">
         <label>Title</label>
         <input type="text" formControlName="title" />
+
+        @if (control("title")?.touched && control("title")?.invalid) {
+          <span class="text-danger">
+            @if (control("title")?.errors?.["required"]) {
+              Title is required
+            }
+            @if (control("title")?.errors?.["maxlength"]) {
+              Max length is 255
+            }
+          </span>
+        }
       </div>
 
       <div class="col-md-4 col-sm-6 form-group">
         <label>Description</label>
         <textarea formControlName="description"></textarea>
+
+        @if (
+          control("description")?.touched && control("description")?.invalid
+        ) {
+          <span class="text-danger">
+            @if (control("description")?.errors?.["required"]) {
+              Description is required
+            }
+            @if (control("description")?.errors?.["minlength"]) {
+              Min length is 10
+            }
+            @if (control("description")?.errors?.["maxlength"]) {
+              Max length is 255
+            }
+          </span>
+        }
       </div>
 
       <div class="col-md-4 col-sm-6 form-group">
@@ -97,11 +131,33 @@
           <option value="mannequins">Mannequins</option>
           <option value="hangers">Hangers</option>
         </select>
+
+        @if (control("category")?.touched && control("category")?.invalid) {
+          <span class="text-danger">
+            @if (control("category")?.errors?.["required"]) {
+              Category is required
+            }
+            @if (control("category")?.errors?.["maxlength"]) {
+              Max length is 255
+            }
+          </span>
+        }
       </div>
 
       <div class="col-md-4 col-sm-6 form-group">
         <label>Price</label>
         <input type="number" formControlName="price" step="0.01" />
+
+        @if (control("price")?.touched && control("price")?.invalid) {
+          <span class="text-danger">
+            @if (control("price")?.errors?.["required"]) {
+              Price is required
+            }
+            @if (control("price")?.errors?.["min"]) {
+              Price must be ≥ 0
+            }
+          </span>
+        }
       </div>
 
       <div class="col-md-4 col-sm-6 form-group">
@@ -111,6 +167,23 @@
           formControlName="discount_percentage"
           step="0.01"
         />
+
+        @if (
+          control("discount_percentage")?.touched &&
+          control("discount_percentage")?.invalid
+        ) {
+          <span class="text-danger">
+            @if (control("discount_percentage")?.errors?.["required"]) {
+              Discount percentage is required
+            }
+            @if (control("discount_percentage")?.errors?.["min"]) {
+              Discount percentage must be ≥ 0
+            }
+            @if (control("discount_percentage")?.errors?.["max"]) {
+              Discount percentage must be ≤ 100
+            }
+          </span>
+        }
       </div>
 
       <div class="col-md-4 col-sm-6 form-group">
@@ -122,41 +195,138 @@
           min="0"
           max="5"
         />
+
+        @if (control("rating")?.touched && control("rating")?.invalid) {
+          <span class="text-danger">
+            @if (control("rating")?.errors?.["required"]) {
+              Rating is required
+            }
+            @if (control("rating")?.errors?.["min"]) {
+              Rating must be ≥ 0
+            }
+            @if (control("rating")?.errors?.["max"]) {
+              Rating must be ≤ 5
+            }
+          </span>
+        }
       </div>
 
       <div class="col-md-4 col-sm-6 form-group">
         <label>Stock</label>
         <input type="number" formControlName="stock" />
+
+        @if (control("stock")?.touched && control("stock")?.invalid) {
+          <span class="text-danger">
+            @if (control("stock")?.errors?.["required"]) {
+              Stock is required
+            }
+            @if (control("stock")?.errors?.["min"]) {
+              Stock must be ≥ 0
+            }
+          </span>
+        }
       </div>
 
       <div class="col-md-4 col-sm-6 form-group">
         <label>Minimum Order Quantity</label>
         <input type="number" formControlName="minimum_order_quantity" />
+
+        @if (
+          control("minimum_order_quantity")?.touched &&
+          control("minimum_order_quantity")?.invalid
+        ) {
+          <span class="text-danger">
+            @if (control("minimum_order_quantity")?.errors?.["min"]) {
+              Minimum order must be at least 1
+            }
+          </span>
+        }
       </div>
 
       <div class="col-md-4 col-sm-6 form-group">
         <label>Weight</label>
         <input type="number" formControlName="weight" />
+
+        @if (control("weight")?.touched && control("weight")?.invalid) {
+          <span class="text-danger">
+            @if (control("weight")?.errors?.["required"]) {
+              Weight is required
+            }
+            @if (control("weight")?.errors?.["min"]) {
+              Weight must be ≥ 0
+            }
+          </span>
+        }
       </div>
 
       <div class="col-md-4 col-sm-6 form-group">
         <label>Brand</label>
         <input type="text" formControlName="brand" />
+
+        @if (control("brand")?.touched && control("brand")?.invalid) {
+          <span class="text-danger">
+            @if (control("brand")?.errors?.["required"]) {
+              Brand is required
+            }
+            @if (control("brand")?.errors?.["maxlength"]) {
+              Max length is 255
+            }
+          </span>
+        }
       </div>
 
       <div class="col-md-4 col-sm-6 form-group">
         <label>SKU</label>
         <input type="text" formControlName="sku" />
+
+        @if (control("sku")?.touched && control("sku")?.invalid) {
+          <span class="text-danger">
+            @if (control("sku")?.errors?.["required"]) {
+              SKU is required
+            }
+            @if (control("sku")?.errors?.["maxlength"]) {
+              Max length is 255
+            }
+          </span>
+        }
       </div>
 
       <div class="col-md-4 col-sm-6 form-group">
         <label>Warranty Information</label>
         <textarea formControlName="warranty_information"></textarea>
+
+        @if (
+          control("warranty_information")?.touched &&
+          control("warranty_information")?.invalid
+        ) {
+          <span class="text-danger">
+            @if (control("warranty_information")?.errors?.["required"]) {
+              Warranty information is required
+            }
+            @if (control("warranty_information")?.errors?.["maxlength"]) {
+              Max length is 255
+            }
+          </span>
+        }
       </div>
 
       <div class="col-md-4 col-sm-6 form-group">
         <label>Shipping Information</label>
         <textarea formControlName="shipping_information"></textarea>
+
+        @if (
+          control("shipping_information")?.touched &&
+          control("shipping_information")?.invalid
+        ) {
+          <span class="text-danger">
+            @if (control("shipping_information")?.errors?.["required"]) {
+              Shipping information is required
+            }
+            @if (control("shipping_information")?.errors?.["maxlength"]) {
+              Max length is 255
+            }
+          </span>
+        }
       </div>
 
       <div class="col-md-4 col-sm-6 form-group">
@@ -171,6 +341,19 @@
       <div class="col-md-4 col-sm-6 form-group">
         <label>Return Policy</label>
         <textarea formControlName="return_policy"></textarea>
+
+        @if (
+          control("return_policy")?.touched && control("return_policy")?.invalid
+        ) {
+          <span class="text-danger">
+            @if (control("return_policy")?.errors?.["required"]) {
+              Return policy is required
+            }
+            @if (control("return_policy")?.errors?.["maxlength"]) {
+              Max length is 255
+            }
+          </span>
+        }
       </div>
 
       <div class="grouped-section">
@@ -179,8 +362,7 @@
         <div class="file-upload-section">
           <label class="form-label d-block"
             >Drag & drop files or
-            <span
-              class="text-primary text-decoration-underline"
+            <span class="text-primary text-decoration-underline"
               >Browse</span
             ></label
           >
@@ -340,6 +522,17 @@
                 <div class="col-md-4 form-group">
                   <label>Email</label>
                   <input type="email" formControlName="reviewerEmail" />
+
+                  @if (
+                    review.get("reviewerEmail")?.touched &&
+                    review.get("reviewerEmail")?.invalid
+                  ) {
+                    <span class="text-danger">
+                      @if (review.get("reviewerEmail")?.errors?.["email"]) {
+                        Invalid email
+                      }
+                    </span>
+                  }
                 </div>
 
                 <div class="col-md-2 form-group d-flex align-items-end">
@@ -379,7 +572,9 @@
 
         <div formArrayName="tags" class="row">
           @for (tag of tagsArray.controls; let i = $index; track i) {
-            <div class="col-10 col-sm-7 col-md-5 col-lg-3 d-flex gap-2 align-items-center mb-3">
+            <div
+              class="col-10 col-sm-7 col-md-5 col-lg-3 d-flex gap-2 align-items-center mb-3"
+            >
               <input
                 type="text"
                 class="form-control"

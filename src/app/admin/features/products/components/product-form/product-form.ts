@@ -123,6 +123,15 @@ export class ProductForm {
     return this.form.get('tags') as FormArray;
   }
 
+  control(name: string) {
+    return this.form.get(name);
+  }
+
+  hasError(name: string, error: string) {
+    const c = this.form.get(name);
+    return c?.touched && c?.hasError(error);
+  }
+
   @Input() set product(value: Product | null) {
     this._product.set(value);
     this.isEdit.set(!!value);
@@ -182,7 +191,7 @@ export class ProductForm {
 
   form: FormGroup = this.fb.group({
     title: ['', [Validators.required, Validators.maxLength(255)]],
-    description: [''],
+    description: ['', [Validators.minLength(10)]],
     category: ['mannequins'],
     price: [0, [Validators.required, Validators.min(0)]],
     discount_percentage: [0, [Validators.min(0), Validators.max(100)]],
