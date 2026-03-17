@@ -17,6 +17,9 @@ export class ProductEditPage {
 
   product = signal<Product | null>(null);
 
+  loading = signal(false);
+  errorMessage = signal<string | null>(null);
+
   constructor() {
     const id = Number(this.route.snapshot.paramMap.get('id'));
     const foundProduct = this.productsStore.getProductById(id);
@@ -29,6 +32,10 @@ export class ProductEditPage {
   }
 
   handleUpdate(data: any) {
+
+    this.loading.set(true);
+    this.errorMessage.set(null);
+    
     this.productsStore.updateProduct(data.product).subscribe({
       next: (res) => {
         const productId = res.product.id;
@@ -50,8 +57,15 @@ export class ProductEditPage {
           this.router.navigate(['/admin/products']);
         }
       },
-      error: (err: any) => {
-        console.error('Update failed', err);
+
+      error: (err) => {
+        console.error(err);
+        this.errorMessage.set(err);
+        this.loading.set(false);
+      },
+
+      complete: () => {
+        this.loading.set(false);
       },
     });
   }

@@ -3,6 +3,7 @@ import {
   computed,
   EventEmitter,
   inject,
+  input,
   Input,
   Output,
   signal,
@@ -30,6 +31,9 @@ export class ProductForm {
 
   private _product = signal<Product | null>(null);
   readonly productSignal = this._product.asReadonly();
+  
+    loading = input.required<boolean>();
+    errorMessage = input.required<string | null>();
 
   readonly isEdit = signal(false);
 

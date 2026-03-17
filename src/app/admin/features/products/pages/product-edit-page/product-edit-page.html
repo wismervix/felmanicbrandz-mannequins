@@ -1,6 +1,7 @@
 <div class="edit-page-container">
   @if (product(); as p) {
     <app-product-form
+    [loading]="loading()" [errorMessage]="errorMessage()"
       [product]="p"
       (save)="handleUpdate($event)"
     />

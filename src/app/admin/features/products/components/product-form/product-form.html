@@ -613,8 +613,21 @@
       }
     }
 
+        <!-- Error -->
+        @if (errorMessage()) {
+          <div class="alert alert-danger">
+            {{ errorMessage() }}
+          </div>
+        }
+
     <div class="actions">
-      <button type="submit" [disabled]="form.invalid">Save Product</button>
+      <button type="submit" [disabled]="form.invalid || loading()">
+          @if (loading()) {
+            <span class="spinner-border spinner-border-sm"></span>
+          } @else {
+            <span>Save Product</span>
+          }
+        </button>
     </div>
   </form>
 </div>
