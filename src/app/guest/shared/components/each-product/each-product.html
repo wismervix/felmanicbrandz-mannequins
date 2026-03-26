@@ -1,9 +1,13 @@
 <div class="each-product">
-  <div class="img-cont">
+  <div class="img-cont"
+  [style.background]="
+    'linear-gradient(135deg, rgba(74,46,35,0.95), rgba(212,175,55,0.85)), url(' 
+    + apiService.getMediaUrl(product().thumbnail) + 
+    ') center / cover no-repeat'
+  ">
     <img
       [src]="apiService.getMediaUrl(product().thumbnail)"
       [alt]="product().title"
-      [style.object-fit]="'cover'"
     />
     <div class="icon-cont">
       <i class="fa-solid fa-heart"></i>
