@@ -1,8 +1,16 @@
-import { Component, computed, EventEmitter, inject, input, Output } from '@angular/core';
+import {
+  Component,
+  computed,
+  EventEmitter,
+  inject,
+  input,
+  Output,
+  signal,
+} from '@angular/core';
 import { ApiService } from '../../../../core/services/api.service';
 import { CartService } from '../../services/cart/cart';
 import { ToastService } from '../../services/toast/toast';
-import { CommonModule } from "@angular/common";
+import { CommonModule } from '@angular/common';
 import { Product } from '../../../../core/models/products.model';
 
 @Component({
@@ -16,6 +24,21 @@ export class DetailsModal {
   apiService = inject(ApiService);
   private cart = inject(CartService);
   private toast = inject(ToastService);
+
+  // Computed signals for reactive values
+  quantity = signal(1);
+
+  increment() {
+    this.quantity.update((q) => q + 1);
+  }
+
+  decrement() {
+    this.quantity.update((q) => Math.max(1, q - 1));
+  }
+
+  resetQuantity() {
+    this.quantity.set(1);
+  }
 
   // Rating width
   starWidth = computed(() => {
@@ -34,8 +57,13 @@ export class DetailsModal {
   }
 
   addToCart() {
-    this.cart.add(this.product(), 1);
-    this.toast.show(`Added 1 × ${this.product().title} to cart`, 'success');
+    this.cart.add(this.product(), this.quantity());
+    this.toast.show(
+      `Added ${this.quantity()} × ${this.product().title} to cart`,
+      'success',
+    );
+    // console.log('Cart: ', this.cart.getItems());
+    this.resetQuantity();
     this.close();
   }
 

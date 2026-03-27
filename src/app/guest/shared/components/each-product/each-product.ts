@@ -68,7 +68,6 @@ export class EachProduct {
   });
 
   // Determine the badge text and class based on availability
-
   get availabilityBadge() {
     const status = this.product()?.availability_status;
     if (status === 'Out of Stock') {

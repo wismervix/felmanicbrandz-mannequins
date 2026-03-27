@@ -1,68 +1,123 @@
 <div class="product-modal-backdrop" (click)="close()"></div>
 
 <div class="product-modal">
-  <!-- IMAGE -->
-  <div class="modal-image">
-    <img
-      [src]="apiService.getMediaUrl(product().thumbnail)"
-      [alt]="product().title"
-    />
-    @if (availabilityBadge) {
-      <div class="badge" [ngClass]="availabilityBadge.class">
-        {{ availabilityBadge.text }}
+  <div class="row g-4">
+    <div class="col-12 col-sm-6">
+      <!-- IMAGE -->
+      <div
+        class="modal-image"
+        [style.background]="
+          'linear-gradient(135deg, rgba(74,46,35,0.95), rgba(212,175,55,0.85)), url(' +
+          apiService.getMediaUrl(product().thumbnail) +
+          ') center / cover no-repeat'
+        "
+      >
+        <img
+          [src]="apiService.getMediaUrl(product().thumbnail)"
+          [alt]="product().title"
+        />
+        <button class="btn close" (click)="close()">
+          <i class="fas fa-arrow-left"></i>Back to list
+        </button>
       </div>
-    }
-  </div>
+    </div>
 
-  <!-- HEADER -->
-  <div class="modal-header">
-    <h2>{{ product().title }}</h2>
-    <div class="category">{{ product().category | titlecase }}</div>
-    <div class="price">₦{{ product().price }}</div>
-  </div>
+    <div class="col-10 col-sm-6">
+      <div class="left-wrapper">
+        <!-- Show the badge only if availabilityBadge exists -->
+        @if (availabilityBadge) {
+          <div class="c-badge" [ngClass]="availabilityBadge.class">
+            {{ availabilityBadge.text }}
+          </div>
+        }
 
-  <!-- RATING -->
-  <div class="rating">
-    <div class="stars-outer">
-      @for (_ of [1, 2, 3, 4, 5]; track _) {
-        <i class="fa-solid fa-star"></i>
-      }
+        <!-- HEADER -->
+        <h2 class="title">{{ product().title }}</h2>
 
-      <div class="stars-inner" [style.width.%]="starWidth()">
-        @for (_ of [1, 2, 3, 4, 5]; track _) {
-          <i class="fa-solid fa-star"></i>
+        <!-- CATEGORY AND RATINGS -->
+        <div class="category-strip">
+          <h4 class="category m-0">{{ product().category }}</h4>
+
+          <span class="stroke">|</span>
+
+          <!-- RATING -->
+          <div class="rating">
+            <div class="stars-outer">
+              @for (_ of [1, 2, 3, 4, 5]; track _) {
+                <i class="fa-solid fa-star"></i>
+              }
+
+              <div class="stars-inner" [style.width.%]="starWidth()">
+                @for (_ of [1, 2, 3, 4, 5]; track _) {
+                  <i class="fa-solid fa-star"></i>
+                }
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- PRICE -->
+        <h3 class="price">₦{{ product().price }}</h3>
+
+        <!-- DETAILS -->
+        @if (product().description) {
+          <div class="info-column">
+            <h4 class="label">Description:</h4>
+            <p class="info-text">{{ product().description }}</p>
+          </div>
+        }
+
+        @if (product().stock) {
+          <div class="info-column">
+            <h4 class="label">Stock:</h4>
+            <p class="info-text">{{ product().stock }} pcs</p>
+          </div>
+        }
+
+        @if (product().availability_status) {
+          <div class="info-column">
+            <h4 class="label">Availability Status:</h4>
+            <p class="info-text">{{ product().availability_status }}</p>
+          </div>
+        }
+
+        @if (product().minimum_order_quantity) {
+          <div class="info-column">
+            <h4 class="label">Min Order:</h4>
+            <p class="info-text">{{ product().minimum_order_quantity }} pcs</p>
+          </div>
         }
       </div>
     </div>
   </div>
 
-  <!-- DETAILS -->
-  <div class="details">
-    <div class="info-row">
-      <span>Stock:</span> <span>{{ product().stock }} pcs</span>
-    </div>
-    <div class="info-row">
-      <span>Availability:</span>
-      <span>{{ product().availability_status }}</span>
-    </div>
-    @if (product().minimum_order_quantity) {
-      <div class="info-row">
-        <span>Min Order:</span>
-        <span>{{ product().minimum_order_quantity }} pcs</span>
+  <!-- STICKY BOTTOM INFO BAR -->
+  <div class="sticky-bar">
+    <div class="product-profile">
+      <img
+        [src]="apiService.getMediaUrl(product().thumbnail)"
+        [alt]="product().title"
+        class="product-img-profile"
+      />
+      <div>
+        <h4 class="product-title">{{ product().title }}</h4>
+        <p class="m-0 product-category">{{ product().category }}</p>
       </div>
-    }
-    @if (product().description) {
-      <div class="info-row">
-        <span>Description:</span> <span>{{ product().description }}</span>
-      </div>
-    }
-  </div>
+    </div>
+    
+    <div class="counter-layer">
+      <span>Qty:</span>
+      <button class="btn counter-btn" (click)="decrement()">
+        <i class="fa-solid fa-minus"></i>
+      </button>
+      <span class="counter-text">{{ quantity() | number: "2.0" }}</span>
+      <button class="btn counter-btn" (click)="increment()">
+        <i class="fa-solid fa-plus"></i>
+      </button>
+    </div>
 
-  <!-- ACTIONS -->
-  <div class="modal-actions">
-    <button class="add-to-cart" (click)="addToCart()">
+    <button class="btn add-to-cart" (click)="addToCart()">
       <i class="fa-solid fa-cart-shopping"></i> Add to Cart
     </button>
-    <button class="close" (click)="close()">Close</button>
   </div>
 </div>
