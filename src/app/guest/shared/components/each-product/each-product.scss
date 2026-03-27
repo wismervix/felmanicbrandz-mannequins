@@ -4,37 +4,29 @@
 
 .each-product {
   height: 100%;
-  max-width: 268px;
-  min-height: 460px;
-  padding: 5px 0 0;
-  border-radius: 14px 14px 20px 20px;
-  background: linear-gradient(
-    to bottom,
-    transparent 0%,
-    transparent 40%,
-    #fff 40%,
-    #fff 100%
-  );
-  @include mixin.spread(0, start, column);
+  overflow: hidden;
+  background: #fff;
+  border-radius: 1rem;
+  transition: all 0.3s ease;
+  border: 1px solid #f1f1f1;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 
   &:hover {
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12); //changed box-shadow
+
+    .img-cont img {
+      transform: scale(1.1);
+    }
+
+    .img-cont .details-btn-wrapper {
+      transform: translateY(0);
+    }
   }
 
   .img-cont {
-    width: 100%;
-    height: 244px; // Added for consistent image container
+    aspect-ratio: 1;
     overflow: hidden;
     position: relative;
-    border-radius: 14px 14px 0 0;
-
-//     background: linear-gradient(
-//   160deg,
-//   #3B241C,
-//   #754E3D,
-//   #C89B6D,
-//   #F1E2B8
-// );
 
     .icon-cont {
       top: 7%;
@@ -44,7 +36,7 @@
       color: #fff;
       border-radius: 50%;
       position: absolute;
-      @include mixin.centered(); // Using your mixin
+      @include mixin.centered();
       cursor: pointer;
       border: 1px solid #fff;
       backdrop-filter: blur(2px);
@@ -57,11 +49,9 @@
       width: 100%;
       height: 100%;
       object-fit: contain;
-      transition: transform 0.3s;
-
-      &:hover {
-        transform: scale(1.05);
-      }
+      transition:
+        transform 0.5s ease,
+        opacity 0.5s ease;
     }
 
     .c-badge {
@@ -69,10 +59,10 @@
       left: 6%;
       padding: 3px 8px;
       position: absolute;
-      @include mixin.dynamic-text(500, 10px, #fff);
       border-radius: 3px;
-      text-transform: uppercase;
       letter-spacing: 0.5px;
+      text-transform: uppercase;
+      @include mixin.dynamic-text(500, 10px, #fff);
     }
 
     /* Out of stock: red */
@@ -84,16 +74,35 @@
     .badge-preorder {
       background-color: #f39c12; /* vibrant orange */
     }
+
+    .details-btn-wrapper {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      padding: 1rem;
+
+      background: linear-gradient(to top, rgba(0, 0, 0, 0.6), transparent);
+
+      transform: translateY(100%);
+      transition: transform 0.3s ease;
+
+      .btn.details {
+        border: none;
+        cursor: pointer;
+        background: white;
+        transition: background 0.2s;
+        @include mixin.dynamic-text(600, 15px, $primary, center);
+
+        &:hover {
+          background: #f3f3f3;
+        }
+      }
+    }
   }
 
   .product-details {
-    // min-height: 235px;
-    flex-grow: 1;
-    background: #fff;
     padding: 18px 13px;
-    border-radius: 0 0 20px 20px;
-    @include mixin.spread(20px, start, column);
-    // @include mixin.spread(clamp(20px, 2.1vw, 30px), start, column);
 
     .price-spread {
       @include mixin.spread();
@@ -139,9 +148,7 @@
     }
 
     .cta-spread {
-      width: 100%;
-      @include mixin.spread();
-      // margin-top: clamp(20px, 2.1vw, 30px);
+      margin-top: clamp(20px, 2.1vw, 30px);
       @include mixin.spread(15px, start, column);
 
       .counter-layer {
@@ -195,18 +202,6 @@
           background-color: #613b2e;
         }
       }
-    }
-  }
-}
-
-// Responsive adjustments
-@media (max-width: 768px) {
-  .each-product {
-    max-width: 100%;
-    margin-bottom: 25px;
-
-    .img-cont {
-      height: 180px;
     }
   }
 }

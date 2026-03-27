@@ -1,45 +1,53 @@
 <div class="each-product">
-  <div class="img-cont"
-  [style.background]="
-    'linear-gradient(135deg, rgba(74,46,35,0.95), rgba(212,175,55,0.85)), url(' 
-    + apiService.getMediaUrl(product().thumbnail) + 
-    ') center / cover no-repeat'
-  ">
+  <div
+    class="img-cont"
+    [style.background]="
+      'linear-gradient(135deg, rgba(74,46,35,0.95), rgba(212,175,55,0.85)), url(' +
+      apiService.getMediaUrl(product().thumbnail) +
+      ') center / cover no-repeat'
+    "
+  >
     <img
       [src]="apiService.getMediaUrl(product().thumbnail)"
       [alt]="product().title"
     />
+
     <div class="icon-cont">
       <i class="fa-solid fa-heart"></i>
     </div>
-    <!-- <div class="c-badge">BEST SELLING</div> -->
+
     <!-- Show the badge only if availabilityBadge exists -->
-     @if (availabilityBadge) {
-       <div class="c-badge" [ngClass]="availabilityBadge.class">
-         {{ availabilityBadge.text }}
-        </div>
-      }
+    @if (availabilityBadge) {
+      <div class="c-badge" [ngClass]="availabilityBadge.class">
+        {{ availabilityBadge.text }}
+      </div>
+    }
+
+    <div class="details-btn-wrapper">
+      <button class="btn details" (click)="openDetailsModal()">
+        View Product Details
+      </button>
+    </div>
   </div>
 
-  <div class="product-details w-100">
-    <div class="product-info w-100">
-      <div class="price-spread">
-        <span class="category">{{ product().category | titlecase }}</span>
-        <span class="price">₦{{ product().price }}</span>
-      </div>
-      <h3 class="name">{{ product().title }}</h3>
+  <div class="product-details">
+    <div class="price-spread">
+      <span class="category">{{ product().category | titlecase }}</span>
+      <span class="price">₦{{ product().price }}</span>
+    </div>
 
-      <div class="rating">
-        <div class="stars-outer">
+    <h3 class="name">{{ product().title }}</h3>
+
+    <div class="rating">
+      <div class="stars-outer">
+        @for (_ of [1, 2, 3, 4, 5]; track _) {
+          <i class="fa-solid fa-star"></i>
+        }
+
+        <div class="stars-inner" [style.width.%]="starWidth()">
           @for (_ of [1, 2, 3, 4, 5]; track _) {
             <i class="fa-solid fa-star"></i>
           }
-
-          <div class="stars-inner" [style.width.%]="starWidth()">
-            @for (_ of [1, 2, 3, 4, 5]; track _) {
-              <i class="fa-solid fa-star"></i>
-            }
-          </div>
         </div>
       </div>
     </div>
@@ -54,7 +62,7 @@
           <i class="fa-solid fa-plus"></i>
         </button>
       </div>
-        <button class="btn buy" (click)="addToCart()">
+      <button class="btn buy" (click)="addToCart()">
         <i class="fa-solid fa-cart-shopping"></i> Add to Cart
       </button>
     </div>

@@ -12,6 +12,7 @@ import { CartService } from '../../services/cart/cart';
 import { ToastService } from '../../services/toast/toast';
 import { ApiService } from '../../../../core/services/api.service';
 import { CommonModule } from '@angular/common';
+import { ModalService } from '../../services/modal/modal.service';
 
 @Component({
   selector: 'app-each-product',
@@ -24,10 +25,17 @@ export class EachProduct {
   public apiService = inject(ApiService);
   product = input.required<Product>();
 
+  showDetailsCart: boolean = false;
+
   constructor(
     private cart: CartService,
     private toast: ToastService,
+    private modalService: ModalService,
   ) {}
+
+  openDetailsModal() {
+    this.modalService.open(this.product());
+  }
 
   addToCart() {
     this.cart.add(this.product(), this.quantity());
