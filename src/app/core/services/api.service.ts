@@ -5,7 +5,7 @@ import { Injectable } from '@angular/core';
 })
 export class ApiService {
   // public baseUrl = 'http://127.0.0.1:8000/api';
-  public baseUrl = 'https://felmanicbrandz.com/api';
+  public baseUrl = 'https://api.felmanicbrandz.com/api';
 
   getMediaUrl(path?: string | null): string {
     if (!path) return '';
