@@ -10,6 +10,8 @@ export class AuthService {
   private apiService = inject(ApiService);
 
   login(email: string, password: string) {
+    console.log('Base Url: ', this.apiService.baseUrl);
+    
     return this.http.post<any>(`${this.apiService.baseUrl}/login`, {
       email,
       password,
