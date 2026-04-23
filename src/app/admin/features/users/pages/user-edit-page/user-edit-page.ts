@@ -22,6 +22,8 @@ export class UserEditPage {
     const id = Number(this.route.snapshot.paramMap.get('id'));
     const foundUser = this.usersStore.getUserById(id);
 
+    console.log('Found User: ', foundUser);
+
     if (foundUser) {
       this.user.set(foundUser);
     } else {
