@@ -145,6 +145,7 @@
             class="form-control"
             type="password"
             formControlName="password"
+            readonly
           />
           @if (
             form.controls["password"].invalid &&
@@ -252,7 +253,6 @@
 
         <div class="col-md-4 col-sm-6 form-group">
           <label class="form-label">Country</label>
-          <input class="form-control" type="text" formControlName="country" />
           <input class="form-control" type="text" formControlName="country" />
           @if (
             form.controls["country"].invalid && form.controls["country"].touched
