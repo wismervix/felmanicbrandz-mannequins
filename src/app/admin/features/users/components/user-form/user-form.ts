@@ -122,6 +122,8 @@ export class UserForm {
     };
 
     // this.save.emit(updatedUser);
+    console.log('User from form: ', updatedUser, this.imageFile());
+    
     this.save.emit({
       user: updatedUser,
       image: this.imageFile(),

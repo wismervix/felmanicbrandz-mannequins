@@ -103,7 +103,8 @@ export class UsersStore {
           const updatedUsers = this.usersResponse().users.map((u) =>
             u.id === updatedUser.id ? res.user : u,
           );
-          // console.log('updated user: ', updatedUser);
+          console.log('updated user: ', updatedUser);
+          
 
           this.usersResponse.set({ users: updatedUsers });
         }),
