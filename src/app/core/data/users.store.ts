@@ -45,7 +45,11 @@ export class UsersStore {
 
   // 🔍 Get single user
   getUserById(id: number): User | undefined {
-    return this.usersResponse().users.find((u) => u.id === id);
+    const userFromID = this.usersResponse().users.find((u) => u.id === id);
+
+    console.log('User From Id: ', userFromID);
+
+    return userFromID;
   }
 
   calculateAge(birthDate: string): number {
@@ -82,7 +86,7 @@ export class UsersStore {
       .pipe(
         tap((res) => {
           console.log('Image response: ', res);
-          
+
           const updated = this.usersResponse().users.map((u) =>
             u.id === userId ? res.user : u,
           );
@@ -104,7 +108,6 @@ export class UsersStore {
             u.id === updatedUser.id ? res.user : u,
           );
           console.log('updated user: ', updatedUser);
-          
 
           this.usersResponse.set({ users: updatedUsers });
         }),
