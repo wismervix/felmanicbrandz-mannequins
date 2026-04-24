@@ -1,3 +1,5 @@
+import { Media } from "./shared/types";
+
 export interface UsersApiResponse {
   users: User[];
 }
@@ -12,7 +14,7 @@ export interface User {
   username: string;
   password: string;
   birthDate: string; // "YYYY-MM-DD" format
-  image: string;
+  image: Media | null;
   role: 'admin' | 'user' | 'moderator';
   address: string;
   city: string;

@@ -2,10 +2,10 @@
   <app-card>
     <div card-header>
       <div class="user-header">
-        <img
-          [src]="apiService.getMediaUrl(form.value.image || u.image)"
-          alt="User avatar"
-        />
+        <!-- [src]="apiService.getMediaUrl(form.value.image || u.image)" -->
+        @if (imagePreview()) {
+          <img [src]="imagePreview()" alt="User avatar" />
+        }
         <div>
           <h2>{{ form.value.first_name }} {{ form.value.last_name }}</h2>
           <span class="role-badge" [class.admin]="form.value.role === 'admin'">

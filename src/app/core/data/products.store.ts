@@ -53,7 +53,7 @@ export class ProductsStore {
     return this.productsResponse().products.find((p) => p.id === id);
   }
 
-  uploadImages(
+  syncProductImages(
     productId: number,
     thumbnail?: File,
     images?: File[],

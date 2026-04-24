@@ -71,7 +71,7 @@ export class UsersStore {
     return age;
   }
 
-  uploadImage(userId: number, image?: File) {
+  uploadUserImage(userId: number, image?: File) {
     const formData = new FormData();
 
     if (image) {

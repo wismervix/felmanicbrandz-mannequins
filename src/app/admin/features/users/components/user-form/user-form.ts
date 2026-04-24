@@ -6,6 +6,7 @@ import {
   signal,
   inject,
   computed,
+  OnDestroy,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
@@ -27,7 +28,7 @@ import { Card } from '../../../../shared/components/card/card';
   templateUrl: './user-form.html',
   styleUrl: './user-form.scss',
 })
-export class UserForm {
+export class UserForm implements OnDestroy {
   constructor() {
     this.form.get('birthDate')?.valueChanges.subscribe((value) => {
       this.birthDateSignal.set(value);
@@ -51,13 +52,23 @@ export class UserForm {
   imageFile = signal<File | null>(null);
   imagePreview = signal<string | null>(null);
 
-  onImageSelected(event: any) {
-    const file = event.target.files[0];
+  onImageSelected(event: Event) {
+    const input = event.target as HTMLInputElement;
+    const file = input.files?.[0];
 
     if (!file) return;
 
+    // 🔥 cleanup old preview first
+    const oldPreview = this.imagePreview();
+    if (oldPreview && oldPreview.startsWith('blob:')) {
+      URL.revokeObjectURL(oldPreview);
+    }
+
     this.imageFile.set(file);
     this.imagePreview.set(URL.createObjectURL(file));
+
+    // ✅ IMPORTANT: reset input so same file triggers change again
+    input.value = '';
   }
 
   get formControlsDebug() {
@@ -73,6 +84,10 @@ export class UserForm {
     this._user.set(value);
     if (value) {
       this.form.patchValue(value);
+      // this.form.patchValue({
+      //   ...value,
+      //   image: value.image?.url || '',
+      // });
       this.birthDateSignal.set(value.birthDate);
 
       if (value.image) {
@@ -101,7 +116,7 @@ export class UserForm {
       [Validators.required, Validators.minLength(8), Validators.maxLength(100)],
     ],
     birthDate: ['', Validators.required],
-    image: [''],
+    // image: [''],
     role: ['user', Validators.required],
     address: ['', Validators.required],
     city: ['', Validators.required],
@@ -123,10 +138,17 @@ export class UserForm {
 
     // this.save.emit(updatedUser);
     console.log('User from form: ', updatedUser, this.imageFile());
-    
+
     this.save.emit({
       user: updatedUser,
       image: this.imageFile(),
     });
+  }
+
+  ngOnDestroy() {
+    const preview = this.imagePreview();
+    if (preview && preview.startsWith('blob:')) {
+      URL.revokeObjectURL(preview);
+    }
   }
 }

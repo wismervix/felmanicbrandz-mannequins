@@ -7,9 +7,13 @@ import {
   Input,
   Output,
   signal,
+  OnDestroy,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { DisplayImage, Product } from '../../../../../core/models/products.model';
+import {
+  DisplayImage,
+  Product,
+} from '../../../../../core/models/products.model';
 import {
   FormGroup,
   FormArray,
@@ -25,15 +29,15 @@ import { ApiService } from '../../../../../core/services/api.service';
   templateUrl: './product-form.html',
   styleUrl: './product-form.scss',
 })
-export class ProductForm {
+export class ProductForm implements OnDestroy {
   private fb = inject(FormBuilder);
   public apiService = inject(ApiService);
 
   private _product = signal<Product | null>(null);
   readonly productSignal = this._product.asReadonly();
-  
-    loading = input.required<boolean>();
-    errorMessage = input.required<string | null>();
+
+  loading = input.required<boolean>();
+  errorMessage = input.required<string | null>();
 
   readonly isEdit = signal(false);
 
@@ -43,16 +47,26 @@ export class ProductForm {
   displayImages = signal<DisplayImage[]>([]);
   removedImages = signal<string[]>([]);
 
-  onThumbnailSelected(event: any) {
-    const file = event.target.files[0];
+  onThumbnailSelected(event: Event) {
+    const input = event.target as HTMLInputElement;
+    const file = input.files?.[0];
 
     if (!file) return;
 
+    // 🔥 revoke old
+    const old = this.thumbnailPreview();
+    if (old && old.startsWith('blob:')) {
+      URL.revokeObjectURL(old);
+    }
+
     this.thumbnailFile.set(file);
     this.thumbnailPreview.set(URL.createObjectURL(file));
+
+    // ✅ IMPORTANT: reset input so same file triggers change again
+    input.value = '';
   }
 
-  onImagesSelected(event: any) {
+  onImagesSelected(event: Event) {
     const target = event.target as HTMLInputElement;
 
     if (!target.files) return;
@@ -71,8 +85,13 @@ export class ProductForm {
   removeImage(index: number) {
     const image = this.displayImages()[index];
 
-    if (image.type === 'existing' && image.path) {
-      this.removedImages.update((arr) => [...arr, image.path!]);
+    // 🔥 revoke if it's a new image
+    if (image.type === 'new' && image.url.startsWith('blob:')) {
+      URL.revokeObjectURL(image.url);
+    }
+
+    if (image.type === 'existing' && image.public_id) {
+      this.removedImages.update((arr) => [...arr, image.public_id!]);
     }
 
     this.displayImages.update((arr) => arr.filter((_, i) => i !== index));
@@ -169,7 +188,7 @@ export class ProductForm {
           value.images.map((img) => ({
             type: 'existing',
             url: this.apiService.getMediaUrl(img),
-            path: img,
+            public_id: img.public_id ?? undefined,
           })),
         );
       }
@@ -269,6 +288,21 @@ export class ProductForm {
       thumbnail: this.thumbnailFile(),
       images: newImages,
       removedImages: this.removedImages(),
+    });
+  }
+
+  ngOnDestroy() {
+    // 🔥 thumbnail
+    const thumb = this.thumbnailPreview();
+    if (thumb && thumb.startsWith('blob:')) {
+      URL.revokeObjectURL(thumb);
+    }
+
+    // 🔥 all new images
+    this.displayImages().forEach((img) => {
+      if (img.type === 'new' && img.url.startsWith('blob:')) {
+        URL.revokeObjectURL(img.url);
+      }
     });
   }
 }

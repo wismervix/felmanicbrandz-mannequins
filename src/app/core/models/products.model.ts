@@ -1,3 +1,5 @@
+import { Media } from "./shared/types";
+
 export interface ProductsApiResponse {
   products: Product[];
 }
@@ -8,7 +10,7 @@ export interface Product {
   description: string;
   category: Category;
   price: number;
-  discountPercentage: number;
+  discount_percentage: number;
   rating: number;
   stock: number;
   tags: string[];
@@ -23,8 +25,8 @@ export interface Product {
   return_policy: string;
   minimum_order_quantity: number;
   meta: Meta;
-  images: string[];
-  thumbnail: string;
+  images: Media[];
+  thumbnail: Media | null;
   created_at: string; // ISO date string
   updated_at: string; // ISO date string
 }
@@ -58,6 +60,6 @@ export interface Meta {
 export interface DisplayImage {
   type: 'existing' | 'new';
   url: string;
-  path?: string;
+  public_id?: string;
   file?: File;
 }

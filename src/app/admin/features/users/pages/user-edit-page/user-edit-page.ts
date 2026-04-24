@@ -22,7 +22,7 @@ export class UserEditPage {
     const id = Number(this.route.snapshot.paramMap.get('id'));
     const foundUser = this.usersStore.getUserById(id);
 
-    console.log('Found User: ', foundUser);
+    // console.log('Found User: ', foundUser);
 
     if (foundUser) {
       this.user.set(foundUser);
@@ -31,14 +31,14 @@ export class UserEditPage {
     }
   }
 
-  handleSave(data: any) {
+  handleSave(data: any) { 
     this.usersStore.updateUser(data.user).subscribe({
       next: (res) => {
         const userId = res.user.id;
 
         if (data.image) {
           this.usersStore
-            .uploadImage(userId, data.image)
+            .uploadUserImage(userId, data.image)
             .subscribe(() => this.router.navigate(['/admin/users']));
         } else {
           this.router.navigate(['/admin/users']);

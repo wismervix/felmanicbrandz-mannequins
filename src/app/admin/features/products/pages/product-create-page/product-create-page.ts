@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { ProductsStore } from '../../../../../core/data/products.store';
 import { Product } from '../../../../../core/models/products.model';
 import { ProductForm } from '../../components/product-form/product-form';
+import { switchMap } from 'rxjs';
 
 @Component({
   selector: 'app-product-create-page',
@@ -18,41 +19,32 @@ export class ProductCreatePage {
   errorMessage = signal<string | null>(null);
 
   handleCreate(data: any) {
-
     this.loading.set(true);
     this.errorMessage.set(null);
-    
-    this.productsStore.createProduct(data.product).subscribe({
-      next: (res) => {
-        const productId = res.product.id;
 
-        if (
-          data.thumbnail ||
-          data.images?.length ||
-          data.removedImages?.length
-        ) {
-          this.productsStore
-            .uploadImages(
-              productId,
-              data.thumbnail,
-              data.images,
-              data.removedImages,
-            )
-            .subscribe(() => this.router.navigate(['/admin/products']));
-        } else {
+    this.productsStore
+      .createProduct(data.product)
+      .pipe(
+        switchMap((res) =>
+          this.productsStore.syncProductImages(
+            res.product.id,
+            data.thumbnail ?? null,
+            data.images ?? [],
+            data.removedImages ?? [],
+          ),
+        ),
+      )
+      .subscribe({
+        next: () => {
           this.router.navigate(['/admin/products']);
-        }
-      },
-
-      error: (err) => {
-        console.error(err);
-        this.errorMessage.set(err);
-        this.loading.set(false);
-      },
-
-      complete: () => {
-        this.loading.set(false);
-      },
-    });
+        },
+        error: (err) => {
+          console.error(err);
+          this.errorMessage.set(err);
+        },
+        complete: () => {
+          this.loading.set(false);
+        },
+      });
   }
 }

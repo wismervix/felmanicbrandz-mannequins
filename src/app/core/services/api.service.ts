@@ -7,11 +7,21 @@ export class ApiService {
   // public baseUrl = 'http://127.0.0.1:8000/api';
   public baseUrl = 'https://api.felmanicbrandz.com/api';
 
-  getMediaUrl(path?: string | null): string {
-    if (!path) return '';
+  getMediaUrl(media?: any): string {
+    if (!media) return '';
 
-    if (path.startsWith('http')) return path;
+    // NEW STRUCTURE (object)
+    if (typeof media === 'object' && media.url) {
+      return media.url;
+    }
 
-    return `${this.baseUrl.replace('/api', '/storage/')}${path}`;
+    // OLD STRUCTURE (string)
+    if (typeof media === 'string') {
+      if (media.startsWith('http')) return media;
+
+      return `${this.baseUrl.replace('/api', '/storage/')}${media}`;
+    }
+
+    return '';
   }
 }
