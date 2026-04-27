@@ -15,8 +15,24 @@
       </div>
     </div>
 
-    <form [formGroup]="form" (ngSubmit)="submit()">
-      <div class="row">
+    <form [formGroup]="form" (ngSubmit)="submit()" [attr.aria-busy]="isSubmitting()">
+      <!-- Server Error Messages -->
+      @if (serverErrors(); as errors) {
+        @if (errors.length > 0) {
+          <div class="alert alert-danger mb-4" role="alert">
+            <strong>Submission Failed:</strong>
+            <ul class="mb-0 mt-2">
+              @for (error of errors; track error.message) {
+                <li>{{ error.message }}</li>
+              }
+            </ul>
+          </div>
+        }
+      }
+
+      <!-- Form Fields -->
+      <fieldset [disabled]="isSubmitting()">
+        <div class="row">
         <div class="col-md-4 col-sm-6 form-group">
           <label class="form-label">User Profile Image</label>
 
@@ -71,17 +87,9 @@
             type="text"
             formControlName="first_name"
           />
-          @if (
-            form.controls["first_name"].invalid &&
-            form.controls["first_name"].touched
-          ) {
+          @if (shouldShowError('first_name')) {
             <span class="text-danger">
-              @if (form.controls["first_name"].errors?.["required"]) {
-                First Name is required.
-              }
-              @if (form.controls["first_name"].errors?.["minlength"]) {
-                First Name must be at least 2 characters.
-              }
+              {{ getFieldError('first_name') }}
             </span>
           }
         </div>
@@ -89,17 +97,9 @@
         <div class="col-md-4 col-sm-6 form-group">
           <label class="form-label">Last Name</label>
           <input class="form-control" type="text" formControlName="last_name" />
-          @if (
-            form.controls["last_name"].invalid &&
-            form.controls["last_name"].touched
-          ) {
+          @if (shouldShowError('last_name')) {
             <span class="text-danger">
-              @if (form.controls["last_name"].errors?.["required"]) {
-                Last Name is required.
-              }
-              @if (form.controls["last_name"].errors?.["minlength"]) {
-                Last Name must be at least 2 characters.
-              }
+              {{ getFieldError('last_name') }}
             </span>
           }
         </div>
@@ -107,16 +107,9 @@
         <div class="col-md-4 col-sm-6 form-group">
           <label class="form-label">Email</label>
           <input class="form-control" type="email" formControlName="email" />
-          @if (
-            form.controls["email"].invalid && form.controls["email"].touched
-          ) {
+          @if (shouldShowError('email')) {
             <span class="text-danger">
-              @if (form.controls["email"].errors?.["required"]) {
-                Email is required.
-              }
-              @if (form.controls["email"].errors?.["email"]) {
-                Enter a valid email address.
-              }
+              {{ getFieldError('email') }}
             </span>
           }
         </div>
@@ -124,17 +117,9 @@
         <div class="col-md-4 col-sm-6 form-group">
           <label class="form-label">Username</label>
           <input class="form-control" type="text" formControlName="username" />
-          @if (
-            form.controls["username"].invalid &&
-            form.controls["username"].touched
-          ) {
+          @if (shouldShowError('username')) {
             <span class="text-danger">
-              @if (form.controls["username"].errors?.["required"]) {
-                Username is required.
-              }
-              @if (form.controls["username"].errors?.["minlength"]) {
-                Username must be at least 3 characters.
-              }
+              {{ getFieldError('username') }}
             </span>
           }
         </div>
@@ -274,8 +259,16 @@
       </div>
 
       <div class="actions">
-        <button type="submit" [disabled]="form.invalid">Save Changes</button>
+        <button type="submit" [disabled]="form.invalid || isSubmitting()">
+          @if (isSubmitting()) {
+            <span class="spinner-border spinner-border-sm me-2"></span>
+            <span>Saving...</span>
+          } @else {
+            <span>Save Changes</span>
+          }
+        </button>
       </div>
+      </fieldset>
       <!-- @if (form.invalid) {
         <div>
           <pre>{{ form.errors | json }}</pre>

@@ -7,6 +7,7 @@ import {
   inject,
   computed,
   OnDestroy,
+  effect,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
@@ -35,6 +36,13 @@ export class UserForm implements OnDestroy {
     });
 
     console.log('user: ', this.userSignal());
+
+    // Clear server errors when form values change
+    this.form.valueChanges.subscribe(() => {
+      if (this.serverErrors().length > 0) {
+        this.serverErrors.set([]);
+      }
+    });
   }
 
   private fb = inject(FormBuilder);
@@ -42,6 +50,13 @@ export class UserForm implements OnDestroy {
 
   private _user = signal<User | null>(null);
   readonly userSignal = this._user.asReadonly();
+
+  // Submission and validation states
+  readonly isSubmitting = signal(false);
+  readonly serverErrors = signal<Array<{ field?: string; message: string }>>(
+    [],
+  );
+  readonly formTouched = signal(false);
 
   birthDateSignal = signal<string | null>(null);
   readonly calculatedAge = computed(() => {
@@ -78,6 +93,47 @@ export class UserForm implements OnDestroy {
       valid: control.valid,
       errors: control.errors,
     }));
+  }
+
+  /**
+   * Check if a field error should be displayed
+   * Shows error if: touched AND has errors, OR form was submitted
+   */
+  shouldShowError(fieldName: string): boolean {
+    const control = this.form.get(fieldName);
+    if (!control) return false;
+    return (
+      (control.touched && control.invalid) ||
+      (this.formTouched() && control.invalid)
+    );
+  }
+
+  /**
+   * Get error message for a field
+   * Returns server error first, then client-side validation error
+   */
+  getFieldError(fieldName: string): string | null {
+    // Check for server-side errors first
+    const serverError = this.serverErrors().find(
+      (err) => err.field === fieldName,
+    );
+    if (serverError) return serverError.message;
+
+    const control = this.form.get(fieldName);
+    if (!control || !control.errors) return null;
+
+    // Return first client-side validation error
+    const errorKey = Object.keys(control.errors)[0];
+    if (errorKey === 'required')
+      return `${fieldName.replace(/_/g, ' ')} is required`;
+    if (errorKey === 'minlength')
+      return `Minimum length is ${control.errors['minlength'].requiredLength}`;
+    if (errorKey === 'maxlength')
+      return `Maximum length is ${control.errors['maxlength'].requiredLength}`;
+    if (errorKey === 'email') return 'Enter a valid email address';
+    if (errorKey === 'pattern') return 'Invalid format';
+
+    return null;
   }
 
   @Input() set user(value: User | null) {
@@ -125,7 +181,13 @@ export class UserForm implements OnDestroy {
   });
 
   submit() {
+    // Mark form as touched to show all validation errors
+    this.formTouched.set(true);
+
     if (this.form.invalid || !this._user()) return;
+
+    // Set loading state
+    this.isSubmitting.set(true);
 
     const age = calculateAge(this.form.value.birthDate);
 
@@ -136,13 +198,30 @@ export class UserForm implements OnDestroy {
       updated_at: new Date().toISOString(),
     };
 
-    // this.save.emit(updatedUser);
     console.log('User from form: ', updatedUser, this.imageFile());
 
     this.save.emit({
       user: updatedUser,
       image: this.imageFile(),
     });
+  }
+
+  /**
+   * Call this from parent component after server response
+   * Handles both success and error scenarios
+   */
+  setSubmissionState(
+    isSubmitting: boolean,
+    errors?: Array<{ field?: string; message: string }>,
+  ) {
+    this.isSubmitting.set(isSubmitting);
+    if (errors) {
+      this.serverErrors.set(errors);
+      // Mark form as touched so errors are visible
+      Object.keys(this.form.controls).forEach((key) => {
+        this.form.get(key)?.markAsTouched();
+      });
+    }
   }
 
   ngOnDestroy() {
