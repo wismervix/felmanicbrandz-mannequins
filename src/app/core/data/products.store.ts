@@ -60,6 +60,7 @@ export class ProductsStore {
     removedImages?: string[],
   ) {
     const formData = new FormData();
+    console.log('FormData as soon as it is posted: ', formData);
 
     if (thumbnail instanceof File) {
       formData.append('thumbnail', thumbnail);
