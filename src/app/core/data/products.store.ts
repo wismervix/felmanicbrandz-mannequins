@@ -63,6 +63,8 @@ export class ProductsStore {
 
     if (thumbnail instanceof File) {
       formData.append('thumbnail', thumbnail);
+    } else if (thumbnail) {
+      formData.append('thumbnail', JSON.stringify(thumbnail));
     }
 
     images?.forEach((img) => {
@@ -82,7 +84,7 @@ export class ProductsStore {
           const updated = this.productsResponse().products.map((p) =>
             p.id === productId ? res.product : p,
           );
-          
+
           console.log('Response after image update: ', res);
           this.productsResponse.set({
             products: updated,

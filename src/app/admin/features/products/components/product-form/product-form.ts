@@ -23,6 +23,7 @@ import {
   ReactiveFormsModule,
 } from '@angular/forms';
 import { ApiService } from '../../../../../core/services/api.service';
+import { Media } from '../../../../../core/models/shared/types';
 
 @Component({
   selector: 'app-product-form',
@@ -271,7 +272,7 @@ export class ProductForm implements OnDestroy {
   // @Output() save = new EventEmitter<Product>();
   @Output() save = new EventEmitter<{
     product: Product;
-    thumbnail?: File | null;
+    thumbnail?: Media | File | null;
     images?: File[];
     removedImages?: string[];
   }>();
@@ -360,7 +361,9 @@ export class ProductForm implements OnDestroy {
     this.save.emit({
       product: updatedProduct,
       thumbnail:
-        this.thumbnailFile() instanceof File ? this.thumbnailFile() : undefined,
+        this.thumbnailFile() instanceof File
+          ? this.thumbnailFile()
+          : this.productSignal()?.thumbnail,
       images: newImages,
       removedImages: this.removedImages(),
     });

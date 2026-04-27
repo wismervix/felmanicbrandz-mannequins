@@ -26,7 +26,7 @@ export interface Product {
   minimum_order_quantity: number;
   meta: Meta;
   images: Media[];
-  thumbnail: Media | null;
+  thumbnail: File | Media | null;
   created_at: string; // ISO date string
   updated_at: string; // ISO date string
 }
