@@ -551,7 +551,7 @@
       <!-- Error -->
       @if (errorMessage()) {
         <div class="alert alert-danger">
-          {{ errorMessage() }}
+          {{ errorMessage() | json }}
         </div>
       }
 
