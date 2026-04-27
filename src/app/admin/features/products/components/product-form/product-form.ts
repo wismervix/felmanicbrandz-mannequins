@@ -351,7 +351,7 @@ export class ProductForm implements OnDestroy {
     // this.save.emit(updatedProduct);
     this.save.emit({
       product: updatedProduct,
-      thumbnail: this.thumbnailFile(),
+      thumbnail: this.thumbnailFile() ? this.thumbnailFile() : undefined,
       images: newImages,
       removedImages: this.removedImages(),
     });
