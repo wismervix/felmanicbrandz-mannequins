@@ -17,11 +17,12 @@ import NProgress from 'nprogress';
 })
 export class App {
   constructor(private router: Router) {
-    let timer: any;
+    // let timer: any;
 
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationStart) {
-        timer = setTimeout(() => NProgress.start(), 100);
+        NProgress.start()
+        // timer = setTimeout(() => NProgress.start(), 100);
       }
 
       if (
