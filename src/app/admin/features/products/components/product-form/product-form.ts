@@ -42,7 +42,9 @@ export class ProductForm implements OnDestroy {
 
   readonly isEdit = signal(false);
   readonly formTouched = signal(false);
-  readonly serverErrors = signal<Array<{ field?: string; message: string }>>([]);
+  readonly serverErrors = signal<Array<{ field?: string; message: string }>>(
+    [],
+  );
 
   constructor() {
     // Clear server errors when form values change
@@ -174,7 +176,10 @@ export class ProductForm implements OnDestroy {
   shouldShowError(fieldName: string): boolean {
     const control = this.form.get(fieldName);
     if (!control) return false;
-    return (control.touched && control.invalid) || (this.formTouched() && control.invalid);
+    return (
+      (control.touched && control.invalid) ||
+      (this.formTouched() && control.invalid)
+    );
   }
 
   /**
@@ -183,7 +188,9 @@ export class ProductForm implements OnDestroy {
    */
   getFieldError(fieldName: string): string | null {
     // Check for server-side errors first
-    const serverError = this.serverErrors().find(err => err.field === fieldName);
+    const serverError = this.serverErrors().find(
+      (err) => err.field === fieldName,
+    );
     if (serverError) return serverError.message;
 
     const control = this.form.get(fieldName);
@@ -191,12 +198,17 @@ export class ProductForm implements OnDestroy {
 
     // Return first client-side validation error
     const errorKey = Object.keys(control.errors)[0];
-    if (errorKey === 'required') return `${fieldName.replace(/_/g, ' ')} is required`;
-    if (errorKey === 'minlength') return `Minimum length is ${control.errors['minlength'].requiredLength}`;
-    if (errorKey === 'maxlength') return `Maximum length is ${control.errors['maxlength'].requiredLength}`;
+    if (errorKey === 'required')
+      return `${fieldName.replace(/_/g, ' ')} is required`;
+    if (errorKey === 'minlength')
+      return `Minimum length is ${control.errors['minlength'].requiredLength}`;
+    if (errorKey === 'maxlength')
+      return `Maximum length is ${control.errors['maxlength'].requiredLength}`;
     if (errorKey === 'email') return 'Enter a valid email address';
-    if (errorKey === 'min') return `Must be at least ${control.errors['min'].min}`;
-    if (errorKey === 'max') return `Must be at most ${control.errors['max'].max}`;
+    if (errorKey === 'min')
+      return `Must be at least ${control.errors['min'].min}`;
+    if (errorKey === 'max')
+      return `Must be at most ${control.errors['max'].max}`;
     if (errorKey === 'pattern') return 'Invalid format';
 
     return null;
@@ -276,7 +288,7 @@ export class ProductForm implements OnDestroy {
     return_policy: [''],
     minimum_order_quantity: [1, [Validators.min(1)]],
     tags: this.fb.array([]),
-    images: [[]],
+    images: this.fb.control([]),
     dimensions: this.fb.group({
       width: [0],
       height: [0],
@@ -333,6 +345,8 @@ export class ProductForm implements OnDestroy {
       .filter((img) => img.type === 'new')
       .map((img) => img.file!);
 
+      console.log('Format being emitted: ', this.thumbnailFile(), newImages, this.removedImages());
+      
     // this.save.emit(updatedProduct);
     this.save.emit({
       product: updatedProduct,
@@ -346,11 +360,14 @@ export class ProductForm implements OnDestroy {
    * Call this from parent component after server response
    * Handles both success and error scenarios
    */
-  setSubmissionState(isSubmitting: boolean, errors?: Array<{ field?: string; message: string }>) {
+  setSubmissionState(
+    isSubmitting: boolean,
+    errors?: Array<{ field?: string; message: string }>,
+  ) {
     if (errors) {
       this.serverErrors.set(errors);
       // Mark form as touched so errors are visible
-      Object.keys(this.form.controls).forEach(key => {
+      Object.keys(this.form.controls).forEach((key) => {
         this.form.get(key)?.markAsTouched();
       });
     }

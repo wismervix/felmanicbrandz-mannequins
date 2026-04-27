@@ -71,6 +71,8 @@ export class ProductsStore {
 
     removedImages?.forEach((img) => formData.append('removedImages[]', img));
 
+    console.log('FormData before it is posted: ', formData);
+
     return this.http
       .post<{
         product: Product;
@@ -80,7 +82,8 @@ export class ProductsStore {
           const updated = this.productsResponse().products.map((p) =>
             p.id === productId ? res.product : p,
           );
-
+          
+          console.log('Response after image update: ', res);
           this.productsResponse.set({
             products: updated,
           });
