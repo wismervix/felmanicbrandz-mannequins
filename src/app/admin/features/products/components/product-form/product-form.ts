@@ -219,9 +219,13 @@ export class ProductForm implements OnDestroy {
     this.isEdit.set(!!value);
 
     if (value) {
+      const { thumbnail, ...safeValue } = value;
+
       // this.form.patchValue(value);
       this.form.patchValue({
         ...value,
+        ...safeValue,
+        thumbnail: '',
         meta: {
           ...value.meta,
           createdAt: this.toDateTimeLocal(value.meta?.createdAt),
@@ -289,7 +293,6 @@ export class ProductForm implements OnDestroy {
     minimum_order_quantity: [1, [Validators.min(1)]],
     tags: this.fb.array([]),
     // images: this.fb.control([]), //temp
-    images: this.fb.control([]), 
     dimensions: this.fb.group({
       width: [0],
       height: [0],
@@ -302,8 +305,7 @@ export class ProductForm implements OnDestroy {
       createdAt: [''],
       updatedAt: [''],
     }),
-    thumbnail: [''],
-    // thumbnail: ['', [Validators.required]],
+    // thumbnail: [''],
   });
 
   submit() {
@@ -346,12 +348,18 @@ export class ProductForm implements OnDestroy {
       .filter((img) => img.type === 'new')
       .map((img) => img.file!);
 
-      console.log('Format being emitted: ', this.thumbnailFile(), newImages, this.removedImages());
-      
+    console.log(
+      'Format being emitted: ',
+      this.thumbnailFile(),
+      newImages,
+      this.removedImages(),
+    );
+
     // this.save.emit(updatedProduct);
     this.save.emit({
       product: updatedProduct,
-      thumbnail: this.thumbnailFile() ? this.thumbnailFile() : undefined,
+      thumbnail:
+        this.thumbnailFile() instanceof File ? this.thumbnailFile() : undefined,
       images: newImages,
       removedImages: this.removedImages(),
     });

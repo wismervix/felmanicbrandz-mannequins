@@ -61,7 +61,7 @@ export class ProductsStore {
   ) {
     const formData = new FormData();
 
-    if (thumbnail) {
+    if (thumbnail instanceof File) {
       formData.append('thumbnail', thumbnail);
     }
 
