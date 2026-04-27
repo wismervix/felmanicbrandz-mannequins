@@ -222,12 +222,12 @@ export class ProductForm implements OnDestroy {
     if (value) {
       console.log('Product Value: ', value);
       
-      const { thumbnail, ...safeValue } = value;
+      // const { thumbnail, ...safeValue } = value;
 
       // this.form.patchValue(value);
       this.form.patchValue({
         ...value,
-        ...safeValue,
+        // ...safeValue,
         meta: {
           ...value.meta,
           createdAt: this.toDateTimeLocal(value.meta?.createdAt),
@@ -294,6 +294,7 @@ export class ProductForm implements OnDestroy {
     return_policy: [''],
     minimum_order_quantity: [1, [Validators.min(1)]],
     tags: this.fb.array([]),
+    // images: this.fb.control([]), //temp
     dimensions: this.fb.group({
       width: [0],
       height: [0],
@@ -305,10 +306,9 @@ export class ProductForm implements OnDestroy {
       qrCode: [''],
       createdAt: [''],
       updatedAt: [''],
+      thumbnail: [''],
     }),
   });
-  // images: this.fb.control([]), //temp
-  // thumbnail: [''],
 
   submit() {
     // Mark form as touched to show all validation errors
