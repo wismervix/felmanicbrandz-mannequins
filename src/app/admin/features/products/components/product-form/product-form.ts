@@ -219,6 +219,8 @@ export class ProductForm implements OnDestroy {
     this.isEdit.set(!!value);
 
     if (value) {
+      console.log('Product Value: ', value);
+      
       const { thumbnail, ...safeValue } = value;
 
       // this.form.patchValue(value);
