@@ -350,8 +350,8 @@ export class ProductForm implements OnDestroy {
     console.log(
       'Format being emitted: ',
       this.thumbnailFile(),
-      newImages,
-      this.removedImages(),
+      // newImages,
+      // this.removedImages(),
     );
 
     // this.save.emit(updatedProduct);
