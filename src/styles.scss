@@ -2,10 +2,21 @@
 // // 🌌 GLOBAL BODY
 // // ========================// Local mixins and variables
 @use "./styles/mixins" as mixin; 
+@use "./styles/variables" as *; 
 
 // Third-party libraries
 @use "@fortawesome/fontawesome-free/css/all.min.css" as *;
 @use "bootstrap/dist/css/bootstrap.min.css" as *;
+
+@use 'nprogress/nprogress.css';
+#nprogress .bar {
+  background: $primary; // pick your color
+  height: 3px;
+}
+
+#nprogress .peg {
+  box-shadow: 0 0 10px $primary, 0 0 5px $primary;
+}
 
 *,
 *::before,
