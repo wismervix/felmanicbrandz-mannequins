@@ -289,7 +289,7 @@ export class ProductForm implements OnDestroy {
       createdAt: [''],
       updatedAt: [''],
     }),
-    thumbnail: [''],
+    thumbnail: ['', [Validators.required]],
   });
 
   submit() {
