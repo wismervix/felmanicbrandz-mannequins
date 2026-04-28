@@ -60,7 +60,7 @@ export class ProductsStore {
     removedImages?: string[],
   ) {
     const formData = new FormData();
-    console.log('FormData as soon as it is posted: ', formData);
+    // console.log('FormData as soon as it is posted: ', formData);
 
   // ✅ ONLY append real file
   if (thumbnail instanceof File) {
@@ -73,7 +73,7 @@ export class ProductsStore {
 
     removedImages?.forEach((img) => formData.append('removedImages[]', img));
 
-    console.log('FormData before it is posted: ', formData);
+    // console.log('FormData before it is posted: ', formData);
 
     return this.http
       .post<{

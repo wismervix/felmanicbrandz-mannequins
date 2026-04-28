@@ -220,7 +220,7 @@ export class ProductForm implements OnDestroy {
     this.isEdit.set(!!value);
 
     if (value) {
-      console.log('Product Value: ', value);
+      // console.log('Product Value: ', value);
 
       // const { thumbnail, ...safeValue } = value;
 
@@ -350,12 +350,12 @@ export class ProductForm implements OnDestroy {
       .filter((img) => img.type === 'new')
       .map((img) => img.file!);
 
-    console.log(
-      'Format being emitted: ',
-      this.thumbnailFile(),
-      // newImages,
-      // this.removedImages(),
-    );
+    // console.log(
+    //   'Format being emitted: ',
+    //   this.thumbnailFile(),
+    //   // newImages,
+    //   // this.removedImages(),
+    // );
 
     // this.save.emit(updatedProduct);
     this.save.emit({
