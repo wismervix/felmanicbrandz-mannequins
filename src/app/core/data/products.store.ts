@@ -62,11 +62,10 @@ export class ProductsStore {
     const formData = new FormData();
     console.log('FormData as soon as it is posted: ', formData);
 
-    if (thumbnail instanceof File) {
-      formData.append('thumbnail', thumbnail);
-    } else if (thumbnail) {
-      formData.append('thumbnail', JSON.stringify(thumbnail));
-    }
+  // ✅ ONLY append real file
+  if (thumbnail instanceof File) {
+    formData.append('thumbnail', thumbnail);
+  }
 
     images?.forEach((img) => {
       formData.append('images[]', img);

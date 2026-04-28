@@ -221,7 +221,7 @@ export class ProductForm implements OnDestroy {
 
     if (value) {
       console.log('Product Value: ', value);
-      
+
       // const { thumbnail, ...safeValue } = value;
 
       // this.form.patchValue(value);
@@ -361,9 +361,7 @@ export class ProductForm implements OnDestroy {
     this.save.emit({
       product: updatedProduct,
       thumbnail:
-        this.thumbnailFile() instanceof File
-          ? this.thumbnailFile()
-          : this.productSignal()?.thumbnail,
+        this.thumbnailFile() instanceof File ? this.thumbnailFile() : null,
       images: newImages,
       removedImages: this.removedImages(),
     });
