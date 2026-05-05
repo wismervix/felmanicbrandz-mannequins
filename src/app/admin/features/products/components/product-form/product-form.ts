@@ -47,6 +47,10 @@ export class ProductForm implements OnDestroy {
     [],
   );
 
+  readonly MAX_THUMBNAIL_SIZE = 8 * 1024 * 1024; // 8MB
+  readonly MAX_IMAGE_SIZE = 5 * 1024 * 1024; // 5MB
+  readonly MAX_IMAGES_COUNT = 5; // optional but recommended
+
   constructor() {
     // Clear server errors when form values change
     this.form.valueChanges.subscribe(() => {
@@ -54,6 +58,18 @@ export class ProductForm implements OnDestroy {
         this.serverErrors.set([]);
       }
     });
+  }
+
+  private validateFile(file: File, maxSize: number): string | null {
+    if (!file.type.startsWith('image/')) {
+      return 'Only image files are allowed';
+    }
+
+    if (file.size > maxSize) {
+      return `File size must be less than ${maxSize / (1024 * 1024)}MB`;
+    }
+
+    return null;
   }
 
   thumbnailFile = signal<File | null>(null);
@@ -67,6 +83,13 @@ export class ProductForm implements OnDestroy {
     const file = input.files?.[0];
 
     if (!file) return;
+
+    const error = this.validateFile(file, this.MAX_THUMBNAIL_SIZE);
+    if (error) {
+      this.serverErrors.set([{ field: 'thumbnail', message: error }]);
+      input.value = '';
+      return;
+    }
 
     // 🔥 revoke old
     const old = this.thumbnailPreview();
@@ -86,13 +109,45 @@ export class ProductForm implements OnDestroy {
 
     if (!target.files) return;
 
-    const newImages: DisplayImage[] = Array.from(target.files).map((file) => ({
-      type: 'new',
-      url: URL.createObjectURL(file),
-      file,
-    }));
+    // const newImages: DisplayImage[] = Array.from(target.files).map((file) => ({
+    //   type: 'new',
+    //   url: URL.createObjectURL(file),
+    //   file,
+    // }));
 
-    this.displayImages.update((images) => [...images, ...newImages]);
+    const files = Array.from(target.files);
+
+    // 🚫 limit total images (existing + new)
+    if (this.displayImages().length + files.length > this.MAX_IMAGES_COUNT) {
+      this.serverErrors.set([
+        {
+          field: 'images',
+          message: `You can upload a maximum of ${this.MAX_IMAGES_COUNT} images`,
+        },
+      ]);
+      target.value = '';
+      return;
+    }
+
+    const validImages: DisplayImage[] = [];
+
+    for (const file of files) {
+      const error = this.validateFile(file, this.MAX_IMAGE_SIZE);
+
+      if (error) {
+        this.serverErrors.set([{ field: 'images', message: error }]);
+        continue; // skip invalid file, continue others
+      }
+
+      validImages.push({
+        type: 'new',
+        url: URL.createObjectURL(file),
+        file,
+      });
+    }
+
+    this.displayImages.update((images) => [...images, ...validImages]);
+    // this.displayImages.update((images) => [...images, ...newImages]);
 
     target.value = '';
   }
