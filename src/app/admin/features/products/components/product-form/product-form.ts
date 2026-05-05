@@ -294,7 +294,7 @@ export class ProductForm implements OnDestroy {
     return_policy: [''],
     minimum_order_quantity: [1, [Validators.min(1)]],
     tags: this.fb.array([]),
-    images: this.fb.control([]), //temp
+    // images: this.fb.control([]), //temp
     dimensions: this.fb.group({
       width: [0],
       height: [0],
