@@ -85,7 +85,7 @@ export class ProductsStore {
             p.id === productId ? res.product : p,
           );
 
-          console.log('Response after image update: ', res);
+          // console.log('Response after image update: ', res);
           this.productsResponse.set({
             products: updated,
           });
